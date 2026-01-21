@@ -7,24 +7,7 @@ import tdLogo from "@/assets/td-logo.png";
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "Profil TD", path: "/about" },
-  { 
-    name: "Program TD", 
-    path: "/program",
-    hasDropdown: true,
-    children: [
-      { name: "Program Sosial", path: "/program/sosial" },
-      { 
-        name: "Program Dakwah", 
-        path: "/program/dakwah",
-        hasSubmenu: true,
-        children: [
-          { name: "Ngaji Asyik", path: "/program/ngaji-asyik" },
-          { name: "Kajian Amida", path: "/program/kajian-amida" },
-          { name: "Sekolah Hadits Bersanad", path: "/program/sekolah-hadits" },
-        ]
-      },
-    ]
-  },
+  { name: "Program TD", path: "/program" },
   { name: "Campaign", path: "/campaign" },
   { name: "Artikel", path: "/artikel" },
   { name: "Contact", path: "/contact" },
