@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Stats Counter</title>
+    <style>
+        body { font-family: Arial; padding: 50px; }
+        .stat { display: inline-block; margin: 20px; text-align: center; }
+        .number { font-size: 48px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Test Counter Animation</h1>
+    <div class="stat">
+        <div class="number" id="stat1">0</div>
+        <div>Total Penerima Manfaat</div>
+    </div>
+    <div class="stat">
+        <div class="number" id="stat2">0</div>
+        <div>Program Terlaksana</div>
+    </div>
+    <div class="stat">
+        <div class="number" id="stat3">0</div>
+        <div>Total Jamaah Kajian</div>
+    </div>
+
+    <script>
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            const startTime = Date.now();
+            
+            function animate() {
+                const currentTime = Date.now();
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                const value = Math.floor(easeOutExpo * (end - start) + start);
+                
+                obj.textContent = value.toLocaleString('id-ID');
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    obj.textContent = end.toLocaleString('id-ID');
+                }
+            }
+            
+            requestAnimationFrame(animate);
+        }
+
+        // Start animation after page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                animateValue('stat1', 0, 49200, 2500);
+                animateValue('stat2', 0, 280, 2500);
+                animateValue('stat3', 0, 8456, 2500);
+            }, 500);
+        });
+    </script>
+</body>
+</html>
