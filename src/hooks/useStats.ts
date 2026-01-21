@@ -14,10 +14,14 @@ export const useStats = () => {
       const { data, error } = await supabase
         .from("stats")
         .select("*")
-        .eq("is_active", true)
         .order("display_order", { ascending: true });
 
-      if (error) throw error;
+      if (error) {
+        console.error("Error fetching stats:", error);
+        throw error;
+      }
+      
+      console.log("Stats data fetched:", data);
       return data as Stat[];
     },
   });

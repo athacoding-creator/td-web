@@ -28,8 +28,11 @@ const StatsSection = () => {
     console.error("Error loading stats:", error);
   }
 
+  // Filter active stats on client side
+  const activeStats = stats?.filter(stat => stat.is_active) || [];
+
   // Get the title from first stat or use default
-  const sectionTitle = stats && stats.length > 0 ? stats[0].title : "Rewind 2025";
+  const sectionTitle = activeStats.length > 0 ? activeStats[0].title : "Rewind 2025";
 
   return (
     <section className="py-12 md:py-16">
@@ -38,8 +41,8 @@ const StatsSection = () => {
         
         <div className="bg-[#A4D65E] rounded-3xl px-8 md:px-16 py-12 md:py-16 shadow-lg">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {stats && stats.length > 0 ? (
-              stats.map((stat) => (
+            {activeStats.length > 0 ? (
+              activeStats.map((stat) => (
                 <div key={stat.id} className="text-center">
                   <p className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-gray-800 mb-3">
                     <CountUp end={stat.value || 0} duration={2500} />
