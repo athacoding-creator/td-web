@@ -23,11 +23,11 @@ const DonationSection = () => {
 
           {/* Right Image - Poster Program */}
           <div className="flex justify-center md:justify-end">
-            <div className="w-full max-w-md aspect-[4/3] bg-muted rounded-lg flex items-center justify-center overflow-hidden">
+            <div className="w-full max-w-md aspect-[4/3] bg-muted rounded-lg flex items-center justify-center overflow-hidden p-6">
               <img 
                 src="https://res.cloudinary.com/dfjvcvbsn/image/upload/v1768960102/BMTD_ym26aw.png" 
                 alt="Program Sedekah Teras Dakwah"
-                className="w-48 h-48 object-contain"
+                className="w-full h-full object-contain"
               />
             </div>
           </div>

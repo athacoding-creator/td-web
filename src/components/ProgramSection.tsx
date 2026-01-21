@@ -111,12 +111,12 @@ const ProgramSection = () => {
             <button
               key={program.id}
               onClick={() => setSelectedProgram(program)}
-              className="group bg-card p-6 rounded-2xl border border-border hover:shadow-xl hover:border-primary/20 transition-all duration-300 flex items-center justify-center min-h-[200px]"
+              className="group bg-card p-8 rounded-2xl border border-border hover:shadow-xl hover:border-primary/20 transition-all duration-300 flex items-center justify-center min-h-[220px]"
             >
               <img
                 src={program.logo}
                 alt={program.title}
-                className="w-32 h-32 object-contain group-hover:scale-105 transition-transform duration-300"
+                className="w-40 h-40 object-contain group-hover:scale-105 transition-transform duration-300"
               />
             </button>
           ))}
