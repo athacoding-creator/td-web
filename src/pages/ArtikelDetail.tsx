@@ -5,6 +5,10 @@ import { useState } from "react";
 import { Search, Calendar, Share2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useArticle, useArticles } from "@/hooks/useArticles";
+import { Skeleton } from "@/components/ui/skeleton";
+import { format } from "date-fns";
+import { id as idLocale } from "date-fns/locale";
 
 // Social share icons as inline SVGs for better control
 const WhatsAppIcon = () => (
@@ -79,137 +83,57 @@ const ShareButtons = ({ title, url }: ShareButtonsProps) => {
   );
 };
 
-interface Article {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  date: string;
-  category: string;
-  image?: string;
-}
-
-const allArticles: Article[] = [
-  {
-    id: "keutamaan-sedekah",
-    title: "Keutamaan Sedekah dalam Islam",
-    excerpt: "Sedekah memiliki kedudukan istimewa dalam Islam. Rasulullah SAW bersabda bahwa sedekah tidak akan mengurangi harta...",
-    content: `Sedekah memiliki kedudukan istimewa dalam Islam. Rasulullah SAW bersabda bahwa sedekah tidak akan mengurangi harta, bahkan justru menambah keberkahan di dalamnya.
-
-Dalam hadits riwayat Muslim, Rasulullah SAW bersabda: "Sedekah itu tidak akan mengurangi harta. Allah tidak akan menambah seorang hamba yang suka memaafkan kecuali kemuliaan. Dan tidaklah seseorang merendahkan diri karena Allah kecuali Allah akan meninggikan derajatnya."
-
-Ada beberapa keutamaan sedekah yang perlu kita ketahui:
-
-1. Sedekah dapat menghapus dosa sebagaimana air memadamkan api.
-2. Sedekah akan menjadi naungan di hari kiamat.
-3. Sedekah dapat menyembuhkan penyakit.
-4. Sedekah dapat menolak bala dan musibah.
-5. Sedekah membawa keberkahan dalam rezeki.
-
-Semoga kita semua dimudahkan untuk selalu bersedekah.`,
-    date: "15 Januari 2026",
-    category: "Fiqih",
-  },
-  {
-    id: "adab-menuntut-ilmu",
-    title: "Adab Menuntut Ilmu Menurut Ulama Salaf",
-    excerpt: "Para ulama salaf sangat memperhatikan adab dalam menuntut ilmu. Imam Malik rahimahullah berkata...",
-    content: `Para ulama salaf sangat memperhatikan adab dalam menuntut ilmu. Imam Malik rahimahullah berkata bahwa adab lebih utama dibanding ilmu itu sendiri.
-
-Berikut beberapa adab menuntut ilmu yang diajarkan oleh para ulama:
-
-1. Ikhlas karena Allah - Niat menuntut ilmu haruslah murni untuk mencari ridha Allah, bukan untuk popularitas atau jabatan.
-
-2. Tawadhu kepada guru - Merendahkan diri di hadapan guru adalah kunci mendapatkan ilmu yang bermanfaat.
-
-3. Sabar dan tekun - Ilmu tidak datang dalam sekejap, butuh proses dan kesabaran yang panjang.
-
-4. Mengamalkan ilmu - Ilmu yang tidak diamalkan akan menjadi hujjah di hari kiamat.
-
-5. Mendoakan guru - Setelah selesai belajar, jangan lupa mendoakan kebaikan untuk guru.
-
-Semoga kita semua diberi taufiq untuk menuntut ilmu dengan adab yang baik.`,
-    date: "12 Januari 2026",
-    category: "Akhlak",
-  },
-  {
-    id: "hikmah-shalat-berjamaah",
-    title: "Hikmah di Balik Shalat Berjamaah",
-    excerpt: "Shalat berjamaah memiliki keutamaan 27 derajat dibanding shalat sendirian. Selain pahala yang berlipat...",
-    content: `Shalat berjamaah memiliki keutamaan 27 derajat dibanding shalat sendirian. Selain pahala yang berlipat, ada banyak hikmah lain yang terkandung di dalamnya.
-
-Hikmah shalat berjamaah antara lain:
-
-1. Mempererat ukhuwah islamiyah - Dengan berkumpul setiap hari di masjid, umat Muslim bisa saling mengenal dan mempererat persaudaraan.
-
-2. Melatih disiplin - Shalat berjamaah mengajarkan kita untuk disiplin waktu karena harus hadir sebelum iqamah.
-
-3. Menyatukan hati umat - Ketika berdiri dalam satu shaf, tidak ada perbedaan status sosial.
-
-4. Mendapat rahmat Allah - Tempat berkumpulnya orang-orang yang berzikir akan dilingkupi rahmat Allah.
-
-5. Sarana dakwah - Masjid adalah tempat terbaik untuk berdakwah dan menyampaikan ilmu.
-
-Mari kita semangat untuk selalu menegakkan shalat berjamaah di masjid.`,
-    date: "10 Januari 2026",
-    category: "Ibadah",
-  },
-  {
-    id: "menjaga-lisan",
-    title: "Pentingnya Menjaga Lisan",
-    excerpt: "Lisan adalah nikmat besar yang diberikan Allah kepada manusia. Namun jika tidak dijaga, lisan bisa menjadi sumber keburukan...",
-    content: `Lisan adalah nikmat besar yang diberikan Allah kepada manusia. Namun jika tidak dijaga, lisan bisa menjadi sumber keburukan dan penyebab masuk neraka.
-
-Rasulullah SAW bersabda: "Barangsiapa yang beriman kepada Allah dan hari akhir, hendaklah ia berkata baik atau diam."
-
-Beberapa cara menjaga lisan:
-
-1. Berbicara yang bermanfaat - Jika tidak ada manfaatnya, lebih baik diam.
-
-2. Hindari ghibah (menggunjing) - Membicarakan keburukan orang lain adalah dosa besar.
-
-3. Jauhi dusta - Berbohong adalah tanda kemunafikan.
-
-4. Tidak berdebat kusir - Berdebat tanpa ilmu hanya membuang waktu.
-
-5. Perbanyak dzikir - Sibukkan lisan dengan mengingat Allah.
-
-Semoga Allah menjaga lisan kita dari ucapan yang tidak bermanfaat.`,
-    date: "8 Januari 2026",
-    category: "Akhlak",
-  },
-  {
-    id: "keberkahan-waktu-pagi",
-    title: "Keberkahan Waktu Pagi",
-    excerpt: "Rasulullah SAW mendoakan keberkahan untuk umatnya di waktu pagi. Banyak keutamaan yang bisa kita raih...",
-    content: `Rasulullah SAW mendoakan keberkahan untuk umatnya di waktu pagi. Beliau bersabda: "Ya Allah, berkahilah umatku di waktu paginya."
-
-Waktu pagi adalah waktu yang penuh berkah. Berikut beberapa keutamaannya:
-
-1. Waktu mustajab untuk berdoa - Setelah shalat Subuh hingga terbit matahari adalah waktu yang sangat baik untuk berdoa.
-
-2. Pahala i'tikaf - Orang yang duduk di masjid setelah Subuh hingga terbit matahari mendapat pahala seperti haji dan umrah.
-
-3. Fisik lebih segar - Secara medis, tubuh lebih segar dan produktif di pagi hari.
-
-4. Berkah dalam rezeki - Orang yang memulai kerja di pagi hari akan mendapat berkah dalam rezekinya.
-
-5. Waktu untuk muraja'ah - Pagi hari adalah waktu terbaik untuk menghafal dan mengulang hafalan Al-Quran.
-
-Mari kita manfaatkan waktu pagi dengan sebaik-baiknya.`,
-    date: "5 Januari 2026",
-    category: "Ibadah",
-  },
-];
-
 const ArtikelDetailPage = () => {
-  const { id } = useParams();
+  const { id: slug } = useParams();
   const [searchQuery, setSearchQuery] = useState("");
+  
+  const { data: article, isLoading: articleLoading, error: articleError } = useArticle(slug || "");
+  const { data: allArticles } = useArticles();
 
-  const article = allArticles.find((a) => a.id === id);
-  const otherArticles = allArticles.filter((a) => a.id !== id).slice(0, 3);
+  const otherArticles = allArticles?.filter((a) => a.slug !== slug).slice(0, 3) || [];
 
-  if (!article) {
+  const formatDate = (dateStr: string | null) => {
+    if (!dateStr) return "";
+    try {
+      return format(new Date(dateStr), "d MMMM yyyy", { locale: idLocale });
+    } catch {
+      return dateStr;
+    }
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      window.location.href = `/artikel?search=${encodeURIComponent(searchQuery)}`;
+    }
+  };
+
+  if (articleLoading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1 bg-background">
+          <div className="container-narrow py-12 md:py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+              <aside className="lg:col-span-1 order-2 lg:order-1">
+                <Skeleton className="h-10 w-full mb-8" />
+                <Skeleton className="h-48 w-full" />
+              </aside>
+              <div className="lg:col-span-2 order-1 lg:order-2">
+                <Skeleton className="aspect-video w-full mb-6" />
+                <Skeleton className="h-8 w-32 mb-4" />
+                <Skeleton className="h-12 w-full mb-6" />
+                <Skeleton className="h-64 w-full" />
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (articleError || !article) {
     return (
       <div className="min-h-screen flex flex-col">
         <Header />
@@ -225,13 +149,6 @@ const ArtikelDetailPage = () => {
       </div>
     );
   }
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      window.location.href = `/artikel?search=${encodeURIComponent(searchQuery)}`;
-    }
-  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -270,7 +187,7 @@ const ArtikelDetailPage = () => {
                   {otherArticles.map((otherArticle) => (
                     <li key={otherArticle.id}>
                       <Link
-                        to={`/artikel/${otherArticle.id}`}
+                        to={`/artikel/${otherArticle.slug}`}
                         className="text-muted-foreground hover:text-primary transition-colors block py-1"
                       >
                         {otherArticle.title}
@@ -301,22 +218,32 @@ const ArtikelDetailPage = () => {
 
             {/* Main Content */}
             <article className="lg:col-span-2 order-1 lg:order-2">
-              {/* Featured Image Placeholder */}
+              {/* Featured Image */}
               <div className="aspect-video bg-secondary/50 rounded-xl mb-6 overflow-hidden">
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary">
-                  <span className="text-muted-foreground text-sm">Gambar Artikel</span>
-                </div>
+                {article.image_url ? (
+                  <img 
+                    src={article.image_url} 
+                    alt={article.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary">
+                    <span className="text-muted-foreground text-sm">Gambar Artikel</span>
+                  </div>
+                )}
               </div>
 
               {/* Date Badge */}
               <div className="flex items-center gap-2 mb-4">
                 <span className="inline-flex items-center gap-1.5 text-sm text-primary bg-primary/10 px-3 py-1 rounded-full">
                   <Calendar className="h-3.5 w-3.5" />
-                  {article.date}
+                  {formatDate(article.published_at || article.created_at)}
                 </span>
-                <span className="text-sm font-medium text-accent bg-accent/10 px-3 py-1 rounded-full">
-                  {article.category}
-                </span>
+                {article.category && (
+                  <span className="text-sm font-medium text-accent bg-accent/10 px-3 py-1 rounded-full">
+                    {article.category}
+                  </span>
+                )}
               </div>
 
               {/* Title */}

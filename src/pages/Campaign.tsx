@@ -1,54 +1,12 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
-
-interface Campaign {
-  id: string;
-  title: string;
-  description: string;
-  target: string;
-  status: string;
-}
-
-const campaigns: Campaign[] = [
-  {
-    id: "ramadhan-berkah",
-    title: "Ramadhan Berkah 1447 H",
-    description: "Program berbagi kebahagiaan di bulan suci Ramadhan melalui pembagian sembako, takjil, dan santunan untuk dhuafa dan anak yatim.",
-    target: "1000 Penerima Manfaat",
-    status: "Sedang Berjalan",
-  },
-  {
-    id: "qurban-peduli",
-    title: "Qurban Peduli Desa",
-    description: "Penyaluran hewan qurban ke desa-desa pelosok yang jarang mendapat akses daging qurban. Setiap qurban akan didistribusikan langsung kepada masyarakat yang membutuhkan.",
-    target: "50 Desa",
-    status: "Pendaftaran Dibuka",
-  },
-  {
-    id: "beasiswa-penghafal",
-    title: "Beasiswa Penghafal Quran",
-    description: "Program beasiswa untuk santri penghafal Al-Quran yang berasal dari keluarga kurang mampu. Beasiswa meliputi biaya pendidikan dan kebutuhan sehari-hari.",
-    target: "100 Santri",
-    status: "Sedang Berjalan",
-  },
-  {
-    id: "wakaf-quran",
-    title: "Wakaf Al-Quran",
-    description: "Distribusi mushaf Al-Quran ke masjid-masjid, musholla, dan pesantren di berbagai daerah yang membutuhkan. Satu Quran, ribuan pahala.",
-    target: "5000 Mushaf",
-    status: "Sedang Berjalan",
-  },
-  {
-    id: "pembangunan-masjid",
-    title: "Pembangunan Masjid Desa",
-    description: "Membantu pembangunan dan renovasi masjid di desa-desa terpencil agar masyarakat dapat beribadah dengan nyaman dan khusyuk.",
-    target: "10 Masjid",
-    status: "Pengumpulan Dana",
-  },
-];
+import { useCampaigns } from "@/hooks/useCampaigns";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const CampaignPage = () => {
+  const { data: campaigns, isLoading, error } = useCampaigns();
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -68,33 +26,60 @@ const CampaignPage = () => {
         {/* Campaign List */}
         <section className="py-12 md:py-16 bg-background">
           <div className="container-narrow">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {campaigns.map((campaign) => (
-                <div
-                  key={campaign.id}
-                  className="bg-card rounded-xl border border-border overflow-hidden hover:shadow-lg transition-shadow duration-300"
-                >
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-accent/20 text-accent-foreground">
-                        {campaign.status}
-                      </span>
-                    </div>
-                    <h3 className="font-heading font-semibold text-xl mb-3 text-foreground">
-                      {campaign.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                      {campaign.description}
-                    </p>
-                    <div className="pt-4 border-t border-border">
-                      <p className="text-sm text-muted-foreground">
-                        Target: <span className="font-medium text-foreground">{campaign.target}</span>
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[...Array(6)].map((_, i) => (
+                  <Skeleton key={i} className="h-[250px] rounded-xl" />
+                ))}
+              </div>
+            ) : error ? (
+              <div className="text-center text-muted-foreground py-12">
+                Gagal memuat campaign. Silakan coba lagi nanti.
+              </div>
+            ) : campaigns && campaigns.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {campaigns.map((campaign) => (
+                  <div
+                    key={campaign.id}
+                    className="bg-card rounded-xl border border-border overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                  >
+                    {campaign.image_url && (
+                      <div className="aspect-video overflow-hidden">
+                        <img
+                          src={campaign.image_url}
+                          alt={campaign.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-accent/20 text-accent-foreground">
+                          {campaign.status || "Aktif"}
+                        </span>
+                      </div>
+                      <h3 className="font-heading font-semibold text-xl mb-3 text-foreground">
+                        {campaign.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                        {campaign.description}
                       </p>
+                      {campaign.target && (
+                        <div className="pt-4 border-t border-border">
+                          <p className="text-sm text-muted-foreground">
+                            Target: <span className="font-medium text-foreground">{campaign.target}</span>
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center text-muted-foreground py-12">
+                Belum ada campaign yang tersedia.
+              </div>
+            )}
           </div>
         </section>
 
