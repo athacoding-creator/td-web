@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 
 interface CountUpProps {
   end: number;
@@ -6,78 +6,81 @@ interface CountUpProps {
   className?: string;
 }
 
-const CountUp = ({ end, duration = 2000, className = "" }: CountUpProps) => {
+const CountUp = ({ end, duration = 2500, className = "" }: CountUpProps) => {
   const [count, setCount] = useState(0);
-  const elementRef = useRef<HTMLSpanElement>(null);
-  const hasAnimatedRef = useRef(false);
-  const animationFrameRef = useRef<number>();
-
-  const startAnimation = useCallback(() => {
-    if (hasAnimatedRef.current || !end) return;
-    hasAnimatedRef.current = true;
-    
-    const startTime = Date.now();
-    
-    const animate = () => {
-      const currentTime = Date.now();
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-
-      // Easing function for smooth animation (easeOutExpo)
-      const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      
-      const currentCount = Math.floor(easeOutExpo * end);
-      setCount(currentCount);
-
-      if (progress < 1) {
-        animationFrameRef.current = requestAnimationFrame(animate);
-      } else {
-        setCount(end); // Ensure we end at exact value
-      }
-    };
-
-    animationFrameRef.current = requestAnimationFrame(animate);
-  }, [end, duration]);
+  const animatedRef = useRef(false);
+  const containerRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const element = elementRef.current;
-    if (!element || !end) return;
+    // Guard clause: don't animate if already done or no value
+    if (animatedRef.current || !end || end <= 0) return;
 
-    // Reset if end value changes
-    if (hasAnimatedRef.current && count !== end) {
-      hasAnimatedRef.current = false;
-      setCount(0);
-    }
+    const container = containerRef.current;
+    if (!container) return;
 
+    // Create intersection observer to trigger when visible
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimatedRef.current) {
-            startAnimation();
-          }
-        });
+        const [entry] = entries;
+        if (entry.isIntersecting && !animatedRef.current) {
+          animatedRef.current = true;
+          runAnimation();
+          observer.disconnect();
+        }
       },
-      { threshold: 0.1, rootMargin: "0px" }
+      { 
+        threshold: 0,
+        rootMargin: "50px"
+      }
     );
 
-    observer.observe(element);
+    observer.observe(container);
+
+    // Fallback: if not triggered in 500ms, start anyway
+    const fallbackTimer = setTimeout(() => {
+      if (!animatedRef.current) {
+        animatedRef.current = true;
+        runAnimation();
+        observer.disconnect();
+      }
+    }, 500);
+
+    function runAnimation() {
+      let startTimestamp: number | null = null;
+      
+      const step = (timestamp: number) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const elapsed = timestamp - startTimestamp;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // EaseOutExpo for smooth deceleration
+        const easedProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const currentValue = Math.floor(easedProgress * end);
+        
+        setCount(currentValue);
+        
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          setCount(end); // Ensure exact final value
+        }
+      };
+      
+      window.requestAnimationFrame(step);
+    }
 
     return () => {
       observer.disconnect();
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
+      clearTimeout(fallbackTimer);
     };
-  }, [end, startAnimation, count]);
+  }, [end, duration]);
 
-  // Format number with thousand separators
-  const formatNumber = (num: number) => {
-    return num.toLocaleString("id-ID");
-  };
+  // Format with Indonesian locale (thousands separator with .)
+  const formattedValue = count.toLocaleString("id-ID");
 
   return (
-    <span ref={elementRef} className={className}>
-      {formatNumber(count)}
+    <span ref={containerRef} className={className}>
+      {formattedValue}
     </span>
   );
 };
