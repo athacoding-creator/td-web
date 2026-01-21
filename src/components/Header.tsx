@@ -168,50 +168,7 @@ const Header = () => {
               ))}
             </nav>
 
-            {/* Login/User Button */}
-            <div className="hidden lg:block">
-              {isLoggedIn ? (
-                <div 
-                  className="relative"
-                  onMouseEnter={() => setActiveDropdown('user')}
-                  onMouseLeave={() => setActiveDropdown(null)}
-                >
-                  <button className="flex items-center gap-1 p-2 rounded-full border border-border hover:border-primary transition-colors">
-                    <User className="w-5 h-5 text-muted-foreground" />
-                    <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${activeDropdown === 'user' ? 'rotate-180' : ''}`} />
-                  </button>
-                  
-                  {activeDropdown === 'user' && (
-                    <div className="absolute top-full right-0 pt-2 z-50">
-                      <div className="bg-background rounded-lg shadow-lg border border-border py-2 min-w-[150px]">
-                        <Link
-                          to="/profil"
-                          className="block px-4 py-2 text-sm text-foreground hover:bg-secondary hover:text-primary transition-colors"
-                        >
-                          Profil Saya
-                        </Link>
-                        <button
-                          className="block w-full text-left px-4 py-2 text-sm text-destructive hover:bg-secondary transition-colors"
-                        >
-                          Log Out
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Button 
-                  variant="outline" 
-                  className="border-[#29b6f6] text-[#29b6f6] hover:bg-[#29b6f6] hover:text-white"
-                  asChild
-                >
-                  <Link to="/login" className="flex items-center gap-2">
-                    Login
-                    <LogIn className="w-4 h-4" />
-                  </Link>
-                </Button>
-              )}
-            </div>
+
 
             {/* Mobile Menu Button */}
             <button
@@ -320,19 +277,7 @@ const Header = () => {
                   </Link>
                 </div>
 
-                {/* Mobile Login Button */}
-                <div className="mt-4 px-4">
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-[#29b6f6] text-[#29b6f6] hover:bg-[#29b6f6] hover:text-white"
-                    asChild
-                  >
-                    <Link to="/login" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-2">
-                      Login
-                      <LogIn className="w-4 h-4" />
-                    </Link>
-                  </Button>
-                </div>
+
               </div>
             </nav>
           )}
