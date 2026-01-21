@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+
 import heroImage from "@/assets/hero-mosque.jpg";
 
 const HeroSection = () => {
@@ -22,14 +21,7 @@ const HeroSection = () => {
           <p className="text-lg md:text-xl text-hero-text/90 font-light">
             "Manfaat untuk Ummat!"
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button variant="hero" size="lg" asChild>
-              <Link to="/contact">Dukung Dakwah</Link>
-            </Button>
-            <Button variant="heroOutline" size="lg" asChild>
-              <Link to="/program">Lihat Program</Link>
-            </Button>
-          </div>
+
         </div>
       </div>
     </section>
