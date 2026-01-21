@@ -24,6 +24,7 @@ import AdminProgram from "./pages/admin/AdminProgram";
 import AdminCampaign from "./pages/admin/AdminCampaign";
 import AdminArtikel from "./pages/admin/AdminArtikel";
 import AdminProfil from "./pages/admin/AdminProfil";
+import AdminStats from "./pages/admin/AdminStats";
 
 const queryClient = new QueryClient();
 
@@ -86,6 +87,14 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <AdminProfil />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/stats"
+              element={
+                <ProtectedRoute>
+                  <AdminStats />
                 </ProtectedRoute>
               }
             />

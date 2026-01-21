@@ -10,7 +10,8 @@ import {
   Users,
   TrendingUp,
   Eye,
-  Users as UsersIcon
+  Users as UsersIcon,
+  BarChart3
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -71,6 +72,13 @@ const menuCards: MenuCard[] = [
     description: "Edit profil Teras Dakwah",
     icon: <Users className="w-6 h-6" />,
     link: "/admin/profil",
+  },
+  {
+    id: "stats",
+    title: "Statistik",
+    description: "Kelola data statistik",
+    icon: <BarChart3 className="w-6 h-6" />,
+    link: "/admin/stats",
   },
 ];
 
