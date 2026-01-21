@@ -90,7 +90,7 @@ const programs: Program[] = [
     subtitle: "Kemanusiaan & Sosial",
     description: "Program kemanusiaan yang fokus pada bantuan darurat, tanggap bencana, dan santunan kepada kaum dhuafa. Program ini menjadi sarana bagi donatur untuk menyalurkan sedekah dan zakat kepada yang membutuhkan.",
     category: "Kemanusiaan",
-    logo: "https://res.cloudinary.com/dfjvcvbsn/image/upload/v1768960102/BMTD_ym26aw.png",
+    logo: "https://res.cloudinary.com/dfjvcvbsn/image/upload/v1768960046/Ngaji_Santai_Logo_ugpouc.png",
     images: [peduliSesama1, peduliSesama2, peduliSesama3],
   },
 ];
