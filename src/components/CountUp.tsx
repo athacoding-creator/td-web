@@ -8,12 +8,12 @@ interface CountUpProps {
 
 const CountUp = ({ end, duration = 2500, className = "" }: CountUpProps) => {
   const [count, setCount] = useState(0);
-  const animatedRef = useRef(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
   const containerRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     // Guard clause: don't animate if already done or no value
-    if (animatedRef.current || !end || end <= 0) return;
+    if (hasAnimated || !end || end <= 0) return;
 
     const container = containerRef.current;
     if (!container) return;
@@ -21,29 +21,21 @@ const CountUp = ({ end, duration = 2500, className = "" }: CountUpProps) => {
     // Create intersection observer to trigger when visible
     const observer = new IntersectionObserver(
       (entries) => {
-        const [entry] = entries;
-        if (entry.isIntersecting && !animatedRef.current) {
-          animatedRef.current = true;
-          runAnimation();
-          observer.disconnect();
-        }
+        entries.forEach((entry) => {
+          // Only trigger when element is visible and hasn't animated yet
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true);
+            runAnimation();
+          }
+        });
       },
       { 
-        threshold: 0,
-        rootMargin: "50px"
+        threshold: 0.3, // Trigger when 30% of element is visible
+        rootMargin: "0px"
       }
     );
 
     observer.observe(container);
-
-    // Fallback: if not triggered in 500ms, start anyway
-    const fallbackTimer = setTimeout(() => {
-      if (!animatedRef.current) {
-        animatedRef.current = true;
-        runAnimation();
-        observer.disconnect();
-      }
-    }, 500);
 
     function runAnimation() {
       let startTimestamp: number | null = null;
@@ -71,9 +63,8 @@ const CountUp = ({ end, duration = 2500, className = "" }: CountUpProps) => {
 
     return () => {
       observer.disconnect();
-      clearTimeout(fallbackTimer);
     };
-  }, [end, duration]);
+  }, [end, duration, hasAnimated]);
 
   // Format with Indonesian locale (thousands separator with .)
   const formattedValue = count.toLocaleString("id-ID");
