@@ -109,15 +109,9 @@ const AdminStats = () => {
   };
 
   return (
-    <AdminLayout>
+    <AdminLayout title="Kelola Statistik" description="Kelola data statistik yang ditampilkan di halaman utama">
       <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold">Kelola Statistik</h1>
-            <p className="text-muted-foreground mt-1">
-              Kelola data statistik yang ditampilkan di halaman utama
-            </p>
-          </div>
+        <div className="flex justify-end">
           <Button onClick={() => handleOpenDialog()}>
             <Plus className="mr-2 h-4 w-4" />
             Tambah Statistik
