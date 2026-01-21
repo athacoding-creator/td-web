@@ -16,7 +16,7 @@ const DonationSection = () => {
             </p>
             <div className="pt-2">
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8" size="lg" asChild>
-                <Link to="/contact">Sedekah Sekarang</Link>
+                <a href="https://sedekah.terasdakwah.com/campaign/programkebaikan" target="_blank" rel="noopener noreferrer">Sedekah Sekarang</a>
               </Button>
             </div>
           </div>
