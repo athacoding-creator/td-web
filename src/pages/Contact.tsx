@@ -167,7 +167,7 @@ const ContactPage = () => {
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Email</h3>
                       <p className="text-muted-foreground text-sm">
-                        info@terasdakwah.com
+                        terasdakwah@gmail.com
                       </p>
                     </div>
                   </div>
@@ -181,7 +181,7 @@ const ContactPage = () => {
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Telepon</h3>
                       <p className="text-muted-foreground text-sm">
-                        +62 812 3456 7890
+                        +62 853 2030 7766
                       </p>
                     </div>
                   </div>
