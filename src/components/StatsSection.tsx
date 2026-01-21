@@ -7,21 +7,21 @@ const StatsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">
             <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">
-              16,961
+              49,200
             </p>
             <p className="text-muted-foreground">Total Penerima Manfaat</p>
           </div>
           
           <div className="text-center">
             <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">
-              96
+              280
             </p>
             <p className="text-muted-foreground">Program Terlaksana</p>
           </div>
           
           <div className="text-center">
             <p className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">
-              2,927
+              8,456
             </p>
             <p className="text-muted-foreground">Total Jamaah Kajian</p>
           </div>
