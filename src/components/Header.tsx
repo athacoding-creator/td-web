@@ -80,74 +80,17 @@ const Header = () => {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => (
-                <div 
+                <Link
                   key={link.path}
-                  className="relative"
-                  onMouseEnter={() => link.hasDropdown && setActiveDropdown(link.name)}
-                  onMouseLeave={() => {
-                    setActiveDropdown(null);
-                    setActiveSubmenu(null);
-                  }}
+                  to={link.path}
+                  className={`px-4 py-2 text-sm font-medium transition-colors hover:text-primary ${
+                    location.pathname === link.path || location.pathname.startsWith(link.path + '/')
+                      ? "text-primary"
+                      : "text-foreground"
+                  }`}
                 >
-                  <Link
-                    to={link.path}
-                    className={`flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors hover:text-primary ${
-                      location.pathname === link.path || location.pathname.startsWith(link.path + '/')
-                        ? "text-primary"
-                        : "text-foreground"
-                    }`}
-                  >
-                    {link.name}
-                    {link.hasDropdown && (
-                      <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === link.name ? 'rotate-180' : ''}`} />
-                    )}
-                  </Link>
-
-                  {/* Dropdown Menu */}
-                  {link.hasDropdown && activeDropdown === link.name && (
-                    <div className="absolute top-full left-0 pt-2 z-50">
-                      <div className="bg-background rounded-lg shadow-lg border border-border py-2 min-w-[200px]">
-                        {link.children?.map((child) => (
-                          <div 
-                            key={child.path}
-                            className="relative"
-                            onMouseEnter={() => child.hasSubmenu && setActiveSubmenu(child.name)}
-                            onMouseLeave={() => !child.hasSubmenu && setActiveSubmenu(null)}
-                          >
-                            <Link
-                              to={child.path}
-                              className={`flex items-center justify-between px-4 py-2 text-sm transition-colors hover:bg-secondary hover:text-primary ${
-                                activeSubmenu === child.name ? 'text-primary bg-secondary' : 'text-foreground'
-                              }`}
-                            >
-                              {child.name}
-                              {child.hasSubmenu && (
-                                <ChevronRight className="w-4 h-4" />
-                              )}
-                            </Link>
-
-                            {/* Submenu */}
-                            {child.hasSubmenu && activeSubmenu === child.name && (
-                              <div className="absolute left-full top-0 pl-2 z-50">
-                                <div className="bg-background rounded-lg shadow-lg border border-border py-2 min-w-[200px]">
-                                  {child.children?.map((subChild) => (
-                                    <Link
-                                      key={subChild.path}
-                                      to={subChild.path}
-                                      className="block px-4 py-2 text-sm text-foreground hover:bg-secondary hover:text-primary transition-colors"
-                                    >
-                                      {subChild.name}
-                                    </Link>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
+                  {link.name}
+                </Link>
               ))}
             </nav>
 
@@ -168,78 +111,18 @@ const Header = () => {
             <nav className="lg:hidden py-4 border-t border-border">
               <div className="flex flex-col gap-1">
                 {navLinks.map((link) => (
-                  <div key={link.path}>
-                    {link.hasDropdown ? (
-                      <>
-                        <button
-                          onClick={() => toggleMobileMenu(link.name)}
-                          className={`flex items-center justify-between w-full px-4 py-2 text-sm font-medium transition-colors ${
-                            location.pathname.startsWith(link.path)
-                              ? "text-primary"
-                              : "text-foreground"
-                          }`}
-                        >
-                          {link.name}
-                          <ChevronDown className={`w-4 h-4 transition-transform ${mobileExpandedMenus.includes(link.name) ? 'rotate-180' : ''}`} />
-                        </button>
-                        
-                        {mobileExpandedMenus.includes(link.name) && (
-                          <div className="pl-4 border-l-2 border-primary/20 ml-4">
-                            {link.children?.map((child) => (
-                              <div key={child.path}>
-                                {child.hasSubmenu ? (
-                                  <>
-                                    <button
-                                      onClick={() => toggleMobileMenu(child.name)}
-                                      className="flex items-center justify-between w-full px-4 py-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-                                    >
-                                      {child.name}
-                                      <ChevronDown className={`w-4 h-4 transition-transform ${mobileExpandedMenus.includes(child.name) ? 'rotate-180' : ''}`} />
-                                    </button>
-                                    
-                                    {mobileExpandedMenus.includes(child.name) && (
-                                      <div className="pl-4 border-l-2 border-primary/10 ml-4">
-                                        {child.children?.map((subChild) => (
-                                          <Link
-                                            key={subChild.path}
-                                            to={subChild.path}
-                                            onClick={() => setIsMenuOpen(false)}
-                                            className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-                                          >
-                                            {subChild.name}
-                                          </Link>
-                                        ))}
-                                      </div>
-                                    )}
-                                  </>
-                                ) : (
-                                  <Link
-                                    to={child.path}
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-                                  >
-                                    {child.name}
-                                  </Link>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <Link
-                        to={link.path}
-                        className={`block px-4 py-2 text-sm font-medium transition-colors hover:text-primary ${
-                          location.pathname === link.path
-                            ? "text-primary"
-                            : "text-foreground"
-                        }`}
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        {link.name}
-                      </Link>
-                    )}
-                  </div>
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`block px-4 py-2 text-sm font-medium transition-colors hover:text-primary ${
+                      location.pathname === link.path
+                        ? "text-primary"
+                        : "text-foreground"
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
                 ))}
                 
                 {/* Mobile Quick Links */}
