@@ -1,73 +1,45 @@
-# Welcome to your Lovable project
+📝 Konten Website
+Website ini adalah platform informasi dan donasi untuk Teras Dakwah (TD). Website ini dirancang untuk menyajikan profil lembaga, program kerja, artikel edukatif, serta transparansi statistik kepada publik.
 
-## Project info
+Fitur Utama & Halaman Publik:
+Beranda (Index): Menampilkan ringkasan menyeluruh mulai dari Hero Section, statistik pencapaian, daftar program unggulan, ajakan donasi, hingga artikel terbaru.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Profil Lembaga (Tentang Kami): Mengelola informasi detail mengenai sejarah, visi, dan misi lembaga. Data ini bersifat dinamis dan diambil langsung dari database melalui custom hook useProfilTD.
 
-## How can I edit this code?
+Program & Campaign:
 
-There are several ways of editing your application.
+Program: Daftar kegiatan rutin atau program kerja lembaga.
 
-**Use Lovable**
+Campaign: Halaman khusus untuk penggalangan dana atau kampanye sosial tertentu.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+Artikel & Edukasi: Halaman blog yang menyajikan konten edukatif atau berita terkini mengenai kegiatan TD, dilengkapi dengan fitur detail artikel.
 
-Changes made via Lovable will be committed automatically to this repo.
+Statistik (Stats): Menampilkan data numerik (counter) mengenai dampak sosial atau pencapaian lembaga yang ditampilkan secara visual di halaman utama.
 
-**Use your preferred IDE**
+Kontak: Informasi saluran komunikasi dan lokasi lembaga.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Penasihat: Halaman khusus yang menampilkan struktur pembina atau penasihat organisasi.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Fitur Administrasi (Admin Panel):
+Website ini memiliki area yang dilindungi (ProtectedRoute) untuk pengelola (admin) guna memperbarui konten secara mandiri tanpa menyentuh kode program:
 
-Follow these steps:
+Dashboard Admin: Ringkasan statistik dan status konten.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+Manajemen Program & Campaign: Menambah, mengubah, atau menghapus data program dan donasi.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Manajemen Artikel: Editor untuk mempublikasikan tulisan terbaru.
 
-# Step 3: Install the necessary dependencies.
-npm i
+Manajemen Profil: Mengatur konten dinamis pada bagian "Tentang Kami".
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+Manajemen Statistik: Memperbarui angka pencapaian secara real-time.
 
-**Edit a file directly in GitHub**
+Teknologi yang Digunakan:
+Frontend: React (TypeScript) dengan Vite.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Styling: Tailwind CSS & Shadcn/UI untuk komponen antarmuka yang modern.
 
-**Use GitHub Codespaces**
+Backend & Database: Supabase (PostgreSQL) untuk penyimpanan data dan autentikasi admin.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+State Management: TanStack Query (React Query) untuk manajemen pengambilan data yang efisien.
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Routing: React Router DOM v6.
