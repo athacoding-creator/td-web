@@ -2,7 +2,7 @@ import { useStats } from "@/hooks/useStats";
 import CountUp from "./CountUp";
 
 const StatsSection = () => {
-  const { data: stats, isLoading } = useStats();
+  const { data: stats, isLoading, error } = useStats();
 
   if (isLoading) {
     return (
@@ -24,6 +24,10 @@ const StatsSection = () => {
     );
   }
 
+  if (error) {
+    console.error("Error loading stats:", error);
+  }
+
   // Get the title from first stat or use default
   const sectionTitle = stats && stats.length > 0 ? stats[0].title : "Rewind 2025";
 
@@ -38,7 +42,7 @@ const StatsSection = () => {
               stats.map((stat) => (
                 <div key={stat.id} className="text-center">
                   <p className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-gray-800 mb-3">
-                    <CountUp end={stat.value} duration={2500} />
+                    <CountUp end={stat.value || 0} duration={2500} />
                   </p>
                   <p className="text-base md:text-lg font-medium text-gray-700">
                     {stat.label}

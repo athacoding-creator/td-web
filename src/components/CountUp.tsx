@@ -11,13 +11,37 @@ const CountUp = ({ end, duration = 2000, className = "" }: CountUpProps) => {
   const countRef = useRef<number>(0);
   const startTimeRef = useRef<number>(0);
   const animationFrameRef = useRef<number>();
-  const observerRef = useRef<IntersectionObserver>();
+  const observerRef = useRef<IntersectionObserver | null>(null);
   const elementRef = useRef<HTMLSpanElement>(null);
   const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     const element = elementRef.current;
-    if (!element) return;
+    if (!element || !end || hasAnimated) return;
+
+    const startAnimation = () => {
+      startTimeRef.current = Date.now();
+      
+      const animate = () => {
+        const currentTime = Date.now();
+        const elapsed = currentTime - startTimeRef.current;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Easing function for smooth animation (easeOutExpo)
+        const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        
+        countRef.current = Math.floor(easeOutExpo * end);
+        setCount(countRef.current);
+
+        if (progress < 1) {
+          animationFrameRef.current = requestAnimationFrame(animate);
+        } else {
+          setCount(end); // Ensure we end at exact value
+        }
+      };
+
+      animationFrameRef.current = requestAnimationFrame(animate);
+    };
 
     // Setup Intersection Observer to trigger animation when element is visible
     observerRef.current = new IntersectionObserver(
@@ -29,7 +53,7 @@ const CountUp = ({ end, duration = 2000, className = "" }: CountUpProps) => {
           }
         });
       },
-      { threshold: 0.5 } // Trigger when 50% of element is visible
+      { threshold: 0.3 } // Trigger when 30% of element is visible
     );
 
     observerRef.current.observe(element);
@@ -42,31 +66,7 @@ const CountUp = ({ end, duration = 2000, className = "" }: CountUpProps) => {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [hasAnimated, end, duration]);
-
-  const startAnimation = () => {
-    startTimeRef.current = Date.now();
-    
-    const animate = () => {
-      const currentTime = Date.now();
-      const elapsed = currentTime - startTimeRef.current;
-      const progress = Math.min(elapsed / duration, 1);
-
-      // Easing function for smooth animation (easeOutExpo)
-      const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      
-      countRef.current = Math.floor(easeOutExpo * end);
-      setCount(countRef.current);
-
-      if (progress < 1) {
-        animationFrameRef.current = requestAnimationFrame(animate);
-      } else {
-        setCount(end); // Ensure we end at exact value
-      }
-    };
-
-    animationFrameRef.current = requestAnimationFrame(animate);
-  };
+  }, [end, duration, hasAnimated]);
 
   // Format number with thousand separators
   const formatNumber = (num: number) => {
