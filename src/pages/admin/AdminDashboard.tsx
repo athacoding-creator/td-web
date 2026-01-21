@@ -5,17 +5,12 @@ import {
   Home, 
   LogOut, 
   Heart, 
-  Image, 
-  Calendar, 
   FileText, 
   Megaphone, 
-  HardDrive,
-  Activity,
-  ClipboardList,
-  BarChart3,
+  Users,
   TrendingUp,
   Eye,
-  Users
+  Users as UsersIcon
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -51,10 +46,17 @@ interface MenuCard {
 const menuCards: MenuCard[] = [
   {
     id: "program",
-    title: "Program Unggulan",
-    description: "Kelola 8 program unggulan di homepage",
+    title: "Program",
+    description: "Kelola program unggulan dan dokumentasi",
     icon: <Heart className="w-6 h-6" />,
     link: "/admin/program",
+  },
+  {
+    id: "campaign",
+    title: "Campaign",
+    description: "Kelola campaign dakwah",
+    icon: <Megaphone className="w-6 h-6" />,
+    link: "/admin/campaign",
   },
   {
     id: "artikel",
@@ -64,58 +66,16 @@ const menuCards: MenuCard[] = [
     link: "/admin/artikel",
   },
   {
-    id: "jadwal",
-    title: "Jadwal Kegiatan",
-    description: "Kelola jadwal kegiatan/program",
-    icon: <Calendar className="w-6 h-6" />,
-    link: "/admin/jadwal",
-  },
-  {
-    id: "dokumentasi",
-    title: "Dokumentasi",
-    description: "Kelola foto dan video dokumentasi",
-    icon: <Image className="w-6 h-6" />,
-    link: "/admin/dokumentasi",
-  },
-  {
-    id: "pengumuman",
-    title: "Pengumuman",
-    description: "Kelola pengumuman terbaru",
-    icon: <Megaphone className="w-6 h-6" />,
-    link: "/admin/pengumuman",
-  },
-  {
-    id: "media",
-    title: "Media Storage",
-    description: "Kelola file media di storage",
-    icon: <HardDrive className="w-6 h-6" />,
-    link: "/admin/media",
-  },
-  {
-    id: "monitoring",
-    title: "Monitoring",
-    description: "Monitor status sistem",
-    icon: <Activity className="w-6 h-6" />,
-    link: "/admin/monitoring",
-  },
-  {
-    id: "log",
-    title: "Log Aktivitas",
-    description: "Lihat riwayat aktivitas admin",
-    icon: <ClipboardList className="w-6 h-6" />,
-    link: "/admin/log",
-  },
-  {
-    id: "statistik",
-    title: "Statistik",
-    description: "Lihat statistik website",
-    icon: <BarChart3 className="w-6 h-6" />,
-    link: "/admin/statistik",
+    id: "profil",
+    title: "Profil TD",
+    description: "Edit profil Teras Dakwah",
+    icon: <Users className="w-6 h-6" />,
+    link: "/admin/profil",
   },
 ];
 
 const AdminDashboard = () => {
-  const { user, signOut } = useAuth();
+  const { signOut } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -184,7 +144,7 @@ const AdminDashboard = () => {
           <div className="bg-card rounded-xl p-6 border border-border shadow-sm">
             <div className="flex items-center justify-between mb-4">
               <span className="text-sm text-muted-foreground">Pengunjung Unik</span>
-              <Users className="w-5 h-5 text-primary" />
+              <UsersIcon className="w-5 h-5 text-primary" />
             </div>
             <p className="text-3xl font-heading font-bold text-foreground">856</p>
             <p className="text-xs text-muted-foreground mt-1">dalam 30 hari terakhir</p>
@@ -235,7 +195,7 @@ const AdminDashboard = () => {
         <h3 className="text-lg font-heading font-semibold text-foreground mb-4">
           Menu Pengelolaan
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {menuCards.map((card) => (
             <Link
               key={card.id}
