@@ -55,7 +55,7 @@ const ProfilTDPage = () => {
                     </h2>
                     
                     <div className="mb-6">
-                      <span className="text-primary font-bold text-xl">2021</span>
+                      <span className="text-primary font-bold text-xl">2014</span>
                       <span className="text-foreground font-semibold"> • Diresmikan</span>
                     </div>
                     
