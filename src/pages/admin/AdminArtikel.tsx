@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/table";
 import { Plus, Pencil, Trash2, Upload, Image as ImageIcon, Eye } from "lucide-react";
 import { format } from "date-fns";
+import { useLogActivity } from "@/hooks/useActivityLogs";
 
 interface Article {
   id: string;
@@ -47,6 +48,7 @@ const AdminArtikel = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingArticle, setEditingArticle] = useState<Article | null>(null);
   const [uploading, setUploading] = useState(false);
+  const logActivity = useLogActivity();
   
   const [formData, setFormData] = useState({
     title: "",
@@ -137,13 +139,31 @@ const AdminArtikel = () => {
           .eq("id", editingArticle.id);
         
         if (error) throw error;
+        
+        logActivity.mutate({
+          action: "UPDATE",
+          table_name: "articles",
+          record_id: editingArticle.id,
+          description: `Update artikel: ${formData.title}`,
+        });
+        
         toast.success("Artikel berhasil diupdate");
       } else {
-        const { error } = await supabase
+        const { data, error } = await supabase
           .from("articles")
-          .insert([dataToSave]);
+          .insert([dataToSave])
+          .select()
+          .single();
         
         if (error) throw error;
+        
+        logActivity.mutate({
+          action: "CREATE",
+          table_name: "articles",
+          record_id: data?.id,
+          description: `Tambah artikel: ${formData.title}`,
+        });
+        
         toast.success("Artikel berhasil ditambahkan");
       }
 
@@ -174,7 +194,7 @@ const AdminArtikel = () => {
     setIsDialogOpen(true);
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string, title: string) => {
     if (!confirm("Yakin ingin menghapus artikel ini?")) return;
 
     try {
@@ -184,6 +204,14 @@ const AdminArtikel = () => {
         .eq("id", id);
       
       if (error) throw error;
+      
+      logActivity.mutate({
+        action: "DELETE",
+        table_name: "articles",
+        record_id: id,
+        description: `Hapus artikel: ${title}`,
+      });
+      
       toast.success("Artikel berhasil dihapus");
       fetchArticles();
     } catch (error) {
@@ -203,6 +231,16 @@ const AdminArtikel = () => {
         .eq("id", article.id);
       
       if (error) throw error;
+      
+      logActivity.mutate({
+        action: "UPDATE",
+        table_name: "articles",
+        record_id: article.id,
+        description: article.is_published 
+          ? `Sembunyikan artikel: ${article.title}` 
+          : `Publikasikan artikel: ${article.title}`,
+      });
+      
       toast.success(article.is_published ? "Artikel disembunyikan" : "Artikel dipublikasikan");
       fetchArticles();
     } catch (error) {
@@ -492,7 +530,7 @@ const AdminArtikel = () => {
                       <Button 
                         variant="ghost" 
                         size="icon"
-                        onClick={() => handleDelete(article.id)}
+                        onClick={() => handleDelete(article.id, article.title)}
                       >
                         <Trash2 className="w-4 h-4 text-destructive" />
                       </Button>

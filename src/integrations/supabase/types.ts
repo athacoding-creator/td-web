@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      activity_logs: {
+        Row: {
+          action: string
+          created_at: string
+          description: string | null
+          id: string
+          metadata: Json | null
+          record_id: string | null
+          table_name: string | null
+          user_email: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          record_id?: string | null
+          table_name?: string | null
+          user_email?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          record_id?: string | null
+          table_name?: string | null
+          user_email?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       articles: {
         Row: {
           author: string | null
@@ -104,6 +140,27 @@ export type Database = {
           target?: string | null
           title?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      keep_alive_logs: {
+        Row: {
+          created_at: string
+          id: string
+          message: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          status?: string
         }
         Relationships: []
       }
