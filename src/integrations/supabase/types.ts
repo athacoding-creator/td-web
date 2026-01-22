@@ -24,6 +24,9 @@ export type Database = {
           id: string
           image_url: string | null
           is_published: boolean | null
+          meta_description: string | null
+          meta_keywords: string | null
+          meta_title: string | null
           published_at: string | null
           slug: string
           title: string
@@ -38,6 +41,9 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_published?: boolean | null
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_title?: string | null
           published_at?: string | null
           slug: string
           title: string
@@ -52,6 +58,9 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_published?: boolean | null
+          meta_description?: string | null
+          meta_keywords?: string | null
+          meta_title?: string | null
           published_at?: string | null
           slug?: string
           title?: string
@@ -200,6 +209,36 @@ export type Database = {
           title?: string
           updated_at?: string
           value?: number
+        }
+        Relationships: []
+      }
+      stats_config: {
+        Row: {
+          config_key: string
+          created_at: string
+          description: string | null
+          id: string
+          metadata: Json | null
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          config_key: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          config_key?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          title?: string | null
+          updated_at?: string
         }
         Relationships: []
       }

@@ -1,8 +1,12 @@
 import CountUp from "./CountUp";
 import { useStats } from "@/hooks/useStats";
+import { useStatsConfig } from "@/hooks/useStatsConfig";
 
 const StatsSection = () => {
-  const { data: stats, isLoading, error } = useStats();
+  const { data: stats, isLoading: statsLoading, error } = useStats();
+  const { data: config, isLoading: configLoading } = useStatsConfig();
+  
+  const isLoading = statsLoading || configLoading;
 
   // Show loading state
   if (isLoading) {
@@ -40,8 +44,8 @@ const StatsSection = () => {
     return null;
   }
 
-  // Get the title from the first stat (all stats share the same title)
-  const sectionTitle = activeStats[0]?.title || "Rewind 2025";
+  // Get the title from config, fallback to stats title, then default
+  const sectionTitle = config?.title || activeStats[0]?.title || "Rewind 2025";
 
   return (
     <section className="py-12 md:py-16">

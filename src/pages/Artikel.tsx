@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 import { Link } from "react-router-dom";
 import { useArticles } from "@/hooks/useArticles";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -20,6 +21,12 @@ const ArtikelPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead
+        title="Berita dan Artikel Teras Dakwah"
+        description="Kumpulan berita, artikel, dan kajian Islam dari Yayasan Teras Dakwah Indonesia. Jadilah penyebar cahaya kebaikan!"
+        keywords="artikel islam, kajian islam, berita dakwah, teras dakwah, sedekah, kebaikan"
+        url="/artikel"
+      />
       <Header />
       <main className="flex-1">
         {/* Hero */}

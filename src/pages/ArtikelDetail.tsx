@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Link, useParams } from "react-router-dom";
+import SEOHead from "@/components/SEOHead";
+import ArticleStructuredData from "@/components/ArticleStructuredData";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Search, Calendar, Share2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -9,7 +11,6 @@ import { useArticle, useArticles } from "@/hooks/useArticles";
 import { Skeleton } from "@/components/ui/skeleton";
 import { format } from "date-fns";
 import { id as idLocale } from "date-fns/locale";
-
 // Social share icons as inline SVGs for better control
 const WhatsAppIcon = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
@@ -85,12 +86,21 @@ const ShareButtons = ({ title, url }: ShareButtonsProps) => {
 
 const ArtikelDetailPage = () => {
   const { id: slug } = useParams();
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   
   const { data: article, isLoading: articleLoading, error: articleError } = useArticle(slug || "");
   const { data: allArticles } = useArticles();
 
   const otherArticles = allArticles?.filter((a) => a.slug !== slug).slice(0, 3) || [];
+  
+  // SEO meta information
+  const seoTitle = article?.meta_title || article?.title || "Artikel";
+  const seoDescription = article?.meta_description || article?.excerpt || article?.content?.substring(0, 160) || "";
+  const seoKeywords = article?.meta_keywords || `${article?.category || ""}, dakwah, islam, teras dakwah`;
+  const seoImage = article?.image_url || "";
+  const publishedTime = article?.published_at || article?.created_at || "";
+  const modifiedTime = article?.updated_at || "";
 
   const formatDate = (dateStr: string | null) => {
     if (!dateStr) return "";
@@ -152,6 +162,27 @@ const ArtikelDetailPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOHead
+        title={seoTitle}
+        description={seoDescription}
+        keywords={seoKeywords}
+        image={seoImage}
+        url={location.pathname}
+        type="article"
+        author={article?.author || "Teras Dakwah"}
+        publishedTime={publishedTime}
+        modifiedTime={modifiedTime}
+        section={article?.category || undefined}
+      />
+      <ArticleStructuredData
+        title={seoTitle}
+        description={seoDescription}
+        image={seoImage}
+        author={article?.author || "Teras Dakwah"}
+        publishedTime={publishedTime}
+        modifiedTime={modifiedTime}
+        url={location.pathname}
+      />
       <Header />
       <main className="flex-1 bg-background">
         <div className="container-narrow py-12 md:py-16">

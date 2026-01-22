@@ -13,6 +13,10 @@ export interface Article {
   is_published: boolean;
   published_at: string | null;
   created_at: string;
+  updated_at: string;
+  meta_title: string | null;
+  meta_description: string | null;
+  meta_keywords: string | null;
 }
 
 export const useArticles = () => {
