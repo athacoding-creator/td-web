@@ -22,6 +22,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Plus, Pencil, Trash2, Upload, X, Image as ImageIcon } from "lucide-react";
+import { useLogActivity } from "@/hooks/useActivityLogs";
 
 interface Program {
   id: string;
@@ -41,6 +42,7 @@ const AdminProgram = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProgram, setEditingProgram] = useState<Program | null>(null);
   const [uploading, setUploading] = useState(false);
+  const logActivity = useLogActivity();
   
   const [formData, setFormData] = useState({
     title: "",
@@ -153,13 +155,31 @@ const AdminProgram = () => {
           .eq("id", editingProgram.id);
         
         if (error) throw error;
+        
+        logActivity.mutate({
+          action: "UPDATE",
+          table_name: "programs",
+          record_id: editingProgram.id,
+          description: `Update program: ${formData.title}`,
+        });
+        
         toast.success("Program berhasil diupdate");
       } else {
-        const { error } = await supabase
+        const { data, error } = await supabase
           .from("programs")
-          .insert([formData]);
+          .insert([formData])
+          .select()
+          .single();
         
         if (error) throw error;
+        
+        logActivity.mutate({
+          action: "CREATE",
+          table_name: "programs",
+          record_id: data?.id,
+          description: `Tambah program: ${formData.title}`,
+        });
+        
         toast.success("Program berhasil ditambahkan");
       }
 
@@ -187,7 +207,7 @@ const AdminProgram = () => {
     setIsDialogOpen(true);
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string, title: string) => {
     if (!confirm("Yakin ingin menghapus program ini?")) return;
 
     try {
@@ -197,6 +217,14 @@ const AdminProgram = () => {
         .eq("id", id);
       
       if (error) throw error;
+      
+      logActivity.mutate({
+        action: "DELETE",
+        table_name: "programs",
+        record_id: id,
+        description: `Hapus program: ${title}`,
+      });
+      
       toast.success("Program berhasil dihapus");
       fetchPrograms();
     } catch (error) {
@@ -450,7 +478,7 @@ const AdminProgram = () => {
                       <Button 
                         variant="ghost" 
                         size="icon"
-                        onClick={() => handleDelete(program.id)}
+                        onClick={() => handleDelete(program.id, program.title)}
                       >
                         <Trash2 className="w-4 h-4 text-destructive" />
                       </Button>

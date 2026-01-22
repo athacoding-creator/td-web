@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Eye, EyeOff, Lock, Mail, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import tdLogo from "@/assets/td-logo.png";
+import { supabase } from "@/integrations/supabase/client";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -20,13 +21,22 @@ const LoginPage = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    const { error } = await signIn(email, password);
+    const { error, data } = await signIn(email, password);
 
     if (error) {
       toast.error("Login gagal", {
         description: "Email atau password salah. Silakan coba lagi.",
       });
     } else {
+      // Log the login activity
+      await supabase.from("activity_logs").insert([{
+        user_id: data?.user?.id,
+        user_email: email,
+        action: "LOGIN",
+        table_name: "auth",
+        description: `Admin login: ${email}`,
+      }]);
+      
       toast.success("Login berhasil!");
       navigate("/admin");
     }

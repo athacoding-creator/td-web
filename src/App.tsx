@@ -25,6 +25,8 @@ import AdminCampaign from "./pages/admin/AdminCampaign";
 import AdminArtikel from "./pages/admin/AdminArtikel";
 import AdminProfil from "./pages/admin/AdminProfil";
 import AdminStats from "./pages/admin/AdminStats";
+import AdminKeepAlive from "./pages/admin/AdminKeepAlive";
+import AdminActivityLog from "./pages/admin/AdminActivityLog";
 
 const queryClient = new QueryClient();
 
@@ -95,6 +97,22 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <AdminStats />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/keep-alive"
+              element={
+                <ProtectedRoute>
+                  <AdminKeepAlive />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/activity-log"
+              element={
+                <ProtectedRoute>
+                  <AdminActivityLog />
                 </ProtectedRoute>
               }
             />
