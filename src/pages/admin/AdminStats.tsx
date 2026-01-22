@@ -29,15 +29,22 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useStats, useCreateStat, useUpdateStat, useDeleteStat, type Stat } from "@/hooks/useStats";
-import { Pencil, Trash2, Plus } from "lucide-react";
+import { useStatsConfig, useUpdateStatsConfig } from "@/hooks/useStatsConfig";
+import { Pencil, Trash2, Plus, Save } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 
 const AdminStats = () => {
   const { data: stats, isLoading } = useStats();
+  const { data: statsConfig, isLoading: configLoading } = useStatsConfig();
+  const updateStatsConfig = useUpdateStatsConfig();
   const createStat = useCreateStat();
   const updateStat = useUpdateStat();
   const deleteStat = useDeleteStat();
+
+  const [sectionTitle, setSectionTitle] = useState("");
+  const [isTitleEditing, setIsTitleEditing] = useState(false);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -107,10 +114,59 @@ const AdminStats = () => {
       setStatToDelete(null);
     }
   };
+  // Initialize section title when config loads
+  const handleEditTitle = () => {
+    setSectionTitle(statsConfig?.title || "Rewind 2025");
+    setIsTitleEditing(true);
+  };
+
+  const handleSaveTitle = async () => {
+    await updateStatsConfig.mutateAsync({ title: sectionTitle });
+    setIsTitleEditing(false);
+  };
 
   return (
     <AdminLayout title="Kelola Statistik" description="Kelola data statistik yang ditampilkan di halaman utama">
       <div className="space-y-6">
+        {/* Section Title Configuration */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Judul Section Statistik</CardTitle>
+            <CardDescription>
+              Atur judul section yang ditampilkan di atas statistik (contoh: Rewind 2025, Rewind 2026)
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {configLoading ? (
+              <div className="h-10 bg-muted animate-pulse rounded" />
+            ) : isTitleEditing ? (
+              <div className="flex gap-3 items-center">
+                <Input
+                  value={sectionTitle}
+                  onChange={(e) => setSectionTitle(e.target.value)}
+                  placeholder="Rewind 2025"
+                  className="max-w-xs"
+                />
+                <Button onClick={handleSaveTitle} disabled={updateStatsConfig.isPending}>
+                  <Save className="h-4 w-4 mr-2" />
+                  {updateStatsConfig.isPending ? "Menyimpan..." : "Simpan"}
+                </Button>
+                <Button variant="outline" onClick={() => setIsTitleEditing(false)}>
+                  Batal
+                </Button>
+              </div>
+            ) : (
+              <div className="flex gap-3 items-center">
+                <span className="text-lg font-semibold">{statsConfig?.title || "Rewind 2025"}</span>
+                <Button variant="outline" size="sm" onClick={handleEditTitle}>
+                  <Pencil className="h-4 w-4 mr-2" />
+                  Edit
+                </Button>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         <div className="flex justify-end">
           <Button onClick={() => handleOpenDialog()}>
             <Plus className="mr-2 h-4 w-4" />

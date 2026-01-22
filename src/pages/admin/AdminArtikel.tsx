@@ -36,6 +36,9 @@ interface Article {
   is_published: boolean;
   published_at: string | null;
   created_at: string;
+  meta_title: string | null;
+  meta_description: string | null;
+  meta_keywords: string | null;
 }
 
 const AdminArtikel = () => {
@@ -54,6 +57,9 @@ const AdminArtikel = () => {
     image_url: "",
     author: "Trsdkwh",
     is_published: false,
+    meta_title: "",
+    meta_description: "",
+    meta_keywords: "",
   });
 
   useEffect(() => {
@@ -161,6 +167,9 @@ const AdminArtikel = () => {
       image_url: article.image_url || "",
       author: article.author,
       is_published: article.is_published,
+      meta_title: article.meta_title || "",
+      meta_description: article.meta_description || "",
+      meta_keywords: article.meta_keywords || "",
     });
     setIsDialogOpen(true);
   };
@@ -213,6 +222,9 @@ const AdminArtikel = () => {
       image_url: "",
       author: "Trsdkwh",
       is_published: false,
+      meta_title: "",
+      meta_description: "",
+      meta_keywords: "",
     });
   };
 
@@ -330,6 +342,51 @@ const AdminArtikel = () => {
                       disabled={uploading}
                     />
                   </label>
+                </div>
+              </div>
+
+              {/* SEO Section */}
+              <div className="border-t pt-4 mt-4">
+                <h3 className="text-sm font-semibold mb-3">SEO Settings (Opsional)</h3>
+                <p className="text-xs text-muted-foreground mb-4">
+                  Isi untuk optimasi pencarian Google. Jika kosong, akan menggunakan judul dan ringkasan artikel.
+                </p>
+                
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="meta_title">SEO Title (maks 60 karakter)</Label>
+                    <Input
+                      id="meta_title"
+                      value={formData.meta_title}
+                      onChange={(e) => setFormData({ ...formData, meta_title: e.target.value })}
+                      placeholder="Judul yang muncul di hasil pencarian Google"
+                      maxLength={60}
+                    />
+                    <span className="text-xs text-muted-foreground">{formData.meta_title.length}/60</span>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="meta_description">SEO Description (maks 160 karakter)</Label>
+                    <Textarea
+                      id="meta_description"
+                      value={formData.meta_description}
+                      onChange={(e) => setFormData({ ...formData, meta_description: e.target.value })}
+                      placeholder="Deskripsi yang muncul di hasil pencarian Google"
+                      rows={2}
+                      maxLength={160}
+                    />
+                    <span className="text-xs text-muted-foreground">{formData.meta_description.length}/160</span>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="meta_keywords">SEO Keywords (pisahkan dengan koma)</Label>
+                    <Input
+                      id="meta_keywords"
+                      value={formData.meta_keywords}
+                      onChange={(e) => setFormData({ ...formData, meta_keywords: e.target.value })}
+                      placeholder="sedekah, kebaikan, dakwah, islam"
+                    />
+                  </div>
                 </div>
               </div>
 
