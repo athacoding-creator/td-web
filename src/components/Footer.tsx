@@ -19,7 +19,7 @@ const Footer = () => {
             {/* Social Media Icons */}
             <div className="flex items-center gap-4 pt-2">
               <a 
-                href="https://youtube.com" 
+                href="https://www.youtube.com/@terasdakwah" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-white/70 hover:text-white transition-colors"
@@ -27,7 +27,7 @@ const Footer = () => {
                 <Youtube className="w-5 h-5" />
               </a>
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/terasdakwah/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-white/70 hover:text-white transition-colors"
@@ -35,20 +35,12 @@ const Footer = () => {
                 <Instagram className="w-5 h-5" />
               </a>
               <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/TerasDakwah" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-white/70 hover:text-white transition-colors"
               >
                 <Facebook className="w-5 h-5" />
-              </a>
-              <a 
-                href="https://twitter.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                <Twitter className="w-5 h-5" />
               </a>
             </div>
           </div>
