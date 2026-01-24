@@ -70,24 +70,27 @@ const ProgramSection = () => {
               <div className="mt-4 space-y-6">
                 <p className="text-muted-foreground leading-relaxed">{selectedProgram.description}</p>
                 
-                {(selectedProgram.speaker || selectedProgram.event_date) && (
-                  <div className="flex flex-wrap items-center gap-4 py-3 px-4 bg-primary/5 rounded-lg border border-primary/10">
-                    <span className="inline-block px-3 py-1 text-sm font-medium rounded-full bg-primary/10 text-primary">
-                      {selectedProgram.category}
-                    </span>
-                    {selectedProgram.speaker && (
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-semibold text-foreground">{selectedProgram.speaker}</span>
-                      </div>
-                    )}
-                    {selectedProgram.event_date && (
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm text-muted-foreground">—</span>
-                        <span className="text-sm font-medium text-foreground">{selectedProgram.event_date}</span>
-                      </div>
-                    )}
-                  </div>
-                )}
+                {/* Always show this section for debugging */}
+                <div className="flex flex-wrap items-center gap-4 py-3 px-4 bg-primary/5 rounded-lg border border-primary/10">
+                  <span className="inline-block px-3 py-1 text-sm font-medium rounded-full bg-primary/10 text-primary">
+                    {selectedProgram.category}
+                  </span>
+                  {selectedProgram.speaker && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-semibold text-foreground">{selectedProgram.speaker}</span>
+                    </div>
+                  )}
+                  {selectedProgram.event_date && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-muted-foreground">—</span>
+                      <span className="text-sm font-medium text-foreground">{selectedProgram.event_date}</span>
+                    </div>
+                  )}
+                  {/* Debug info */}
+                  {!selectedProgram.speaker && !selectedProgram.event_date && (
+                    <span className="text-xs text-muted-foreground italic">No speaker/date data</span>
+                  )}
+                </div>
                 
                 {selectedProgram.images && selectedProgram.images.length > 0 && (
                   <div>
