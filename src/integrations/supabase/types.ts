@@ -200,10 +200,12 @@ export type Database = {
           created_at: string
           description: string
           display_order: number | null
+          event_date: string | null
           id: string
           images: string[] | null
           is_active: boolean | null
           logo_url: string | null
+          speaker: string | null
           subtitle: string | null
           title: string
           updated_at: string
@@ -213,10 +215,12 @@ export type Database = {
           created_at?: string
           description: string
           display_order?: number | null
+          event_date?: string | null
           id?: string
           images?: string[] | null
           is_active?: boolean | null
           logo_url?: string | null
+          speaker?: string | null
           subtitle?: string | null
           title: string
           updated_at?: string
@@ -226,10 +230,12 @@ export type Database = {
           created_at?: string
           description?: string
           display_order?: number | null
+          event_date?: string | null
           id?: string
           images?: string[] | null
           is_active?: boolean | null
           logo_url?: string | null
+          speaker?: string | null
           subtitle?: string | null
           title?: string
           updated_at?: string

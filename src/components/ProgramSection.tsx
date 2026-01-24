@@ -69,6 +69,26 @@ const ProgramSection = () => {
               </DialogHeader>
               <div className="mt-4 space-y-6">
                 <p className="text-muted-foreground leading-relaxed">{selectedProgram.description}</p>
+                
+                {(selectedProgram.speaker || selectedProgram.event_date) && (
+                  <div className="flex flex-wrap items-center gap-4 py-3 px-4 bg-primary/5 rounded-lg border border-primary/10">
+                    <span className="inline-block px-3 py-1 text-sm font-medium rounded-full bg-primary/10 text-primary">
+                      {selectedProgram.category}
+                    </span>
+                    {selectedProgram.speaker && (
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-semibold text-foreground">{selectedProgram.speaker}</span>
+                      </div>
+                    )}
+                    {selectedProgram.event_date && (
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-muted-foreground">—</span>
+                        <span className="text-sm font-medium text-foreground">{selectedProgram.event_date}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+                
                 {selectedProgram.images && selectedProgram.images.length > 0 && (
                   <div>
                     <h4 className="font-semibold text-foreground mb-3">Dokumentasi Kegiatan</h4>
@@ -81,9 +101,7 @@ const ProgramSection = () => {
                     </div>
                   </div>
                 )}
-                <div className="pt-4 border-t border-border">
-                  <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary">{selectedProgram.category}</span>
-                </div>
+
               </div>
             </>
           )}

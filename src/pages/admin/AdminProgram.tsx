@@ -34,6 +34,8 @@ interface Program {
   images: string[];
   is_active: boolean;
   display_order: number;
+  speaker: string | null;
+  event_date: string | null;
 }
 
 const AdminProgram = () => {
@@ -53,6 +55,8 @@ const AdminProgram = () => {
     images: [] as string[],
     is_active: true,
     display_order: 0,
+    speaker: "",
+    event_date: "",
   });
 
   useEffect(() => {
@@ -203,6 +207,8 @@ const AdminProgram = () => {
       images: program.images || [],
       is_active: program.is_active,
       display_order: program.display_order,
+      speaker: program.speaker || "",
+      event_date: program.event_date || "",
     });
     setIsDialogOpen(true);
   };
@@ -244,6 +250,8 @@ const AdminProgram = () => {
       images: [],
       is_active: true,
       display_order: 0,
+      speaker: "",
+      event_date: "",
     });
   };
 
@@ -309,6 +317,27 @@ const AdminProgram = () => {
                   rows={4}
                   required
                 />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="speaker">Pengisi Acara / Ustadz</Label>
+                  <Input
+                    id="speaker"
+                    value={formData.speaker}
+                    onChange={(e) => setFormData({ ...formData, speaker: e.target.value })}
+                    placeholder="Contoh: Ustadz Abdul Somad"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="event_date">Tanggal Acara</Label>
+                  <Input
+                    id="event_date"
+                    value={formData.event_date}
+                    onChange={(e) => setFormData({ ...formData, event_date: e.target.value })}
+                    placeholder="Contoh: 24/01 atau Setiap Jumat"
+                  />
+                </div>
               </div>
 
               <div className="space-y-2">
