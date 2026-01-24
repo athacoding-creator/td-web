@@ -60,51 +60,75 @@ const ProgramSection = () => {
       </div>
 
       <Dialog open={!!selectedProgram} onOpenChange={() => setSelectedProgram(null)}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           {selectedProgram && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-2xl font-heading">{selectedProgram.title}</DialogTitle>
-                {selectedProgram.subtitle && <p className="text-primary font-medium">{selectedProgram.subtitle}</p>}
+                <DialogTitle className="text-3xl font-heading mb-2">{selectedProgram.title}</DialogTitle>
+                {selectedProgram.subtitle && (
+                  <p className="text-lg text-muted-foreground font-medium">{selectedProgram.subtitle}</p>
+                )}
               </DialogHeader>
-              <div className="mt-4 space-y-6">
-                <p className="text-muted-foreground leading-relaxed">{selectedProgram.description}</p>
+              
+              <div className="mt-6 space-y-6">
+                {/* Description */}
+                <p className="text-base text-muted-foreground leading-relaxed">
+                  {selectedProgram.description}
+                </p>
                 
-                {/* Always show this section for debugging */}
-                <div className="flex flex-wrap items-center gap-4 py-3 px-4 bg-primary/5 rounded-lg border border-primary/10">
-                  <span className="inline-block px-3 py-1 text-sm font-medium rounded-full bg-primary/10 text-primary">
-                    {selectedProgram.category}
-                  </span>
-                  {selectedProgram.speaker && (
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-semibold text-foreground">{selectedProgram.speaker}</span>
-                    </div>
-                  )}
-                  {selectedProgram.event_date && (
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-muted-foreground">—</span>
-                      <span className="text-sm font-medium text-foreground">{selectedProgram.event_date}</span>
-                    </div>
-                  )}
-                  {/* Debug info */}
-                  {!selectedProgram.speaker && !selectedProgram.event_date && (
-                    <span className="text-xs text-muted-foreground italic">No speaker/date data</span>
-                  )}
-                </div>
-                
+                {/* Documentation Images */}
                 {selectedProgram.images && selectedProgram.images.length > 0 && (
                   <div>
-                    <h4 className="font-semibold text-foreground mb-3">Dokumentasi Kegiatan</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <h4 className="font-semibold text-lg text-foreground mb-4">Dokumentasi Kegiatan</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       {selectedProgram.images.map((img, idx) => (
-                        <div key={idx} className="aspect-[4/3] rounded-lg overflow-hidden">
-                          <img src={img} alt={`${selectedProgram.title} - Dokumentasi ${idx + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                        <div key={idx} className="aspect-video rounded-lg overflow-hidden border border-border shadow-sm">
+                          <img 
+                            src={img} 
+                            alt={`${selectedProgram.title} - Dokumentasi ${idx + 1}`} 
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" 
+                          />
                         </div>
                       ))}
                     </div>
                   </div>
                 )}
 
+                {/* Speaker and Event Date Section */}
+                {(selectedProgram.speaker || selectedProgram.event_date) && (
+                  <div className="flex flex-wrap items-center gap-3 pt-4 pb-2">
+                    <span className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
+                      {selectedProgram.category}
+                    </span>
+                    
+                    {selectedProgram.speaker && (
+                      <>
+                        <span className="text-muted-foreground">•</span>
+                        <span className="text-base font-semibold text-foreground">
+                          {selectedProgram.speaker}
+                        </span>
+                      </>
+                    )}
+                    
+                    {selectedProgram.event_date && (
+                      <>
+                        <span className="text-muted-foreground">—</span>
+                        <span className="text-base font-medium text-foreground">
+                          {selectedProgram.event_date}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                )}
+                
+                {/* Category only if no speaker/date */}
+                {!selectedProgram.speaker && !selectedProgram.event_date && (
+                  <div className="pt-4">
+                    <span className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
+                      {selectedProgram.category}
+                    </span>
+                  </div>
+                )}
               </div>
             </>
           )}
