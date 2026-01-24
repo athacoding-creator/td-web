@@ -11,6 +11,8 @@ export interface Program {
   images: string[];
   is_active: boolean;
   display_order: number;
+  speaker: string | null;
+  event_date: string | null;
 }
 
 export const usePrograms = () => {
