@@ -21,8 +21,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Plus, Pencil, Trash2, Upload, X, Image as ImageIcon } from "lucide-react";
+import { Plus, Pencil, Trash2, Upload, X, Image as ImageIcon, CalendarIcon } from "lucide-react";
 import { useLogActivity } from "@/hooks/useActivityLogs";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { id as localeId } from "date-fns/locale";
+import { cn } from "@/lib/utils";
 
 interface Program {
   id: string;
@@ -44,6 +53,7 @@ const AdminProgram = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProgram, setEditingProgram] = useState<Program | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const logActivity = useLogActivity();
   
   const [formData, setFormData] = useState({
@@ -210,6 +220,20 @@ const AdminProgram = () => {
       speaker: program.speaker || "",
       event_date: program.event_date || "",
     });
+    
+    // Parse date if exists and is in DD/MM/YYYY format
+    if (program.event_date) {
+      const dateMatch = program.event_date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+      if (dateMatch) {
+        const [, day, month, year] = dateMatch;
+        setSelectedDate(new Date(parseInt(year), parseInt(month) - 1, parseInt(day)));
+      } else {
+        setSelectedDate(undefined);
+      }
+    } else {
+      setSelectedDate(undefined);
+    }
+    
     setIsDialogOpen(true);
   };
 
@@ -241,6 +265,7 @@ const AdminProgram = () => {
 
   const resetForm = () => {
     setEditingProgram(null);
+    setSelectedDate(undefined);
     setFormData({
       title: "",
       subtitle: "",
@@ -331,12 +356,47 @@ const AdminProgram = () => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="event_date">Tanggal Acara</Label>
-                  <Input
-                    id="event_date"
-                    value={formData.event_date}
-                    onChange={(e) => setFormData({ ...formData, event_date: e.target.value })}
-                    placeholder="Contoh: 24/01 atau Setiap Jumat"
-                  />
+                  <div className="flex gap-2">
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "justify-start text-left font-normal",
+                            !selectedDate && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {selectedDate ? format(selectedDate, "dd/MM/yyyy", { locale: localeId }) : "Pilih tanggal"}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={selectedDate}
+                          onSelect={(date) => {
+                            setSelectedDate(date);
+                            if (date) {
+                              setFormData({ ...formData, event_date: format(date, "dd/MM/yyyy") });
+                            }
+                          }}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <Input
+                      id="event_date"
+                      value={formData.event_date}
+                      onChange={(e) => {
+                        setFormData({ ...formData, event_date: e.target.value });
+                        // Clear selected date if manual input
+                        setSelectedDate(undefined);
+                      }}
+                      placeholder="Atau ketik manual: Setiap Jumat"
+                      className="flex-1"
+                    />
+                  </div>
+                  <p className="text-xs text-muted-foreground">Pilih dari kalender atau ketik manual untuk format khusus</p>
                 </div>
               </div>
 
