@@ -41,9 +41,7 @@ const ProgramSection = () => {
                 {program.logo_url ? (
                   <img src={program.logo_url} alt={program.title} className="w-40 h-40 object-contain group-hover:scale-105 transition-transform duration-300" />
                 ) : (
-                  <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center">
-                    <span className="text-3xl font-bold text-primary">{program.title.charAt(0)}</span>
-                  </div>
+                  <img src="/favicon.png" alt="Teras Dakwah" className="w-32 h-32 object-contain opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
                 )}
               </button>
             ))}

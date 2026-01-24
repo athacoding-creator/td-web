@@ -46,11 +46,11 @@ const ProgramPage = () => {
                         className="w-32 h-32 object-contain group-hover:scale-105 transition-transform duration-300"
                       />
                     ) : (
-                      <div className="w-32 h-32 bg-primary/10 rounded-full flex items-center justify-center">
-                        <span className="text-2xl font-bold text-primary">
-                          {program.title.charAt(0)}
-                        </span>
-                      </div>
+                      <img
+                        src="/favicon.png"
+                        alt="Teras Dakwah"
+                        className="w-28 h-28 object-contain opacity-30 group-hover:opacity-50 transition-opacity duration-300"
+                      />
                     )}
                   </button>
                 ))}
