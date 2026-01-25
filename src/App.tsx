@@ -27,6 +27,7 @@ import AdminProfil from "./pages/admin/AdminProfil";
 import AdminStats from "./pages/admin/AdminStats";
 import AdminKeepAlive from "./pages/admin/AdminKeepAlive";
 import AdminActivityLog from "./pages/admin/AdminActivityLog";
+import AdminMessages from "./pages/admin/AdminMessages";
 
 const queryClient = new QueryClient();
 
@@ -113,6 +114,14 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <AdminActivityLog />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/messages"
+              element={
+                <ProtectedRoute>
+                  <AdminMessages />
                 </ProtectedRoute>
               }
             />

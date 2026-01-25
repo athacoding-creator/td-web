@@ -5,28 +5,45 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { useContactMessages } from "@/hooks/useContactMessages";
+import { Mail, MapPin, Phone, Clock } from "lucide-react";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { submitMessage } = useContactMessages();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    toast.success("Pesan terkirim!", {
-      description: "Terima kasih telah menghubungi kami. Kami akan segera merespons pesan Anda.",
-    });
-    
-    setFormData({ name: "", email: "", message: "" });
-    setIsSubmitting(false);
+    try {
+      // Submit to database
+      await submitMessage({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        message: formData.message,
+      });
+      
+      toast.success("Pesan terkirim!", {
+        description: "Terima kasih telah menghubungi kami. Kami akan segera merespons pesan Anda dalam 1x24 jam.",
+      });
+      
+      setFormData({ name: "", email: "", phone: "", message: "" });
+    } catch (error) {
+      console.error("Error submitting message:", error);
+      toast.error("Gagal mengirim pesan", {
+        description: "Terjadi kesalahan. Silakan coba lagi atau hubungi kami melalui email/telepon.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -89,7 +106,7 @@ const ContactPage = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                      Nama
+                      Nama <span className="text-destructive">*</span>
                     </label>
                     <Input
                       id="name"
@@ -98,12 +115,13 @@ const ContactPage = () => {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       required
-                      className="bg-card"
+                      disabled={isSubmitting}
                     />
                   </div>
+                  
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                      Email
+                      Email <span className="text-destructive">*</span>
                     </label>
                     <Input
                       id="email"
@@ -112,12 +130,27 @@ const ContactPage = () => {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       required
-                      className="bg-card"
+                      disabled={isSubmitting}
                     />
                   </div>
+
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
+                      Nomor Telepon <span className="text-muted-foreground text-xs">(Opsional)</span>
+                    </label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="Masukkan nomor telepon Anda"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                  
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                      Pesan
+                      Pesan <span className="text-destructive">*</span>
                     </label>
                     <Textarea
                       id="message"
@@ -125,11 +158,17 @@ const ContactPage = () => {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       required
+                      disabled={isSubmitting}
                       rows={6}
-                      className="bg-card"
                     />
                   </div>
-                  <Button type="submit" variant="cta" size="lg" disabled={isSubmitting}>
+                  
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    className="w-full"
+                    disabled={isSubmitting}
+                  >
                     {isSubmitting ? "Mengirim..." : "Kirim Pesan"}
                   </Button>
                 </form>
@@ -142,15 +181,12 @@ const ContactPage = () => {
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg cta-gradient flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-6 h-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Alamat</h3>
-                      <p className="text-muted-foreground text-sm">
+                      <p className="text-muted-foreground">
                         Jl. Kaliurang KM 5.5, Caturtunggal,<br />
                         Kec. Depok, Kabupaten Sleman,<br />
                         Daerah Istimewa Yogyakarta 55281
@@ -159,42 +195,42 @@ const ContactPage = () => {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg cta-gradient flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-6 h-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Email</h3>
-                      <p className="text-muted-foreground text-sm">
+                      <a 
+                        href="mailto:admin@terasdakwah.com" 
+                        className="text-primary hover:underline"
+                      >
                         admin@terasdakwah.com
-                      </p>
+                      </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg cta-gradient flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                      </svg>
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Phone className="w-6 h-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Telepon</h3>
-                      <p className="text-muted-foreground text-sm">
+                      <a 
+                        href="tel:+6285320307766" 
+                        className="text-primary hover:underline"
+                      >
                         +62 853 2030 7766
-                      </p>
+                      </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg cta-gradient flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Clock className="w-6 h-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Jam Operasional</h3>
-                      <p className="text-muted-foreground text-sm">
+                      <p className="text-muted-foreground">
                         Senin - Jumat: 08:00 - 17:00<br />
                         Sabtu: 08:00 - 12:00
                       </p>
@@ -203,7 +239,6 @@ const ContactPage = () => {
                 </div>
               </div>
             </div>
-
           </div>
         </section>
       </main>

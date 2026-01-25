@@ -9,7 +9,8 @@ import {
   Megaphone,
   BarChart3,
   Activity,
-  History
+  History,
+  Mail
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -67,6 +68,13 @@ const menuCards: MenuCard[] = [
     description: "Riwayat aktivitas admin",
     icon: <History className="w-6 h-6" />,
     link: "/admin/activity-log",
+  },
+  {
+    id: "messages",
+    title: "Pesan Kontak",
+    description: "Kelola pesan dari form kontak",
+    icon: <Mail className="w-6 h-6" />,
+    link: "/admin/messages",
   },
 ];
 

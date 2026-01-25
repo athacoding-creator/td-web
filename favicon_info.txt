@@ -1,0 +1,13 @@
+Favicon Teras Dakwah yang ditemukan:
+
+Logo: Huruf "T" dan "D" yang stylized dengan warna biru dan hijau
+- Biru: Warna utama untuk huruf "D"
+- Hijau: Warna untuk huruf "T"
+- Desain: Modern, geometric, 3D-like
+
+File tersedia:
+- /public/favicon.png (29KB)
+- /public/favicon.ico (20KB)
+
+Path untuk digunakan di kode:
+- "/favicon.png"
