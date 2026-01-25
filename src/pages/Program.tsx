@@ -18,6 +18,18 @@ const ProgramPage = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
+        {/* Hero Section */}
+        <section className="py-12 md:py-16 bg-background">
+          <div className="container-narrow text-center">
+            <h1 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+              Program Teras Dakwah
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Menunjukkan bahwa semua aktivitas, program, dan inisiatif yayasan—baik kecil maupun besar—bertujuan untuk memberikan kontribusi nyata bagi umat
+            </p>
+          </div>
+        </section>
+
         {/* Programs Grid */}
         <section className="py-16 md:py-24 bg-secondary/30">
           <div className="container-narrow">
