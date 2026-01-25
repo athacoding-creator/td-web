@@ -9,7 +9,6 @@ import {
   Megaphone,
   BarChart3,
   Activity,
-  History,
   Mail
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -61,13 +60,6 @@ const menuCards: MenuCard[] = [
     description: "Monitor database keep-alive",
     icon: <Activity className="w-6 h-6" />,
     link: "/admin/keep-alive",
-  },
-  {
-    id: "activity-log",
-    title: "Log Aktivitas",
-    description: "Riwayat aktivitas admin",
-    icon: <History className="w-6 h-6" />,
-    link: "/admin/activity-log",
   },
   {
     id: "messages",
