@@ -107,11 +107,11 @@ const AdminDashboard = () => {
       {/* Main Content */}
       <main className="container-narrow py-8">
         {/* Welcome Banner */}
-        <div className="mb-8 bg-gradient-to-r from-purple-600 to-purple-500 rounded-2xl p-8 text-white shadow-lg">
+        <div className="mb-8 bg-gradient-to-r from-green-600 to-green-500 rounded-2xl p-8 text-white shadow-lg">
           <h2 className="text-3xl font-heading font-bold mb-2 flex items-center gap-2">
             Selamat Datang, Admin! 👋
           </h2>
-          <p className="text-purple-100">
+          <p className="text-green-100">
             Kelola konten website Yayasan Teras Dakwah Indonesia dari sini
           </p>
         </div>
@@ -127,8 +127,8 @@ const AdminDashboard = () => {
                   {loading ? "..." : stats.totalArticles}
                 </p>
               </div>
-              <div className="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center">
-                <FileText className="w-6 h-6 text-purple-600" />
+              <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
+                <FileText className="w-6 h-6 text-blue-600" />
               </div>
             </div>
           </div>
@@ -142,8 +142,8 @@ const AdminDashboard = () => {
                   {loading ? "..." : stats.totalPrograms}
                 </p>
               </div>
-              <div className="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center">
-                <Heart className="w-6 h-6 text-green-600" />
+              <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
+                <Heart className="w-6 h-6 text-blue-600" />
               </div>
             </div>
           </div>
