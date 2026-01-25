@@ -91,7 +91,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="mt-12 pt-6 border-t border-[#29b6f6]/30">
           <p className="text-center text-white/60 text-sm">
-            Copyright © {new Date().getFullYear()} Teras Dakwah. All Rights Reserved.
+            Copyright © 2014 Teras Dakwah. All Rights Reserved.
           </p>
         </div>
       </div>

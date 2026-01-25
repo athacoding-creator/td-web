@@ -141,7 +141,7 @@ const LoginPage = () => {
 
           {/* Footer Note */}
           <p className="text-center text-muted-foreground text-xs mt-6">
-            © 2025 Teras Dakwah. All rights reserved.
+            Copyright © 2014 Teras Dakwah. All Rights Reserved.
           </p>
         </div>
       </div>
