@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { useDashboardStats } from "@/hooks/useDashboardStats";
 
 interface MenuCard {
   id: string;
@@ -70,6 +71,7 @@ const menuCards: MenuCard[] = [
 const AdminDashboard = () => {
   const { signOut } = useAuth();
   const navigate = useNavigate();
+  const { stats, loading } = useDashboardStats();
 
   const handleLogout = async () => {
     await signOut();
@@ -84,16 +86,16 @@ const AdminDashboard = () => {
         <div className="container-narrow">
           <div className="flex items-center justify-between h-16">
             <h1 className="text-xl font-heading font-bold text-foreground">
-              Dashboard Admin
+              Admin Dashboard
             </h1>
             <div className="flex items-center gap-3">
               <Button variant="outline" size="sm" asChild>
                 <Link to="/" className="flex items-center gap-2">
                   <Home className="w-4 h-4" />
-                  Website
+                  Lihat Website
                 </Link>
               </Button>
-              <Button variant="outline" size="sm" onClick={handleLogout}>
+              <Button variant="destructive" size="sm" onClick={handleLogout}>
                 <LogOut className="w-4 h-4 mr-2" />
                 Logout
               </Button>
@@ -104,21 +106,69 @@ const AdminDashboard = () => {
 
       {/* Main Content */}
       <main className="container-narrow py-8">
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-2">
-            Selamat Datang, Admin
+        {/* Welcome Banner */}
+        <div className="mb-8 bg-gradient-to-r from-purple-600 to-purple-500 rounded-2xl p-8 text-white shadow-lg">
+          <h2 className="text-3xl font-heading font-bold mb-2 flex items-center gap-2">
+            Selamat Datang, Admin! 👋
           </h2>
-          <p className="text-muted-foreground">
-            Kelola konten website Teras Dakwah
+          <p className="text-purple-100">
+            Kelola konten website Yayasan Teras Dakwah Indonesia dari sini
           </p>
+        </div>
+
+        {/* Statistics Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {/* Total Artikel */}
+          <div className="bg-card rounded-xl p-6 border border-border shadow-sm">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground mb-1">Total Artikel</p>
+                <p className="text-3xl font-bold text-foreground">
+                  {loading ? "..." : stats.totalArticles}
+                </p>
+              </div>
+              <div className="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center">
+                <FileText className="w-6 h-6 text-purple-600" />
+              </div>
+            </div>
+          </div>
+
+          {/* Total Program */}
+          <div className="bg-card rounded-xl p-6 border border-border shadow-sm">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground mb-1">Total Program</p>
+                <p className="text-3xl font-bold text-foreground">
+                  {loading ? "..." : stats.totalPrograms}
+                </p>
+              </div>
+              <div className="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center">
+                <Heart className="w-6 h-6 text-green-600" />
+              </div>
+            </div>
+          </div>
+
+          {/* Total Campaign */}
+          <div className="bg-card rounded-xl p-6 border border-border shadow-sm">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground mb-1">Total Campaign</p>
+                <p className="text-3xl font-bold text-foreground">
+                  {loading ? "..." : stats.totalCampaigns}
+                </p>
+              </div>
+              <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
+                <Megaphone className="w-6 h-6 text-blue-600" />
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Menu Cards Grid */}
         <h3 className="text-lg font-heading font-semibold text-foreground mb-4">
           Menu Pengelolaan
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {menuCards.map((card) => (
             <Link
               key={card.id}
