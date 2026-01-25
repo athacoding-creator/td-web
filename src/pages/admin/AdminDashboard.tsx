@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useDashboardStats } from "@/hooks/useDashboardStats";
 
+// Dashboard with green banner and blue stats icons
+
 interface MenuCard {
   id: string;
   title: string;
