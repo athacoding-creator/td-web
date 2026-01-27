@@ -325,7 +325,12 @@ const AdminMessages = () => {
                 <Button
                   className="flex-1"
                   onClick={() => {
-                    window.location.href = `mailto:${selectedMessage.email}?subject=Re: Pesan Anda ke Teras Dakwah`;
+                    // Buka Gmail compose dengan email penerima dan subject terisi otomatis
+                    const email = selectedMessage.email;
+                    const subject = encodeURIComponent(`Re: Pesan dari ${selectedMessage.name}`);
+                    const body = encodeURIComponent(`\n\n---\nPesan asli dari ${selectedMessage.name}:\n${selectedMessage.message}`);
+                    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`;
+                    window.open(gmailUrl, '_blank');
                   }}
                 >
                   <Mail className="w-4 h-4 mr-2" />
