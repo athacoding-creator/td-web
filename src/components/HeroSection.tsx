@@ -1,7 +1,7 @@
 
-import heroImage from "@/assets/hero-mosque.jpg";
-
 const HeroSection = () => {
+  const heroImage = "https://res.cloudinary.com/dfjvcvbsn/image/upload/v1769567440/Teras-Dakwah-1130x650_dtvso1.jpg";
+  
   return (
     <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
