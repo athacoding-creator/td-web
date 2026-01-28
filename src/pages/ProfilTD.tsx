@@ -67,7 +67,7 @@ const ProfilTDPage = () => {
                       ) : (
                         <>
                           <p>
-                            Teras Dakwah didirikan pada tahun 2021 sebagai wadah dakwah yang bertujuan untuk 
+                            Teras Dakwah didirikan pada tahun 2014 sebagai wadah dakwah yang bertujuan untuk 
                             menyebarkan nilai-nilai Islam yang rahmatan lil alamin. Berawal dari sebuah 
                             mimpi besar untuk menciptakan pusat dakwah yang modern dan nyaman, Teras Dakwah 
                             kini telah menjadi salah satu pusat kegiatan keislaman di Yogyakarta.
