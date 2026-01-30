@@ -32,6 +32,10 @@ interface Campaign {
   image_url: string | null;
   is_active: boolean;
   display_order: number;
+  collected_amount: number;
+  target_amount: number | null;
+  donor_count: number;
+  end_date: string | null;
 }
 
 const AdminCampaign = () => {
@@ -49,6 +53,10 @@ const AdminCampaign = () => {
     image_url: "",
     is_active: true,
     display_order: 0,
+    collected_amount: 0,
+    target_amount: 0,
+    donor_count: 0,
+    end_date: "",
   });
 
   useEffect(() => {
@@ -141,6 +149,10 @@ const AdminCampaign = () => {
       image_url: campaign.image_url || "",
       is_active: campaign.is_active,
       display_order: campaign.display_order,
+      collected_amount: campaign.collected_amount || 0,
+      target_amount: campaign.target_amount || 0,
+      donor_count: campaign.donor_count || 0,
+      end_date: campaign.end_date ? campaign.end_date.split('T')[0] : "",
     });
     setIsDialogOpen(true);
   };
@@ -173,6 +185,10 @@ const AdminCampaign = () => {
       image_url: "",
       is_active: true,
       display_order: 0,
+      collected_amount: 0,
+      target_amount: 0,
+      donor_count: 0,
+      end_date: "",
     });
   };
 
@@ -221,13 +237,59 @@ const AdminCampaign = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="target">Target</Label>
+                <Label htmlFor="target">Target (Text)</Label>
                 <Input
                   id="target"
                   value={formData.target}
                   onChange={(e) => setFormData({ ...formData, target: e.target.value })}
                   placeholder="Contoh: Rp 50.000.000"
                 />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="target_amount">Target Donasi (Rp) *</Label>
+                  <Input
+                    id="target_amount"
+                    type="number"
+                    value={formData.target_amount}
+                    onChange={(e) => setFormData({ ...formData, target_amount: parseInt(e.target.value) || 0 })}
+                    placeholder="50000000"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="collected_amount">Terkumpul (Rp)</Label>
+                  <Input
+                    id="collected_amount"
+                    type="number"
+                    value={formData.collected_amount}
+                    onChange={(e) => setFormData({ ...formData, collected_amount: parseInt(e.target.value) || 0 })}
+                    placeholder="0"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="donor_count">Jumlah Donatur</Label>
+                  <Input
+                    id="donor_count"
+                    type="number"
+                    value={formData.donor_count}
+                    onChange={(e) => setFormData({ ...formData, donor_count: parseInt(e.target.value) || 0 })}
+                    placeholder="0"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="end_date">Tanggal Berakhir</Label>
+                  <Input
+                    id="end_date"
+                    type="date"
+                    value={formData.end_date}
+                    onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
+                  />
+                </div>
               </div>
 
               <div className="space-y-2">

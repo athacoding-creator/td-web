@@ -10,6 +10,10 @@ export interface Campaign {
   image_url: string | null;
   is_active: boolean;
   display_order: number;
+  collected_amount: number;
+  target_amount: number | null;
+  donor_count: number;
+  end_date: string | null;
 }
 
 export const useCampaigns = () => {
