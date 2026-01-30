@@ -234,11 +234,11 @@ const CampaignPage = () => {
 
               {/* Image */}
               {selectedCampaign.image_url && (
-                <div className="aspect-video overflow-hidden rounded-lg relative -mt-2">
+                <div className="relative rounded-lg overflow-hidden bg-muted -mt-2">
                   <img
                     src={selectedCampaign.image_url}
                     alt={selectedCampaign.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto max-h-[500px] object-contain"
                   />
                   <div className="absolute top-4 right-4">
                     {getStatusBadge(selectedCampaign)}
