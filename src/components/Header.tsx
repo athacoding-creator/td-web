@@ -29,14 +29,14 @@ const Header = () => {
                 className="flex items-center gap-1.5 hover:text-[#29b6f6] transition-colors"
               >
                 <Mail className="w-3 h-3" />
-                <span className="hidden sm:inline text-xs">terasdakwah@gmail.com</span>
+                <span className="hidden sm:inline text-xs"></span>
               </a>
               <a 
                 href="tel:085320307766" 
                 className="flex items-center gap-1.5 hover:text-[#29b6f6] transition-colors"
               >
                 <Phone className="w-3 h-3" />
-                <span className="text-xs">0853-2030-7766</span>
+                <span className="text-xs"></span>
               </a>
             </div>
             
