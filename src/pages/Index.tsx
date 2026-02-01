@@ -5,7 +5,6 @@ import AboutSection from "@/components/AboutSection";
 import StatsSection from "@/components/StatsSection";
 import ProgramSection from "@/components/ProgramSection";
 import VideoSection from "@/components/VideoSection";
-import DonationSection from "@/components/DonationSection";
 import ArticleSection from "@/components/ArticleSection";
 import MobileLayout from "@/components/MobileLayout";
 
@@ -16,12 +15,11 @@ const Index = () => {
         <Header />
         <main className="flex-1">
           <HeroSection />
-          <AboutSection />
-          <StatsSection />
           <ProgramSection />
+          <StatsSection />
           <VideoSection />
-          <DonationSection />
           <ArticleSection />
+          <AboutSection />
         </main>
         <Footer />
       </div>
