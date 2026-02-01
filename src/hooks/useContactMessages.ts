@@ -1,19 +1,8 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
 
-export interface ContactMessage {
-  id: string;
-  name: string;
-  email: string;
-  phone?: string;
-  message: string;
-  status: "new" | "in_progress" | "replied" | "closed";
-  priority: "low" | "medium" | "high";
-  assigned_to?: string;
-  replied_at?: string;
-  created_at: string;
-  updated_at: string;
-}
+export type ContactMessage = Tables<"contact_messages">;
 
 export const useContactMessages = () => {
   const [data, setData] = useState<ContactMessage[]>([]);
@@ -33,7 +22,7 @@ export const useContactMessages = () => {
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      setData(messages || []);
+      setData((messages as ContactMessage[]) || []);
     } catch (err) {
       setError(err as Error);
     } finally {
@@ -59,7 +48,7 @@ export const useContactMessages = () => {
 
   const updateStatus = async (
     id: string,
-    status: ContactMessage["status"]
+    status: string
   ) => {
     const { error } = await supabase
       .from("contact_messages")
@@ -72,7 +61,7 @@ export const useContactMessages = () => {
 
   const updatePriority = async (
     id: string,
-    priority: ContactMessage["priority"]
+    priority: string
   ) => {
     const { error } = await supabase
       .from("contact_messages")

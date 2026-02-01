@@ -1,20 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
 
-export interface Campaign {
-  id: string;
-  title: string;
-  description: string;
-  target: string | null;
-  status: string | null;
-  image_url: string | null;
-  is_active: boolean;
-  display_order: number;
-  collected_amount: number;
-  target_amount: number | null;
-  donor_count: number;
-  end_date: string | null;
-}
+export type Campaign = Tables<"campaigns">;
 
 export const useCampaigns = () => {
   return useQuery({

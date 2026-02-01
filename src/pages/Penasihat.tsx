@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileLayout from "@/components/MobileLayout";
 
 interface Advisor {
   id: string;
@@ -32,7 +33,8 @@ const advisors: Advisor[] = [
 
 const PenasihatPage = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <MobileLayout>
+      <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
         {/* Hero */}
@@ -100,7 +102,8 @@ const PenasihatPage = () => {
         </section>
       </main>
       <Footer />
-    </div>
+      </div>
+    </MobileLayout>
   );
 };
 

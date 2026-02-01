@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileLayout from "@/components/MobileLayout";
 import { useCampaigns } from "@/hooks/useCampaigns";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
@@ -71,7 +72,8 @@ const CampaignPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <MobileLayout>
+      <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
         {/* Hero */}
@@ -335,7 +337,8 @@ const CampaignPage = () => {
           )}
         </DialogContent>
       </Dialog>
-    </div>
+      </div>
+    </MobileLayout>
   );
 };
 

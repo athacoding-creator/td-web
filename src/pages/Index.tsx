@@ -7,22 +7,25 @@ import ProgramSection from "@/components/ProgramSection";
 import VideoSection from "@/components/VideoSection";
 import DonationSection from "@/components/DonationSection";
 import ArticleSection from "@/components/ArticleSection";
+import MobileLayout from "@/components/MobileLayout";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1">
-        <HeroSection />
-        <AboutSection />
-        <StatsSection />
-        <ProgramSection />
-        <VideoSection />
-        <DonationSection />
-        <ArticleSection />
-      </main>
-      <Footer />
-    </div>
+    <MobileLayout>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1">
+          <HeroSection />
+          <AboutSection />
+          <StatsSection />
+          <ProgramSection />
+          <VideoSection />
+          <DonationSection />
+          <ArticleSection />
+        </main>
+        <Footer />
+      </div>
+    </MobileLayout>
   );
 };
 
