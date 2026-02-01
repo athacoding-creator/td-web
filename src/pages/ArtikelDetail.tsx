@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileLayout from "@/components/MobileLayout";
 import SEOHead from "@/components/SEOHead";
 import ArticleStructuredData from "@/components/ArticleStructuredData";
 import { Link, useParams, useLocation } from "react-router-dom";
@@ -120,48 +121,53 @@ const ArtikelDetailPage = () => {
 
   if (articleLoading) {
     return (
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1 bg-background">
-          <div className="container-narrow py-12 md:py-16">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-              <aside className="lg:col-span-1 order-2 lg:order-1">
-                <Skeleton className="h-10 w-full mb-8" />
-                <Skeleton className="h-48 w-full" />
-              </aside>
-              <div className="lg:col-span-2 order-1 lg:order-2">
-                <Skeleton className="aspect-video w-full mb-6" />
-                <Skeleton className="h-8 w-32 mb-4" />
-                <Skeleton className="h-12 w-full mb-6" />
-                <Skeleton className="h-64 w-full" />
+      <MobileLayout>
+        <div className="min-h-screen flex flex-col">
+          <Header />
+          <main className="flex-1 bg-background">
+            <div className="container-narrow py-12 md:py-16">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+                <aside className="lg:col-span-1 order-2 lg:order-1">
+                  <Skeleton className="h-10 w-full mb-8" />
+                  <Skeleton className="h-48 w-full" />
+                </aside>
+                <div className="lg:col-span-2 order-1 lg:order-2">
+                  <Skeleton className="aspect-video w-full mb-6" />
+                  <Skeleton className="h-8 w-32 mb-4" />
+                  <Skeleton className="h-12 w-full mb-6" />
+                  <Skeleton className="h-64 w-full" />
+                </div>
               </div>
             </div>
-          </div>
-        </main>
-        <Footer />
-      </div>
+          </main>
+          <Footer />
+        </div>
+      </MobileLayout>
     );
   }
 
   if (articleError || !article) {
     return (
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1 flex items-center justify-center bg-background">
-          <div className="text-center">
-            <h1 className="text-2xl font-heading font-bold mb-4">Artikel tidak ditemukan</h1>
-            <Link to="/artikel" className="text-primary hover:underline">
-              Kembali ke daftar artikel
-            </Link>
-          </div>
-        </main>
-        <Footer />
-      </div>
+      <MobileLayout>
+        <div className="min-h-screen flex flex-col">
+          <Header />
+          <main className="flex-1 flex items-center justify-center bg-background">
+            <div className="text-center">
+              <h1 className="text-2xl font-heading font-bold mb-4">Artikel tidak ditemukan</h1>
+              <Link to="/artikel" className="text-primary hover:underline">
+                Kembali ke daftar artikel
+              </Link>
+            </div>
+          </main>
+          <Footer />
+        </div>
+      </MobileLayout>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <MobileLayout>
+      <div className="min-h-screen flex flex-col">
       <SEOHead
         title={seoTitle}
         description={seoDescription}
@@ -313,7 +319,8 @@ const ArtikelDetailPage = () => {
         </div>
       </main>
       <Footer />
-    </div>
+      </div>
+    </MobileLayout>
   );
 };
 

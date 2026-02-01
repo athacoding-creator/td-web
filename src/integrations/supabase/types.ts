@@ -106,39 +106,93 @@ export type Database = {
       }
       campaigns: {
         Row: {
+          collected_amount: number | null
           created_at: string
           description: string
           display_order: number | null
+          donor_count: number | null
+          end_date: string | null
           id: string
           image_url: string | null
           is_active: boolean | null
           status: string | null
           target: string | null
+          target_amount: number | null
           title: string
           updated_at: string
         }
         Insert: {
+          collected_amount?: number | null
           created_at?: string
           description: string
           display_order?: number | null
+          donor_count?: number | null
+          end_date?: string | null
           id?: string
           image_url?: string | null
           is_active?: boolean | null
           status?: string | null
           target?: string | null
+          target_amount?: number | null
           title: string
           updated_at?: string
         }
         Update: {
+          collected_amount?: number | null
           created_at?: string
           description?: string
           display_order?: number | null
+          donor_count?: number | null
+          end_date?: string | null
           id?: string
           image_url?: string | null
           is_active?: boolean | null
           status?: string | null
           target?: string | null
+          target_amount?: number | null
           title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      contact_messages: {
+        Row: {
+          assigned_to: string | null
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          phone: string | null
+          priority: string
+          replied_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          phone?: string | null
+          priority?: string
+          replied_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          phone?: string | null
+          priority?: string
+          replied_at?: string | null
+          status?: string
           updated_at?: string
         }
         Relationships: []

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileLayout from "@/components/MobileLayout";
 import {
   Dialog,
   DialogContent,
@@ -15,7 +16,8 @@ const ProgramPage = () => {
   const { data: programs, isLoading, error } = usePrograms();
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <MobileLayout>
+      <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
         {/* Hero Section */}
@@ -76,6 +78,7 @@ const ProgramPage = () => {
         </section>
       </main>
       <Footer />
+      </div>
 
       {/* Program Detail Dialog */}
       <Dialog open={!!selectedProgram} onOpenChange={() => setSelectedProgram(null)}>
@@ -153,7 +156,7 @@ const ProgramPage = () => {
           )}
         </DialogContent>
       </Dialog>
-    </div>
+    </MobileLayout>
   );
 };
 

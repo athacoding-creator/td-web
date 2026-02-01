@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileLayout from "@/components/MobileLayout";
 import heroMosque from "@/assets/hero-mosque.jpg";
 import { useProfilTD } from "@/hooks/useProfilTD";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -12,7 +13,8 @@ const ProfilTDPage = () => {
   const misi = sections?.misi;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <MobileLayout>
+      <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
         {/* Hero */}
@@ -208,7 +210,8 @@ const ProfilTDPage = () => {
         </section>
       </main>
       <Footer />
-    </div>
+      </div>
+    </MobileLayout>
   );
 };
 

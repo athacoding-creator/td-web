@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileLayout from "@/components/MobileLayout";
 import SEOHead from "@/components/SEOHead";
 import { Link } from "react-router-dom";
 import { useArticles } from "@/hooks/useArticles";
@@ -20,7 +21,8 @@ const ArtikelPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <MobileLayout>
+      <div className="min-h-screen flex flex-col">
       <SEOHead
         title="Berita dan Artikel Teras Dakwah"
         description="Kumpulan berita, artikel, dan kajian Islam dari Yayasan Teras Dakwah Indonesia. Jadilah penyebar cahaya kebaikan!"
@@ -108,7 +110,8 @@ const ArtikelPage = () => {
         </section>
       </main>
       <Footer />
-    </div>
+      </div>
+    </MobileLayout>
   );
 };
 

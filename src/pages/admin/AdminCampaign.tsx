@@ -22,21 +22,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Plus, Pencil, Trash2, Upload, Image as ImageIcon } from "lucide-react";
+import type { Tables } from "@/integrations/supabase/types";
 
-interface Campaign {
-  id: string;
-  title: string;
-  description: string;
-  target: string | null;
-  status: string;
-  image_url: string | null;
-  is_active: boolean;
-  display_order: number;
-  collected_amount: number;
-  target_amount: number | null;
-  donor_count: number;
-  end_date: string | null;
-}
+type Campaign = Tables<"campaigns">;
 
 const AdminCampaign = () => {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);

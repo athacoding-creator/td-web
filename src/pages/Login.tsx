@@ -8,6 +8,7 @@ import { Eye, EyeOff, Lock, Mail, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import tdLogo from "@/assets/td-logo.png";
 import { supabase } from "@/integrations/supabase/client";
+import MobileLayout from "@/components/MobileLayout";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -45,7 +46,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-secondary/30 flex flex-col">
+    <MobileLayout>
+      <div className="min-h-screen bg-secondary/30 flex flex-col">
       {/* Back to Home */}
       <div className="p-4">
         <Link 
@@ -145,7 +147,8 @@ const LoginPage = () => {
           </p>
         </div>
       </div>
-    </div>
+      </div>
+    </MobileLayout>
   );
 };
 
