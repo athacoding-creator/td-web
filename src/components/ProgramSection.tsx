@@ -41,18 +41,18 @@ const ProgramSection = () => {
                 onClick={() => setSelectedProgram(program)}
                 className="group flex flex-col items-center gap-2"
               >
-                <div className="w-20 h-20 rounded-full bg-card border-2 border-border hover:border-primary/50 transition-all duration-300 flex items-center justify-center overflow-hidden shadow-md hover:shadow-lg">
+                <div className="w-20 h-20 rounded-full bg-card border-2 border-border hover:border-primary/50 transition-all duration-300 flex items-center justify-center overflow-hidden shadow-md hover:shadow-lg p-2">
                   {program.logo_url ? (
                     <img 
                       src={program.logo_url} 
                       alt={program.title} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
+                      className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" 
                     />
                   ) : (
                     <img 
                       src="/favicon.png" 
                       alt="Teras Dakwah" 
-                      className="w-12 h-12 object-contain opacity-30 group-hover:opacity-50 transition-opacity duration-300" 
+                      className="w-10 h-10 object-contain opacity-30 group-hover:opacity-50 transition-opacity duration-300" 
                     />
                   )}
                 </div>
