@@ -11,15 +11,15 @@ const StatsSection = () => {
   // Show loading state
   if (isLoading) {
     return (
-      <section className="py-12 md:py-16">
-        <div className="container-narrow">
-          <div className="h-8 bg-gray-200 rounded w-48 mx-auto mb-10 animate-pulse"></div>
-          <div className="bg-[#A4D65E] rounded-3xl px-8 md:px-16 py-12 md:py-16 shadow-lg">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+      <section className="py-10">
+        <div className="px-4">
+          <div className="h-6 bg-gray-200 rounded w-32 mx-auto mb-6 animate-pulse"></div>
+          <div className="bg-[#A4D65E] rounded-2xl px-6 py-10 shadow-lg">
+            <div className="grid grid-cols-1 gap-6">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="text-center animate-pulse">
-                  <div className="h-16 bg-gray-700/20 rounded mb-3 mx-auto max-w-[200px]"></div>
-                  <div className="h-6 bg-gray-700/20 rounded mx-auto max-w-[150px]"></div>
+                  <div className="h-12 bg-gray-700/20 rounded mb-2 mx-auto max-w-[150px]"></div>
+                  <div className="h-5 bg-gray-700/20 rounded mx-auto max-w-[120px]"></div>
                 </div>
               ))}
             </div>
@@ -48,18 +48,18 @@ const StatsSection = () => {
   const sectionTitle = config?.title || activeStats[0]?.title || "Rewind 2025";
 
   return (
-    <section className="py-12 md:py-16">
-      <div className="container-narrow">
-        <h2 className="section-title mb-10 text-center">{sectionTitle}</h2>
+    <section className="py-10">
+      <div className="px-4">
+        <h2 className="text-2xl font-heading font-semibold text-foreground text-center mb-6">{sectionTitle}</h2>
         
-        <div className="bg-[#A4D65E] rounded-3xl px-8 md:px-16 py-12 md:py-16 shadow-lg">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <div className="bg-[#A4D65E] rounded-2xl px-6 py-10 shadow-lg">
+          <div className="grid grid-cols-1 gap-6">
             {activeStats.map((stat) => (
               <div key={stat.id} className="text-center">
-                <p className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-gray-800 mb-3">
+                <p className="text-4xl font-heading font-bold text-gray-800 mb-2">
                   <CountUp end={stat.value} duration={2500} />
                 </p>
-                <p className="text-base md:text-lg font-medium text-gray-700">
+                <p className="text-sm font-medium text-gray-700">
                   {stat.label}
                 </p>
               </div>
