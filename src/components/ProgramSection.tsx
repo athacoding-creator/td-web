@@ -25,24 +25,40 @@ const ProgramSection = () => {
         </p>
 
         {isLoading ? (
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 gap-4">
             {[...Array(6)].map((_, i) => (
-              <Skeleton key={i} className="h-[140px] rounded-xl" />
+              <div key={i} className="flex flex-col items-center gap-2">
+                <Skeleton className="w-20 h-20 rounded-full" />
+                <Skeleton className="h-3 w-16" />
+              </div>
             ))}
           </div>
         ) : displayPrograms.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 gap-4">
             {displayPrograms.map((program) => (
               <button
                 key={program.id}
                 onClick={() => setSelectedProgram(program)}
-                className="group bg-card p-4 rounded-xl border border-border hover:shadow-lg hover:border-primary/20 transition-all duration-300 flex items-center justify-center min-h-[140px]"
+                className="group flex flex-col items-center gap-2"
               >
-                {program.logo_url ? (
-                  <img src={program.logo_url} alt={program.title} className="w-24 h-24 object-contain group-hover:scale-105 transition-transform duration-300" />
-                ) : (
-                  <img src="/favicon.png" alt="Teras Dakwah" className="w-20 h-20 object-contain opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
-                )}
+                <div className="w-20 h-20 rounded-full bg-card border-2 border-border hover:border-primary/50 transition-all duration-300 flex items-center justify-center overflow-hidden shadow-md hover:shadow-lg">
+                  {program.logo_url ? (
+                    <img 
+                      src={program.logo_url} 
+                      alt={program.title} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
+                    />
+                  ) : (
+                    <img 
+                      src="/favicon.png" 
+                      alt="Teras Dakwah" 
+                      className="w-12 h-12 object-contain opacity-30 group-hover:opacity-50 transition-opacity duration-300" 
+                    />
+                  )}
+                </div>
+                <span className="text-xs text-center text-foreground font-medium line-clamp-2 leading-tight">
+                  {program.title}
+                </span>
               </button>
             ))}
           </div>

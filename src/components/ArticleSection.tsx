@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useArticles } from "@/hooks/useArticles";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { id as idLocale } from "date-fns/locale";
 
@@ -14,7 +15,7 @@ const ArticleSection = () => {
   const formatDate = (dateStr: string | null) => {
     if (!dateStr) return "";
     try {
-      return format(new Date(dateStr), "MMMM d, yyyy", { locale: idLocale });
+      return format(new Date(dateStr), "d MMMM yyyy", { locale: idLocale });
     } catch {
       return dateStr;
     }
@@ -35,52 +36,56 @@ const ArticleSection = () => {
 
         {/* Article Cards */}
         {isLoading ? (
-          <div className="grid grid-cols-1 gap-4">
+          <div className="space-y-4">
             {[...Array(3)].map((_, i) => (
-              <Skeleton key={i} className="aspect-[16/9] rounded-xl" />
+              <div key={i} className="flex gap-3">
+                <Skeleton className="w-32 h-24 rounded-lg flex-shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-3 w-3/4" />
+                  <Skeleton className="h-3 w-1/2" />
+                </div>
+              </div>
             ))}
           </div>
         ) : displayArticles.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4">
+          <div className="space-y-4">
             {displayArticles.map((article) => (
               <Link
                 key={article.id}
                 to={`/artikel/${article.slug}`}
-                className="group relative block aspect-[16/9] rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
+                className="group flex gap-3 bg-card border border-border rounded-lg overflow-hidden hover:shadow-md transition-all duration-300"
               >
-                {/* Background Image */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                  style={{ 
-                    backgroundImage: article.image_url 
-                      ? `url(${article.image_url})` 
-                      : "linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%)" 
-                  }}
-                />
+                {/* Image on Left */}
+                <div className="w-32 h-24 flex-shrink-0 bg-muted overflow-hidden">
+                  {article.image_url ? (
+                    <img 
+                      src={article.image_url} 
+                      alt={article.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20" />
+                  )}
+                </div>
                 
-                {/* Dark Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-                
-                {/* Category Badge */}
-                {article.category && (
-                  <div className="absolute top-3 left-3">
-                    <span className="bg-destructive text-destructive-foreground text-xs font-semibold px-2.5 py-1 rounded">
-                      {article.category.toUpperCase()}
-                    </span>
-                  </div>
-                )}
-                
-                {/* Content at Bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="font-heading font-semibold text-base text-white mb-2 leading-tight line-clamp-2">
-                    {article.title}
-                  </h3>
-                  <div className="flex items-center gap-1.5 text-xs text-white/80">
-                    <span>By</span>
-                    <span className="underline">{article.author || "Trsdkwh"}</span>
-                    <span>.</span>
+                {/* Content on Right */}
+                <div className="flex-1 py-3 pr-3 flex flex-col justify-between min-w-0">
+                  {/* Date */}
+                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-2">
+                    <Calendar className="w-3 h-3" />
                     <span>{formatDate(article.published_at || article.created_at)}</span>
                   </div>
+                  
+                  {/* Title */}
+                  <h3 className="font-heading font-semibold text-sm text-foreground leading-tight line-clamp-2 mb-2 group-hover:text-primary transition-colors">
+                    {article.title}
+                  </h3>
+                  
+                  {/* Excerpt */}
+                  <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+                    {article.excerpt || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque luctus magna ut vulputate pretium."}
+                  </p>
                 </div>
               </Link>
             ))}
