@@ -1,15 +1,15 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X, Mail, Phone } from "lucide-react";
+import { Menu, X, Mail, Phone, Home, User, Calendar, Heart, FileText, MessageCircle } from "lucide-react";
 import tdLogo from "@/assets/td-logo.png";
 
 const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "Profil TD", path: "/about" },
-  { name: "Program TD", path: "/program" },
-  { name: "Campaign", path: "/campaign" },
-  { name: "Artikel", path: "/artikel" },
-  { name: "Contact", path: "/contact" },
+  { name: "Home", path: "/", icon: Home },
+  { name: "Profil TD", path: "/about", icon: User },
+  { name: "Program", path: "/program", icon: Calendar },
+  { name: "Campaign", path: "/campaign", icon: Heart },
+  { name: "Artikel", path: "/artikel", icon: FileText },
+  { name: "Contact", path: "/contact", icon: MessageCircle },
 ];
 
 const Header = () => {
@@ -17,9 +17,9 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <header className="sticky top-0 z-50 w-full">
+    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border/40">
       {/* Top Bar */}
-      <div className="bg-[#0f2744] text-white py-2">
+      <div className="bg-gradient-to-r from-[#0a1628] to-[#0f2744] text-white py-2.5">
         <div className="px-4">
           <div className="flex items-center justify-between text-xs">
             {/* Contact Info */}
@@ -28,24 +28,24 @@ const Header = () => {
                 href="mailto:terasdakwah@gmail.com" 
                 className="flex items-center gap-1.5 hover:text-[#29b6f6] transition-colors"
               >
-                <Mail className="w-3 h-3" />
-                <span className="hidden sm:inline text-xs"></span>
+                <Mail className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline text-xs">terasdakwah@gmail.com</span>
               </a>
               <a 
                 href="tel:085320307766" 
                 className="flex items-center gap-1.5 hover:text-[#29b6f6] transition-colors"
               >
-                <Phone className="w-3 h-3" />
-                <span className="text-xs"></span>
+                <Phone className="w-3.5 h-3.5" />
+                <span className="text-xs">0853-2030-7766</span>
               </a>
             </div>
             
             {/* Quick Links */}
             <div className="flex items-center gap-3">
-              <Link to="/penasihat" className="hover:text-[#29b6f6] transition-colors text-xs">
+              <Link to="/penasihat" className="hover:text-[#29b6f6] transition-colors text-xs font-medium">
                 Penasihat
               </Link>
-              <Link to="/tentang" className="hover:text-[#29b6f6] transition-colors text-xs">
+              <Link to="/tentang" className="hover:text-[#29b6f6] transition-colors text-xs font-medium">
                 Tentang
               </Link>
             </div>
@@ -54,46 +54,73 @@ const Header = () => {
       </div>
 
       {/* Main Navbar */}
-      <div className="bg-background border-b border-border">
-        <div className="px-4">
-          <div className="flex items-center justify-between h-14">
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-2">
-              <img src={tdLogo} alt="Teras Dakwah Logo" className="h-8 w-auto" />
-            </Link>
+      <div className="px-4 py-3">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 group">
+            <img src={tdLogo} alt="Teras Dakwah Logo" className="h-9 w-auto transition-transform group-hover:scale-105" />
+          </Link>
 
-            {/* Mobile Menu Button */}
-            <button
-              className="p-2 text-foreground hover:text-primary transition-colors"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            className="p-2 rounded-lg text-foreground hover:bg-primary/10 hover:text-primary transition-all duration-200"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
 
-          {/* Mobile Navigation */}
-          {isMenuOpen && (
-            <nav className="py-3 border-t border-border">
-              <div className="flex flex-col gap-1">
-                {navLinks.map((link) => (
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <nav className="mt-4 pb-2">
+            <div className="space-y-1">
+              {navLinks.map((link) => {
+                const Icon = link.icon;
+                const isActive = location.pathname === link.path || location.pathname.startsWith(link.path + '/');
+                
+                return (
                   <Link
                     key={link.path}
                     to={link.path}
-                    className={`block px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                      location.pathname === link.path || location.pathname.startsWith(link.path + '/')
-                        ? "text-primary bg-primary/5"
-                        : "text-foreground hover:text-primary hover:bg-primary/5"
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      isActive
+                        ? "bg-primary text-primary-foreground shadow-sm"
+                        : "text-foreground hover:bg-primary/10 hover:text-primary"
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    {link.name}
+                    <Icon className="w-4 h-4" />
+                    <span>{link.name}</span>
                   </Link>
-                ))}
+                );
+              })}
+              
+              {/* Divider */}
+              <div className="h-px bg-border my-3" />
+              
+              {/* Additional Links */}
+              <div className="space-y-1">
+                <Link
+                  to="/penasihat"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200"
+                >
+                  <User className="w-4 h-4" />
+                  <span>Penasihat</span>
+                </Link>
+                <Link
+                  to="/tentang"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200"
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>Tentang TD</span>
+                </Link>
               </div>
-            </nav>
-          )}
-        </div>
+            </div>
+          </nav>
+        )}
       </div>
     </header>
   );
