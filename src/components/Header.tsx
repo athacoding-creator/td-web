@@ -28,25 +28,19 @@ const Header = () => {
                 href="mailto:terasdakwah@gmail.com" 
                 className="flex items-center gap-1.5 hover:text-[#29b6f6] transition-colors"
               >
-                <Mail className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline text-xs">terasdakwah@gmail.com</span>
               </a>
               <a 
                 href="tel:085320307766" 
                 className="flex items-center gap-1.5 hover:text-[#29b6f6] transition-colors"
               >
-                <Phone className="w-3.5 h-3.5" />
-                <span className="text-xs">0853-2030-7766</span>
               </a>
             </div>
             
             {/* Quick Links */}
             <div className="flex items-center gap-3">
               <Link to="/penasihat" className="hover:text-[#29b6f6] transition-colors text-xs font-medium">
-                Penasihat
+                Pengasuh
               </Link>
-              <Link to="/tentang" className="hover:text-[#29b6f6] transition-colors text-xs font-medium">
-                Tentang
               </Link>
             </div>
           </div>
