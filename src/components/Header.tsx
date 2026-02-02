@@ -27,12 +27,16 @@ const Header = () => {
               <a 
                 href="mailto:terasdakwah@gmail.com" 
                 className="flex items-center gap-1.5 hover:text-[#29b6f6] transition-colors"
+                aria-label="Email Teras Dakwah"
               >
+                <Mail size={14} />
               </a>
               <a 
                 href="tel:085320307766" 
                 className="flex items-center gap-1.5 hover:text-[#29b6f6] transition-colors"
+                aria-label="Telepon Teras Dakwah"
               >
+                <Phone size={14} />
               </a>
             </div>
             
