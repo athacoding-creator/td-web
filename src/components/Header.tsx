@@ -41,7 +41,6 @@ const Header = () => {
               <Link to="/penasihat" className="hover:text-[#29b6f6] transition-colors text-xs font-medium">
                 Pengasuh
               </Link>
-              </Link>
             </div>
           </div>
         </div>
