@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileLayout from "@/components/MobileLayout";
+import akhidImage from "@/assets/akhid-subiyanto.png";
 
 const PengasuhPage = () => {
   return (
@@ -29,6 +30,17 @@ const PengasuhPage = () => {
                 <h2 className="text-3xl font-heading font-black text-accent leading-tight">
                   TERAS DAKWAH
                 </h2>
+              </div>
+              
+              {/* Founder Photo */}
+              <div className="flex justify-center mb-6">
+                <div className="w-48 h-48 rounded-2xl overflow-hidden shadow-2xl border-4 border-accent/50">
+                  <img 
+                    src={akhidImage} 
+                    alt="M. Akhid Subiyanto - Founder Teras Dakwah"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
               
               {/* Founder Name */}
