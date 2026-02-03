@@ -3,20 +3,15 @@ import Footer from "@/components/Footer";
 import MobileLayout from "@/components/MobileLayout";
 import SEOHead from "@/components/SEOHead";
 import ArticleStructuredData from "@/components/ArticleStructuredData";
-import ArticleContent from "@/components/ArticleContent";
-import ReadingTime from "@/components/ReadingTime";
-import TableOfContents from "@/components/TableOfContents";
-import ReadingProgress from "@/components/ReadingProgress";
 import { Link, useParams, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { Search, Calendar, Share2, User, Link2, Check } from "lucide-react";
+import { useState } from "react";
+import { Search, Calendar, Share2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useArticle, useArticles } from "@/hooks/useArticles";
 import { Skeleton } from "@/components/ui/skeleton";
 import { format } from "date-fns";
 import { id as idLocale } from "date-fns/locale";
-
 // Social share icons as inline SVGs for better control
 const WhatsAppIcon = () => (
   <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
@@ -42,7 +37,6 @@ interface ShareButtonsProps {
 }
 
 const ShareButtons = ({ title, url }: ShareButtonsProps) => {
-  const [copied, setCopied] = useState(false);
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
 
@@ -67,57 +61,25 @@ const ShareButtons = ({ title, url }: ShareButtonsProps) => {
     },
   ];
 
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy:', err);
-    }
-  };
-
   return (
-    <div className="bg-secondary/50 rounded-xl p-6 border border-border">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <span className="flex items-center gap-2 text-sm font-medium text-foreground">
-            <Share2 className="h-4 w-4" />
-            Bagikan Artikel:
-          </span>
-          <div className="flex gap-2">
-            {shareLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${link.bgColor} text-white p-2.5 rounded-full transition-all hover:scale-110 shadow-sm`}
-                title={`Bagikan ke ${link.name}`}
-              >
-                <link.icon />
-              </a>
-            ))}
-          </div>
-        </div>
-        <Button
-          onClick={copyToClipboard}
-          variant="outline"
-          size="sm"
-          className="gap-2"
-        >
-          {copied ? (
-            <>
-              <Check className="h-4 w-4" />
-              Tersalin!
-            </>
-          ) : (
-            <>
-              <Link2 className="h-4 w-4" />
-              Salin Link
-            </>
-          )}
-        </Button>
+    <div className="flex items-center gap-3">
+      <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
+        <Share2 className="h-4 w-4" />
+        Bagikan:
+      </span>
+      <div className="flex gap-2">
+        {shareLinks.map((link) => (
+          <a
+            key={link.name}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${link.bgColor} text-white p-2 rounded-full transition-colors`}
+            title={`Bagikan ke ${link.name}`}
+          >
+            <link.icon />
+          </a>
+        ))}
       </div>
     </div>
   );
@@ -131,15 +93,7 @@ const ArtikelDetailPage = () => {
   const { data: article, isLoading: articleLoading, error: articleError } = useArticle(slug || "");
   const { data: allArticles } = useArticles();
 
-  // Get related articles by category
-  const relatedArticles = allArticles
-    ?.filter((a) => a.slug !== slug && a.category === article?.category)
-    .slice(0, 3) || [];
-  
-  // If not enough related by category, fill with other articles
-  const otherArticles = relatedArticles.length < 3
-    ? [...relatedArticles, ...allArticles?.filter((a) => a.slug !== slug && a.category !== article?.category).slice(0, 3 - relatedArticles.length) || []]
-    : relatedArticles;
+  const otherArticles = allArticles?.filter((a) => a.slug !== slug).slice(0, 3) || [];
   
   // SEO meta information
   const seoTitle = article?.meta_title || article?.title || "Artikel";
@@ -164,36 +118,6 @@ const ArtikelDetailPage = () => {
       window.location.href = `/artikel?search=${encodeURIComponent(searchQuery)}`;
     }
   };
-
-  // Add IDs to headings for table of contents
-  useEffect(() => {
-    if (article?.content) {
-      const headingRegex = /^(#{2,4})\s+(.+)$/gm;
-      let match;
-      const headingIds: { text: string; id: string }[] = [];
-
-      while ((match = headingRegex.exec(article.content)) !== null) {
-        const text = match[2].trim();
-        const id = text
-          .toLowerCase()
-          .replace(/[^a-z0-9\s-]/g, '')
-          .replace(/\s+/g, '-');
-        headingIds.push({ text, id });
-      }
-
-      // Add IDs to actual heading elements after render
-      setTimeout(() => {
-        headingIds.forEach(({ text, id }) => {
-          const headings = document.querySelectorAll('h2, h3, h4');
-          headings.forEach((heading) => {
-            if (heading.textContent?.trim() === text) {
-              heading.id = id;
-            }
-          });
-        });
-      }, 100);
-    }
-  }, [article]);
 
   if (articleLoading) {
     return (
@@ -244,7 +168,6 @@ const ArtikelDetailPage = () => {
   return (
     <MobileLayout>
       <div className="min-h-screen flex flex-col">
-      <ReadingProgress />
       <SEOHead
         title={seoTitle}
         description={seoDescription}
@@ -268,66 +191,43 @@ const ArtikelDetailPage = () => {
       />
       <Header />
       <main className="flex-1 bg-background">
-        <div className="container max-w-7xl mx-auto px-4 py-12 md:py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <div className="container-narrow py-12 md:py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
             {/* Sidebar */}
-            <aside className="lg:col-span-3 order-2 lg:order-1 space-y-6">
+            <aside className="lg:col-span-1 order-2 lg:order-1">
               {/* Search */}
-              <div>
-                <form onSubmit={handleSearch}>
-                  <div className="relative">
-                    <Input
-                      type="text"
-                      placeholder="Cari Artikel..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pr-12 bg-card border-border"
-                    />
-                    <Button
-                      type="submit"
-                      size="icon"
-                      className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 bg-primary hover:bg-primary/90"
-                    >
-                      <Search className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </form>
-              </div>
-
-              {/* Table of Contents - Desktop Only */}
-              <div className="hidden lg:block">
-                <TableOfContents content={article.content} />
-              </div>
+              <form onSubmit={handleSearch} className="mb-8">
+                <div className="relative">
+                  <Input
+                    type="text"
+                    placeholder="Cari Artikel..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pr-12 bg-card border-border"
+                  />
+                  <Button
+                    type="submit"
+                    size="icon"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 bg-primary hover:bg-primary/90"
+                  >
+                    <Search className="h-4 w-4" />
+                  </Button>
+                </div>
+              </form>
 
               {/* Other Articles */}
-              <div className="bg-card border border-border rounded-lg p-4">
-                <h3 className="font-heading font-bold text-sm mb-4 text-foreground border-b border-border pb-2">
-                  {relatedArticles.length > 0 ? "Artikel Terkait" : "Artikel Lainnya"}
+              <div className="mb-8">
+                <h3 className="font-heading font-bold text-lg mb-4 text-foreground border-b-2 border-primary pb-2 inline-block">
+                  Artikel Lainnya
                 </h3>
-                <ul className="space-y-4">
+                <ul className="space-y-3">
                   {otherArticles.map((otherArticle) => (
                     <li key={otherArticle.id}>
                       <Link
                         to={`/artikel/${otherArticle.slug}`}
-                        className="group block"
+                        className="text-muted-foreground hover:text-primary transition-colors block py-1"
                       >
-                        {otherArticle.image_url && (
-                          <div className="aspect-video bg-secondary rounded-lg mb-2 overflow-hidden">
-                            <img
-                              src={otherArticle.image_url}
-                              alt={otherArticle.title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                          </div>
-                        )}
-                        <h4 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                          {otherArticle.title}
-                        </h4>
-                        {otherArticle.category && (
-                          <span className="text-xs text-muted-foreground mt-1 inline-block">
-                            {otherArticle.category}
-                          </span>
-                        )}
+                        {otherArticle.title}
                       </Link>
                     </li>
                   ))}
@@ -335,7 +235,7 @@ const ArtikelDetailPage = () => {
               </div>
 
               {/* Contact CTA */}
-              <div className="bg-gradient-to-br from-primary to-primary/80 rounded-xl p-6 text-primary-foreground shadow-lg">
+              <div className="bg-primary rounded-xl p-6 text-primary-foreground">
                 <h3 className="font-heading font-bold text-lg mb-2">
                   Hubungi Kami
                 </h3>
@@ -354,9 +254,9 @@ const ArtikelDetailPage = () => {
             </aside>
 
             {/* Main Content */}
-            <article className="lg:col-span-9 order-1 lg:order-2">
+            <article className="lg:col-span-2 order-1 lg:order-2">
               {/* Featured Image */}
-              <div className="aspect-video bg-secondary/50 rounded-2xl mb-8 overflow-hidden shadow-xl">
+              <div className="aspect-video bg-secondary/50 rounded-xl mb-6 overflow-hidden">
                 {article.image_url ? (
                   <img 
                     src={article.image_url} 
@@ -370,71 +270,49 @@ const ArtikelDetailPage = () => {
                 )}
               </div>
 
-              {/* Article Meta */}
-              <div className="flex flex-wrap items-center gap-3 mb-6">
-                <span className="inline-flex items-center gap-1.5 text-sm text-primary bg-primary/10 px-3 py-1.5 rounded-full font-medium">
+              {/* Date Badge */}
+              <div className="flex items-center gap-2 mb-4">
+                <span className="inline-flex items-center gap-1.5 text-sm text-primary bg-primary/10 px-3 py-1 rounded-full">
                   <Calendar className="h-3.5 w-3.5" />
                   {formatDate(article.published_at || article.created_at)}
                 </span>
                 {article.category && (
-                  <span className="text-sm font-medium text-accent bg-accent/10 px-3 py-1.5 rounded-full">
+                  <span className="text-sm font-medium text-accent bg-accent/10 px-3 py-1 rounded-full">
                     {article.category}
-                  </span>
-                )}
-                <ReadingTime content={article.content} />
-                {article.author && (
-                  <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
-                    <User className="h-3.5 w-3.5" />
-                    {article.author}
                   </span>
                 )}
               </div>
 
               {/* Title */}
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground mb-8 leading-tight">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-foreground mb-6 leading-tight">
                 {article.title}
               </h1>
 
-              {/* Excerpt */}
-              {article.excerpt && (
-                <div className="bg-secondary/30 border-l-4 border-primary pl-6 pr-4 py-4 mb-8 rounded-r-lg">
-                  <p className="text-lg text-muted-foreground italic leading-relaxed">
-                    {article.excerpt}
+              {/* Content */}
+              <div className="prose prose-lg max-w-none">
+                {article.content.split('\n\n').map((paragraph, index) => (
+                  <p key={index} className="text-muted-foreground leading-relaxed mb-4">
+                    {paragraph}
                   </p>
-                </div>
-              )}
-
-              {/* Mobile Table of Contents */}
-              <div className="lg:hidden mb-8">
-                <TableOfContents content={article.content} />
+                ))}
               </div>
 
-              {/* Content */}
-              <ArticleContent content={article.content} />
-
               {/* Share Buttons */}
-              <div className="mt-12">
+              <div className="mt-8 pt-6 border-t border-border">
                 <ShareButtons
                   title={article.title}
                   url={typeof window !== "undefined" ? window.location.href : ""}
                 />
               </div>
 
-              {/* Navigation */}
-              <div className="mt-8 pt-8 border-t border-border flex justify-between items-center">
+              {/* Back Link */}
+              <div className="mt-6">
                 <Link
                   to="/artikel"
                   className="inline-flex items-center text-sm text-primary hover:text-primary/80 font-medium transition-colors"
                 >
                   ← Kembali ke Daftar Artikel
                 </Link>
-                <Button
-                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                  variant="outline"
-                  size="sm"
-                >
-                  ↑ Kembali ke Atas
-                </Button>
               </div>
             </article>
           </div>
