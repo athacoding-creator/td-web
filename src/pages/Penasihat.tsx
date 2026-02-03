@@ -10,9 +10,9 @@ const PengasuhPage = () => {
         <Header />
         <main className="flex-1">
           {/* Hero Section - Magazine Style */}
-          <section className="relative bg-primary overflow-hidden">
+          <section className="relative bg-gradient-to-br from-background via-secondary/30 to-background overflow-hidden">
             {/* Decorative Element */}
-            <div className="absolute left-0 top-0 w-16 h-full bg-accent/80" />
+            <div className="absolute left-0 top-0 w-16 h-full bg-gradient-to-b from-accent/60 to-accent/40" />
             
             <div className="relative z-10 px-4 py-8">
               {/* Title Badge */}
@@ -24,10 +24,10 @@ const PengasuhPage = () => {
               
               {/* Main Title */}
               <div className="text-center space-y-1 mb-6">
-                <h1 className="text-2xl font-heading font-bold text-primary-foreground leading-tight">
+                <h1 className="text-2xl font-heading font-bold text-foreground leading-tight">
                   SANG PENDIRI
                 </h1>
-                <h2 className="text-3xl font-heading font-black text-accent leading-tight">
+                <h2 className="text-3xl font-heading font-black text-primary leading-tight">
                   TERAS DAKWAH
                 </h2>
               </div>
@@ -45,10 +45,10 @@ const PengasuhPage = () => {
               
               {/* Founder Name */}
               <div className="text-center">
-                <p className="text-primary-foreground/80 text-sm">
+                <p className="text-muted-foreground text-sm">
                   Muhammad Achid Subiyanto
                 </p>
-                <p className="text-accent font-semibold text-lg">
+                <p className="text-primary font-semibold text-lg">
                   "Kang Achid"
                 </p>
               </div>
