@@ -104,15 +104,7 @@ const Header = () => {
                   className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200"
                 >
                   <User className="w-4 h-4" />
-                  <span>Penasihat</span>
-                </Link>
-                <Link
-                  to="/tentang"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200"
-                >
-                  <FileText className="w-4 h-4" />
-                  <span>Tentang TD</span>
+                  <span>Pengasuh</span>
                 </Link>
               </div>
             </div>
