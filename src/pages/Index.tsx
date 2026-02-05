@@ -7,6 +7,7 @@ import ProgramSection from "@/components/ProgramSection";
 import VideoSection from "@/components/VideoSection";
 import ArticleSection from "@/components/ArticleSection";
 import MobileLayout from "@/components/MobileLayout";
+ import ContactCTA from "@/components/ContactCTA";
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
           <VideoSection />
           <ArticleSection />
           <AboutSection />
+          <ContactCTA />
         </main>
         <Footer />
       </div>
