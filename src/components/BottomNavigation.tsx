@@ -13,9 +13,9 @@
    const location = useLocation();
  
    return (
-     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border shadow-lg">
+     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur border-t border-border/50 shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
        <div className="max-w-md mx-auto">
-         <div className="flex items-center justify-around py-2">
+         <div className="flex items-center justify-around py-1.5 px-1">
            {navItems.map((item) => {
              const Icon = item.icon;
              const isActive = location.pathname === item.path || 
@@ -25,14 +25,14 @@
                <Link
                  key={item.path}
                  to={item.path}
-                 className={`flex flex-col items-center justify-center min-w-[60px] py-1 px-2 rounded-lg transition-colors ${
+                  className={`flex flex-col items-center justify-center min-w-[56px] py-1 px-1.5 rounded-lg transition-all duration-200 ${
                    isActive
                      ? "text-primary"
-                     : "text-muted-foreground hover:text-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                  }`}
                >
-                 <Icon className={`w-5 h-5 mb-0.5 ${isActive ? "stroke-[2.5]" : ""}`} />
-                 <span className={`text-[10px] ${isActive ? "font-semibold" : "font-medium"}`}>
+                 <Icon className={`w-5 h-5 ${isActive ? "stroke-[2.5]" : ""}`} />
+                 <span className={`text-[9px] leading-tight mt-0.5 ${isActive ? "font-semibold" : "font-medium"}`}>
                    {item.name}
                  </span>
                </Link>
