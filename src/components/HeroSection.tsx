@@ -5,7 +5,7 @@ const HeroSection = () => {
   const heroImage = "https://res.cloudinary.com/dfjvcvbsn/image/upload/v1769567440/Teras-Dakwah-1130x650_dtvso1.jpg";
   
   return (
-    <section className="relative">
+    <section className="relative overflow-hidden">
       {/* Hero Background - Compact */}
       <div className="relative h-[35vh] overflow-hidden">
         <div 
@@ -20,9 +20,6 @@ const HeroSection = () => {
           <h1 className="text-2xl font-heading font-bold text-white leading-tight drop-shadow-lg">
             Yayasan Teras Dakwah Indonesia
           </h1>
-          <p className="text-sm text-white/95 font-light drop-shadow-md mt-2">
-            "Manfaat untuk Ummat!"
-          </p>
         </div>
       </div>
 
