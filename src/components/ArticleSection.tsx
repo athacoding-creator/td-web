@@ -57,12 +57,12 @@ const ArticleSection = () => {
                 className="group flex gap-3 bg-card border border-border rounded-lg overflow-hidden hover:shadow-md transition-all duration-300"
               >
                 {/* Image on Left */}
-                <div className="w-32 h-24 flex-shrink-0 bg-muted overflow-hidden">
+                <div className="w-32 flex-shrink-0 bg-muted overflow-hidden rounded-l-lg">
                   {article.image_url ? (
                     <img 
                       src={article.image_url} 
                       alt={article.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                      className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-300" 
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20" />
