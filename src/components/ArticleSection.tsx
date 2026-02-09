@@ -34,51 +34,51 @@ const ArticleSection = () => {
           </p>
         </div>
 
-        {/* Article Cards */}
+        {/* Article Cards - Compact Version */}
         {isLoading ? (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {[...Array(3)].map((_, i) => (
               <div key={i} className="flex gap-3">
-                <Skeleton className="w-32 h-24 rounded-lg flex-shrink-0" />
+                <Skeleton className="w-24 h-24 rounded-lg flex-shrink-0" />
                 <div className="flex-1 space-y-2">
+                  <Skeleton className="h-3 w-20" />
                   <Skeleton className="h-4 w-full" />
                   <Skeleton className="h-3 w-3/4" />
-                  <Skeleton className="h-3 w-1/2" />
                 </div>
               </div>
             ))}
           </div>
         ) : displayArticles.length > 0 ? (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {displayArticles.map((article) => (
               <Link
                 key={article.id}
                 to={`/artikel/${article.slug}`}
                 className="group flex gap-3 bg-card border border-border rounded-lg overflow-hidden hover:shadow-md transition-all duration-300"
               >
-                {/* Image on Left */}
-                <div className="w-32 flex-shrink-0 bg-muted overflow-hidden rounded-l-lg">
+                {/* Image on Left - Square, Full Display */}
+                <div className="w-24 h-24 flex-shrink-0 bg-muted overflow-hidden">
                   {article.image_url ? (
                     <img 
                       src={article.image_url} 
                       alt={article.title}
-                      className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-300" 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20" />
                   )}
                 </div>
                 
-                {/* Content on Right */}
-                <div className="flex-1 py-3 pr-3 flex flex-col justify-between min-w-0">
+                {/* Content on Right - Compact */}
+                <div className="flex-1 py-2.5 pr-3 flex flex-col justify-center min-w-0">
                   {/* Date */}
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-2">
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1.5">
                     <Calendar className="w-3 h-3" />
-                    <span>{formatDate(article.published_at || article.created_at)}</span>
+                    <span className="text-xs">{formatDate(article.published_at || article.created_at)}</span>
                   </div>
                   
                   {/* Title */}
-                  <h3 className="font-heading font-semibold text-sm text-foreground leading-tight line-clamp-2 mb-2 group-hover:text-primary transition-colors">
+                  <h3 className="font-heading font-semibold text-sm text-foreground leading-tight line-clamp-2 mb-1.5 group-hover:text-primary transition-colors">
                     {article.title}
                   </h3>
                   
