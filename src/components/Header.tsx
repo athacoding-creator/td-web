@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Mail, Phone } from "lucide-react";
-import tdLogo from "@/assets/td-logo.png";
+const tdLogo = "https://res.cloudinary.com/dfjvcvbsn/image/upload/v1768960205/TD_Logo_Resmi_qae5bg.png";
 
 const Header = () => {
   const [isVisible, setIsVisible] = useState(true);
