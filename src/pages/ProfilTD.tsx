@@ -23,7 +23,7 @@ const ProfilTDPage = () => {
               <h1 className="text-3xl font-heading font-bold text-foreground mb-3">
                 Profil Teras Dakwah
               </h1>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-foreground leading-relaxed">
                 Mengenal lebih dekat perjalanan dan visi misi Yayasan Teras Dakwah
               </p>
             </div>
@@ -32,7 +32,6 @@ const ProfilTDPage = () => {
           {/* Sejarah Section */}
           <section className="py-8 bg-background">
             <div className="px-4">
-              {/* Image */}
               <div className="relative rounded-xl overflow-hidden shadow-md mb-4">
                 <img 
                   src={sejarah?.image_url || heroMosque} 
@@ -41,7 +40,6 @@ const ProfilTDPage = () => {
                 />
               </div>
               
-              {/* Content */}
               <div className="bg-card rounded-xl p-5 shadow-sm border border-border">
                 {isLoading ? (
                   <>
@@ -60,7 +58,7 @@ const ProfilTDPage = () => {
                       <span className="text-foreground font-semibold text-sm"> • Diresmikan</span>
                     </div>
                     
-                    <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+                    <div className="space-y-3 text-sm text-foreground leading-relaxed">
                       {sejarah?.content ? (
                         sejarah.content.split('\n\n').map((paragraph, idx) => (
                           <p key={idx}>{paragraph}</p>
@@ -68,7 +66,7 @@ const ProfilTDPage = () => {
                       ) : (
                         <>
                           <p>
-                            Teras Dakwah didirikan pada tahun 2014 sebagai wadah dakwah yang bertujuan untuk 
+                            <span className="font-bold">Teras Dakwah</span> didirikan pada tahun 2014 sebagai wadah dakwah yang bertujuan untuk 
                             menyebarkan nilai-nilai Islam yang rahmatan lil alamin. Berawal dari sebuah 
                             mimpi besar untuk menciptakan pusat dakwah yang modern dan nyaman, Teras Dakwah 
                             kini telah menjadi salah satu pusat kegiatan keislaman di Yogyakarta.
@@ -76,7 +74,7 @@ const ProfilTDPage = () => {
                           <p>
                             Dengan mengusung konsep arsitektur modern yang ramah lingkungan, Teras Dakwah 
                             hadir sebagai tempat yang tidak hanya nyaman untuk beribadah, tetapi juga 
-                            menjadi ruang belajar dan berdiskusi tentang Islam yang menyejukkan.
+                            menjadi <span className="font-bold">ruang belajar dan berdiskusi</span> tentang Islam yang menyejukkan.
                           </p>
                         </>
                       )}
@@ -90,7 +88,6 @@ const ProfilTDPage = () => {
           {/* Visi Misi Section */}
           <section className="py-8 bg-secondary/20">
             <div className="px-4">
-              {/* Image */}
               <div className="relative rounded-xl overflow-hidden shadow-md mb-4">
                 <img 
                   src={visi?.image_url || heroMosque} 
@@ -99,7 +96,6 @@ const ProfilTDPage = () => {
                 />
               </div>
               
-              {/* Content */}
               <div className="bg-card rounded-xl p-5 shadow-sm border border-border">
                 {isLoading ? (
                   <>
@@ -115,7 +111,7 @@ const ProfilTDPage = () => {
                     <div className="space-y-5">
                       <div>
                         <h3 className="text-lg font-semibold text-foreground mb-2">Visi</h3>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
+                        <p className="text-sm text-foreground leading-relaxed">
                           {visi?.content || "Menjadi pusat dakwah Islam yang rahmatan lil alamin, mencerahkan umat dengan ilmu dan akhlak mulia, serta menjadi rujukan dalam pembinaan karakter Islami yang bermanfaat bagi masyarakat."}
                         </p>
                       </div>
@@ -123,7 +119,7 @@ const ProfilTDPage = () => {
                       <div>
                         <h3 className="text-lg font-semibold text-foreground mb-2">Misi</h3>
                         {misi?.content ? (
-                          <ul className="space-y-2 text-sm text-muted-foreground leading-relaxed">
+                          <ul className="space-y-2 text-sm text-foreground leading-relaxed">
                             {misi.content.split('\n').map((item, idx) => (
                               <li key={idx} className="flex items-start gap-2">
                                 <span className="text-primary mt-0.5 flex-shrink-0">•</span>
@@ -132,7 +128,7 @@ const ProfilTDPage = () => {
                             ))}
                           </ul>
                         ) : (
-                          <ul className="space-y-2 text-sm text-muted-foreground leading-relaxed">
+                          <ul className="space-y-2 text-sm text-foreground leading-relaxed">
                             <li className="flex items-start gap-2">
                               <span className="text-primary mt-0.5 flex-shrink-0">•</span>
                               <span>Menyelenggarakan program kajian Islam yang berkualitas dan mudah dipahami</span>
@@ -166,7 +162,7 @@ const ProfilTDPage = () => {
                 <h2 className="text-2xl font-heading font-bold text-foreground mb-2">
                   Nilai-Nilai Kami
                 </h2>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm text-foreground leading-relaxed">
                   Prinsip-prinsip yang menjadi landasan setiap langkah dakwah Teras Dakwah
                 </p>
               </div>
@@ -177,8 +173,8 @@ const ProfilTDPage = () => {
                     <span className="text-xl">🤲</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-heading font-semibold text-base mb-1 text-foreground">Ikhlas</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    <h3 className="font-heading font-bold text-base mb-1 text-foreground">Ikhlas</h3>
+                    <p className="text-xs text-foreground leading-relaxed">
                       Setiap amal dakwah dilakukan semata-mata karena Allah SWT
                     </p>
                   </div>
@@ -189,8 +185,8 @@ const ProfilTDPage = () => {
                     <span className="text-xl">📚</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-heading font-semibold text-base mb-1 text-foreground">Ilmu</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    <h3 className="font-heading font-bold text-base mb-1 text-foreground">Ilmu</h3>
+                    <p className="text-xs text-foreground leading-relaxed">
                       Mengutamakan ilmu yang shahih berdasarkan Al-Quran dan Sunnah
                     </p>
                   </div>
@@ -201,8 +197,8 @@ const ProfilTDPage = () => {
                     <span className="text-xl">🤝</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-heading font-semibold text-base mb-1 text-foreground">Ukhuwah</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    <h3 className="font-heading font-bold text-base mb-1 text-foreground">Ukhuwah</h3>
+                    <p className="text-xs text-foreground leading-relaxed">
                       Membangun persaudaraan yang kuat antar sesama muslim
                     </p>
                   </div>
