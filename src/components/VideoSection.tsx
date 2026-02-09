@@ -1,8 +1,8 @@
 const VideoSection = () => {
   return (
-    <section className="py-10 bg-[#A4D65E]">
+    <section className="py-10 bg-primary">
       <div className="px-4">
-        <h2 className="text-xl font-heading font-bold text-gray-800 text-center mb-6 leading-tight">
+        <h2 className="text-xl font-heading font-bold text-primary-foreground text-center mb-6 leading-tight">
           Setiap Gerak untuk Umat, Setiap Amal untuk Akhirat
         </h2>
         

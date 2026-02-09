@@ -5,13 +5,13 @@ const AboutSection = () => {
         <h2 className="text-2xl font-heading font-semibold text-foreground text-center mb-8">Tentang Kami</h2>
         
         <div className="space-y-4">
-          <p className="text-sm text-muted-foreground leading-relaxed text-center">
-            <span className="font-bold text-foreground">Teras Dakwah</span> adalah wadah dakwah yang mengusung konsep terbuka, sederhana, dan merangkul semua kalangan, dengan keyakinan bahwa dakwah dapat dimulai dari tempat yang dekat dan nyaman bagi masyarakat.
+          <p className="text-sm text-foreground leading-relaxed text-center">
+            <span className="font-bold">Teras Dakwah</span> adalah wadah dakwah yang mengusung konsep terbuka, sederhana, dan merangkul semua kalangan, dengan keyakinan bahwa dakwah dapat dimulai dari tempat yang dekat dan nyaman bagi masyarakat.
           </p>
-          <p className="text-sm text-muted-foreground leading-relaxed text-center">
-            Hadir sebagai <span className="font-bold text-foreground">ruang kajian yang ramah dan relevan bagi anak muda</span>, Teras Dakwah memudahkan umat khususnya masyarakat awam mempelajari Islam secara kaffah berdasarkan Al-Qur'an dan Sunnah tanpa rasa minder atau kaku, sekaligus menjadi pemersatu umat Islam lintas harokah.
+          <p className="text-sm text-foreground leading-relaxed text-center">
+            Hadir sebagai <span className="font-bold">ruang kajian yang ramah dan relevan bagi anak muda</span>, Teras Dakwah memudahkan umat khususnya masyarakat awam mempelajari Islam secara kaffah berdasarkan Al-Qur'an dan Sunnah tanpa rasa minder atau kaku, sekaligus menjadi pemersatu umat Islam lintas harokah.
           </p>
-          <p className="text-sm text-muted-foreground leading-relaxed text-center">
+          <p className="text-sm text-foreground leading-relaxed text-center">
             Berawal dari tiga penggerak, Teras Dakwah berkembang menjadi gerakan dakwah yang aktif melalui kajian, program sosial, pembinaan desa, dan sinergi dengan berbagai lembaga, dengan harapan menjadi inspirasi dakwah Nusantara yang bermakna meski berangkat dari kesederhanaan.
           </p>
         </div>
@@ -26,7 +26,7 @@ const AboutSection = () => {
             </div>
             <div>
               <h3 className="font-heading font-bold text-sm text-foreground">Dakwah</h3>
-              <p className="text-xs text-muted-foreground">Menyebarkan nilai-nilai Islam berdasarkan Al-Qur'an dan Sunnah</p>
+              <p className="text-xs text-foreground">Menyebarkan nilai-nilai Islam berdasarkan Al-Qur'an dan Sunnah</p>
             </div>
           </div>
 
@@ -38,7 +38,7 @@ const AboutSection = () => {
             </div>
             <div>
               <h3 className="font-heading font-bold text-sm text-foreground">Pendidikan Islam</h3>
-              <p className="text-xs text-muted-foreground">Memfasilitasi pembelajaran agama bagi semua kalangan</p>
+              <p className="text-xs text-foreground">Memfasilitasi pembelajaran agama bagi semua kalangan</p>
             </div>
           </div>
 
@@ -50,7 +50,7 @@ const AboutSection = () => {
             </div>
             <div>
               <h3 className="font-heading font-bold text-sm text-foreground">Sosial & Kemanusiaan</h3>
-              <p className="text-xs text-muted-foreground">Berkontribusi nyata untuk kesejahteraan umat</p>
+              <p className="text-xs text-foreground">Berkontribusi nyata untuk kesejahteraan umat</p>
             </div>
           </div>
         </div>

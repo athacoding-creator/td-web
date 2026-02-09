@@ -38,7 +38,7 @@ const ArtikelPage = () => {
               <h1 className="text-3xl font-heading font-bold text-foreground mb-3">
                 Berita dan Artikel
               </h1>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-foreground leading-relaxed">
                 Jadilah penyebar cahaya kebaikan. Simak berita dan artikel terbaru dari kami!
               </p>
             </div>
@@ -107,7 +107,7 @@ const ArtikelPage = () => {
                         </h3>
                         
                         {/* Excerpt */}
-                        <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+                        <p className="text-xs text-foreground leading-relaxed line-clamp-2">
                           {article.excerpt || "Baca artikel lengkap untuk mengetahui lebih lanjut tentang topik ini."}
                         </p>
                       </div>

@@ -14,9 +14,9 @@
            Ada Pertanyaan?
          </h3>
          
-         <p className="text-sm text-muted-foreground max-w-xs mx-auto">
-           Hubungi kami untuk informasi lebih lanjut tentang program dan kegiatan Teras Dakwah
-         </p>
+          <p className="text-sm text-foreground max-w-xs mx-auto">
+            Hubungi kami untuk informasi lebih lanjut tentang program dan kegiatan Teras Dakwah
+          </p>
          
          <Link to="/contact">
            <Button className="mt-2 gap-2">

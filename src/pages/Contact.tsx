@@ -57,7 +57,7 @@ const ContactPage = () => {
               <h1 className="text-3xl font-heading font-bold text-foreground mb-3">
                 Hubungi Kami
               </h1>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-foreground leading-relaxed">
                 Kami senang mendengar dari Anda. Silakan hubungi kami untuk pertanyaan, saran, atau kerjasama.
               </p>
             </div>
@@ -76,7 +76,7 @@ const ContactPage = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold text-sm text-foreground mb-1">Alamat</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    <p className="text-xs text-foreground leading-relaxed">
                       Jl. Kaliurang KM 5.5, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281
                     </p>
                   </div>
@@ -118,7 +118,7 @@ const ContactPage = () => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold text-sm text-foreground mb-1">Jam Operasional</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                    <p className="text-xs text-foreground leading-relaxed">
                       Senin - Jumat: 08:00 - 17:00<br />
                       Sabtu: 08:00 - 12:00
                     </p>
