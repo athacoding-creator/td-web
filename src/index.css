@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,50 +6,50 @@
 
 @layer base {
   :root {
-    /* Warm Islamic theme - inspired by sunset/dawn */
-    --background: 30 25% 97%;
-    --foreground: 30 10% 15%;
+    /* Parchment/Blue/Emerald palette */
+    --background: 40 33% 96%;
+    --foreground: 216 44% 14%;
 
-    --card: 30 20% 99%;
-    --card-foreground: 30 10% 15%;
+    --card: 0 33% 99%;
+    --card-foreground: 216 44% 14%;
 
-    --popover: 30 20% 99%;
-    --popover-foreground: 30 10% 15%;
+    --popover: 0 33% 99%;
+    --popover-foreground: 216 44% 14%;
 
-    /* Deep forest green - Islamic */
-    --primary: 160 45% 22%;
-    --primary-foreground: 30 25% 97%;
+    /* Dark Emerald - primary */
+    --primary: 155 78% 24%;
+    --primary-foreground: 40 33% 96%;
 
-    /* Warm cream */
-    --secondary: 35 30% 93%;
-    --secondary-foreground: 30 10% 20%;
+    /* Light parchment */
+    --secondary: 40 25% 93%;
+    --secondary-foreground: 216 44% 14%;
 
-    --muted: 35 20% 90%;
-    --muted-foreground: 30 10% 45%;
+    --muted: 40 15% 90%;
+    --muted-foreground: 216 20% 45%;
 
-    /* Warm amber/gold accent */
-    --accent: 35 85% 55%;
-    --accent-foreground: 30 10% 10%;
+    /* Cool Horizon blue accent */
+    --accent: 214 90% 71%;
+    --accent-foreground: 216 44% 14%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 35 20% 88%;
-    --input: 35 20% 88%;
-    --ring: 160 45% 22%;
+    --border: 40 15% 88%;
+    --input: 40 15% 88%;
+    --ring: 155 78% 24%;
 
     --radius: 0.5rem;
 
     /* Custom colors for dakwah theme */
-    --hero-gradient-start: 25 80% 35%;
-    --hero-gradient-end: 30 70% 25%;
-    --hero-text: 35 30% 95%;
+    --hero-gradient-start: 216 44% 14%;
+    --hero-gradient-end: 216 50% 10%;
+    --hero-text: 40 33% 96%;
     
-    --footer-bg: 30 15% 12%;
-    --footer-text: 35 20% 85%;
+    --footer-bg: 216 44% 14%;
+    --footer-text: 40 20% 85%;
     
-    --cta-gradient-start: 160 50% 30%;
-    --cta-gradient-end: 165 55% 22%;
+    --cta-gradient-start: 155 78% 24%;
+    --cta-gradient-end: 155 78% 18%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -62,42 +62,42 @@
   }
 
   .dark {
-    --background: 30 15% 8%;
-    --foreground: 35 20% 95%;
+    --background: 216 44% 8%;
+    --foreground: 40 33% 96%;
 
-    --card: 30 15% 10%;
-    --card-foreground: 35 20% 95%;
+    --card: 216 40% 10%;
+    --card-foreground: 40 33% 96%;
 
-    --popover: 30 15% 10%;
-    --popover-foreground: 35 20% 95%;
+    --popover: 216 40% 10%;
+    --popover-foreground: 40 33% 96%;
 
-    --primary: 160 40% 45%;
-    --primary-foreground: 30 15% 8%;
+    --primary: 155 60% 40%;
+    --primary-foreground: 216 44% 8%;
 
-    --secondary: 30 15% 18%;
-    --secondary-foreground: 35 20% 95%;
+    --secondary: 216 30% 18%;
+    --secondary-foreground: 40 33% 96%;
 
-    --muted: 30 15% 18%;
-    --muted-foreground: 35 15% 60%;
+    --muted: 216 30% 18%;
+    --muted-foreground: 40 15% 60%;
 
-    --accent: 35 85% 55%;
-    --accent-foreground: 30 10% 10%;
+    --accent: 214 90% 71%;
+    --accent-foreground: 216 44% 14%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 30 15% 20%;
-    --input: 30 15% 20%;
-    --ring: 160 40% 45%;
+    --border: 216 30% 20%;
+    --input: 216 30% 20%;
+    --ring: 155 60% 40%;
 
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 216 44% 10%;
+    --sidebar-foreground: 40 33% 96%;
+    --sidebar-primary: 214 76% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 216 30% 16%;
+    --sidebar-accent-foreground: 40 33% 96%;
+    --sidebar-border: 216 30% 16%;
+    --sidebar-ring: 214 90% 60%;
   }
 }
 
@@ -132,13 +132,13 @@
   .cta-gradient {
     background: linear-gradient(
       135deg,
-      hsl(160 50% 30%) 0%,
-      hsl(165 55% 22%) 100%
+      hsl(155 78% 24%) 0%,
+      hsl(155 78% 18%) 100%
     );
   }
 
   .footer-bg {
-    background-color: hsl(30 15% 12%);
+    background-color: hsl(216 44% 14%);
   }
 
   .section-title {
