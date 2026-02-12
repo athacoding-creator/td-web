@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,13 +13,23 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
+  type CarouselApi,
 } from "@/components/ui/carousel";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const ProgramSection = () => {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const { data: programs, isLoading } = usePrograms();
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [slideCount, setSlideCount] = useState(0);
+
+  useEffect(() => {
+    if (!carouselApi) return;
+    setSlideCount(carouselApi.scrollSnapList().length);
+    setCurrentSlide(carouselApi.selectedScrollSnap());
+    carouselApi.on("select", () => setCurrentSlide(carouselApi.selectedScrollSnap()));
+  }, [carouselApi]);
 
   const displayPrograms = programs?.slice(0, 6) || [];
 
@@ -66,6 +76,25 @@ const ProgramSection = () => {
                 <span className="text-xs text-center text-foreground font-medium line-clamp-2 leading-tight">
                   {program.title}
                 </span>
+                
+                {/* Metadata */}
+                <div className="flex flex-col items-center gap-1 w-full">
+                  {program.category && (
+                    <span className="inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
+                      {program.category}
+                    </span>
+                  )}
+                  {program.speaker && (
+                    <span className="text-[10px] text-center text-foreground font-semibold line-clamp-1">
+                      {program.speaker}
+                    </span>
+                  )}
+                  {program.event_date && (
+                    <span className="text-[10px] text-center text-muted-foreground font-medium">
+                      {program.event_date}
+                    </span>
+                  )}
+                </div>
               </button>
             ))}
           </div>
@@ -101,28 +130,60 @@ const ProgramSection = () => {
                 {selectedProgram.images && selectedProgram.images.length > 0 && (
                   <div>
                     <h4 className="font-semibold text-base text-foreground mb-3">Dokumentasi Kegiatan</h4>
-                    <div className="relative">
-                      <Carousel className="w-full">
-                        <CarouselContent className="ml-0">
-                          {selectedProgram.images.map((img, idx) => (
-                            <CarouselItem key={idx} className="pl-0 basis-full">
-                              <div className="aspect-video rounded-lg overflow-hidden border border-border shadow-sm">
-                                <img 
-                                  src={img} 
-                                  alt={`${selectedProgram.title} - Dokumentasi ${idx + 1}`} 
-                                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" 
-                                />
-                              </div>
-                            </CarouselItem>
+                    <div className="space-y-3">
+                      <div className="relative">
+                        <Carousel className="w-full" setApi={setCarouselApi}>
+                          <CarouselContent className="ml-0">
+                            {selectedProgram.images.map((img, idx) => (
+                              <CarouselItem key={idx} className="pl-0 basis-full">
+                                <div className="aspect-video rounded-lg overflow-hidden border border-border shadow-sm">
+                                  <img 
+                                    src={img} 
+                                    alt={`${selectedProgram.title} - Dokumentasi ${idx + 1}`} 
+                                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" 
+                                  />
+                                </div>
+                              </CarouselItem>
+                            ))}
+                          </CarouselContent>
+                          {selectedProgram.images.length > 1 && (
+                            <>
+                              <button
+                                onClick={() => carouselApi?.scrollPrev()}
+                                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm text-foreground flex items-center justify-center hover:bg-white transition-all shadow-lg border-2 border-border hover:border-primary z-10"
+                                aria-label="Previous image"
+                              >
+                                <ChevronLeft className="w-6 h-6" />
+                              </button>
+                              <button
+                                onClick={() => carouselApi?.scrollNext()}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm text-foreground flex items-center justify-center hover:bg-white transition-all shadow-lg border-2 border-border hover:border-primary z-10"
+                                aria-label="Next image"
+                              >
+                                <ChevronRight className="w-6 h-6" />
+                              </button>
+                            </>
+                          )}
+                        </Carousel>
+                      </div>
+                      
+                      {/* Dots Indicator */}
+                      {slideCount > 1 && (
+                        <div className="flex justify-center gap-2">
+                          {Array.from({ length: slideCount }).map((_, i) => (
+                            <button
+                              key={i}
+                              onClick={() => carouselApi?.scrollTo(i)}
+                              className={`transition-all duration-300 rounded-full ${
+                                i === currentSlide 
+                                  ? 'w-8 h-3 bg-primary' 
+                                  : 'w-3 h-3 bg-border hover:bg-muted-foreground/30'
+                              }`}
+                              aria-label={`Go to slide ${i + 1}`}
+                            />
                           ))}
-                        </CarouselContent>
-                        {selectedProgram.images.length > 1 && (
-                          <>
-                            <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12" />
-                            <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12" />
-                          </>
-                        )}
-                      </Carousel>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
