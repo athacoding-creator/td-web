@@ -136,11 +136,11 @@
  
          {/* Detail Modal */}
          <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-           <DialogContent className="max-w-[calc(100%-2rem)] max-h-[80vh] overflow-y-auto mx-4 rounded-xl p-4">
+           <DialogContent className="max-w-[calc(100%-2rem)] max-h-[80vh] overflow-y-auto overflow-x-hidden mx-4 rounded-xl p-4">
              {selectedCampaign && (
                <>
                  <DialogHeader className="pb-2">
-                   <DialogTitle className="text-sm font-heading font-bold pr-6 leading-tight">
+                   <DialogTitle className="text-sm font-heading font-bold pr-6 leading-tight break-words">
                      {selectedCampaign.title}
                    </DialogTitle>
                  </DialogHeader>
@@ -158,7 +158,7 @@
  
                  {/* Description */}
                  <div className="space-y-3 mt-2">
-                   <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-3">
+                   <p className="text-[11px] text-muted-foreground leading-relaxed break-words overflow-wrap-anywhere">
                      {selectedCampaign.description}
                    </p>
  
