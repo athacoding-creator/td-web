@@ -3,7 +3,7 @@ import tdLogoFull from "@/assets/td-logo-full.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-[#0a1628] to-[#0f2744] pt-10 pb-4">
+    <footer className="bg-gradient-to-r from-[#0a1628] to-[#0f2744] pt-10 pb-0">
       <div className="px-4">
         <div className="space-y-6">
           {/* Brand */}
@@ -51,7 +51,7 @@ const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <div className="mt-6 pt-3 border-t border-white/10">
+        <div className="mt-6 pt-3 pb-4 border-t border-white/10">
           <p className="text-center text-white/50 text-[10px] leading-tight">
             © 2014 Teras Dakwah. All Rights Reserved.
           </p>
