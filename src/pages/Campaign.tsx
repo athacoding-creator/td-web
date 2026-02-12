@@ -143,11 +143,11 @@
  
          {/* Detail Modal */}
          <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-           <DialogContent className="max-w-[calc(100%-2rem)] max-h-[80vh] overflow-y-auto overflow-x-hidden mx-4 rounded-xl p-4">
+           <DialogContent className="max-w-md w-[calc(100%-2rem)] max-h-[85vh] overflow-y-auto overflow-x-hidden mx-auto rounded-xl p-3">
              {selectedCampaign && (
                <>
-                 <DialogHeader className="pb-2">
-                   <DialogTitle className="text-sm font-heading font-bold pr-6 leading-tight break-words">
+                <DialogHeader className="pb-2">
+                  <DialogTitle className="text-xs font-heading font-bold pr-6 leading-tight break-words">
                      {selectedCampaign.title}
                    </DialogTitle>
                  </DialogHeader>
@@ -155,23 +155,23 @@
                  {/* Image */}
                  {selectedCampaign.image_url && (
                    <div className="rounded-lg overflow-hidden bg-muted">
-                     <img
-                       src={selectedCampaign.image_url}
-                       alt={selectedCampaign.title}
-                       className="w-full h-auto max-h-[180px] object-cover"
-                     />
+                    <img
+                      src={selectedCampaign.image_url}
+                      alt={selectedCampaign.title}
+                      className="w-full h-auto max-h-[160px] object-cover"
+                    />
                    </div>
                  )}
  
                  {/* Description */}
-                 <div className="space-y-3 mt-2">
-                   <p className="text-[11px] text-muted-foreground leading-relaxed break-words overflow-wrap-anywhere">
+                 <div className="space-y-2.5 mt-2">
+                   <p className="text-[10px] text-muted-foreground leading-relaxed break-words overflow-wrap-anywhere">
                      {selectedCampaign.description}
                    </p>
  
                    {/* Progress Section */}
                    {selectedCampaign.target_amount && (
-                     <div className="bg-muted/50 p-3 rounded-lg">
+                     <div className="bg-muted/50 p-2.5 rounded-lg">
                        <Progress
                          value={calculateProgress(
                            selectedCampaign.collected_amount,
