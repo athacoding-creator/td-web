@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileLayout from "@/components/MobileLayout";
@@ -14,13 +14,23 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
+  type CarouselApi,
 } from "@/components/ui/carousel";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const ProgramPage = () => {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const { data: programs, isLoading, error } = usePrograms();
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [slideCount, setSlideCount] = useState(0);
+
+  useEffect(() => {
+    if (!carouselApi) return;
+    setSlideCount(carouselApi.scrollSnapList().length);
+    setCurrentSlide(carouselApi.selectedScrollSnap());
+    carouselApi.on("select", () => setCurrentSlide(carouselApi.selectedScrollSnap()));
+  }, [carouselApi]);
 
   return (
     <MobileLayout>
@@ -118,7 +128,7 @@ const ProgramPage = () => {
                   <div>
                     <h4 className="font-semibold text-base text-foreground mb-3">Dokumentasi Kegiatan</h4>
                     <div className="relative">
-                      <Carousel className="w-full">
+                      <Carousel className="w-full" setApi={setCarouselApi}>
                         <CarouselContent className="ml-0">
                           {selectedProgram.images.map((img, idx) => (
                             <CarouselItem key={idx} className="pl-0 basis-full">
@@ -134,42 +144,33 @@ const ProgramPage = () => {
                         </CarouselContent>
                         {selectedProgram.images.length > 1 && (
                           <>
-                            <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12" />
-                            <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12" />
+                            <button
+                              onClick={() => carouselApi?.scrollPrev()}
+                              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+                            >
+                              <ChevronLeft className="w-5 h-5" />
+                            </button>
+                            <button
+                              onClick={() => carouselApi?.scrollNext()}
+                              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+                            >
+                              <ChevronRight className="w-5 h-5" />
+                            </button>
                           </>
                         )}
                       </Carousel>
+                      {slideCount > 1 && (
+                        <div className="flex justify-center gap-1.5 mt-3">
+                          {Array.from({ length: slideCount }).map((_, i) => (
+                            <button
+                              key={i}
+                              onClick={() => carouselApi?.scrollTo(i)}
+                              className={`w-2 h-2 rounded-full transition-colors ${i === currentSlide ? 'bg-primary' : 'bg-border'}`}
+                            />
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  </div>
-                )}
-
-                {/* Speaker and Event Date Section */}
-                {(selectedProgram.speaker || selectedProgram.event_date) && (
-                  <div className="flex flex-col gap-2 pt-3 pb-2">
-                    <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20 w-fit">
-                      {selectedProgram.category}
-                    </span>
-                    
-                    {selectedProgram.speaker && (
-                      <span className="text-sm font-semibold text-foreground">
-                        {selectedProgram.speaker}
-                      </span>
-                    )}
-                    
-                    {selectedProgram.event_date && (
-                      <span className="text-sm font-medium text-muted-foreground">
-                        {selectedProgram.event_date}
-                      </span>
-                    )}
-                  </div>
-                )}
-                
-                {/* Category only if no speaker/date */}
-                {!selectedProgram.speaker && !selectedProgram.event_date && (
-                  <div className="pt-3">
-                    <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
-                      {selectedProgram.category}
-                    </span>
                   </div>
                 )}
               </div>
