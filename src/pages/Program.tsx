@@ -134,8 +134,8 @@ const ProgramPage = () => {
                         </CarouselContent>
                         {selectedProgram.images.length > 1 && (
                           <>
-                            <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12" />
-                            <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12" />
+                            <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2" />
+                            <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2" />
                           </>
                         )}
                       </Carousel>

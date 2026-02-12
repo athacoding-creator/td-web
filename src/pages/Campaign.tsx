@@ -51,14 +51,14 @@
        <div className="min-h-screen flex flex-col">
          <Header />
          <main className="flex-1">
-           {/* Hero - Compact */}
-           <section className="py-5 bg-background border-b border-border">
-             <div className="px-4">
-               <h1 className="text-lg font-heading font-bold text-foreground">
-                 Campaign Dakwah
-               </h1>
-             </div>
-           </section>
+          {/* Hero - Compact */}
+          <section className="py-5 bg-background border-b border-border">
+            <div className="px-4">
+              <h1 className="text-lg font-heading font-bold text-foreground text-center">
+                Campaign Dakwah
+              </h1>
+            </div>
+          </section>
  
            {/* Campaign List */}
            <section className="py-4 px-3 bg-muted/30">
