@@ -77,7 +77,7 @@ const ContactPage = () => {
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold text-sm text-foreground mb-1">Alamat</h3>
                     <p className="text-xs text-foreground leading-relaxed">
-                      Jl. Kaliurang KM 5.5, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281
+                      Nitikan UH VI / 413 Jogjakarta, RT.41/RW.11, Sorosutan, Kec. Umbulharjo, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55162
                     </p>
                   </div>
                 </div>
