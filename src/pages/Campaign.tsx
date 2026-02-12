@@ -110,16 +110,23 @@
                            {campaign.title}
                          </h3>
  
-                         {/* Amount */}
-                         <div className="mb-2">
-                           <span className="text-[9px] text-muted-foreground">Terkumpul </span>
-                           <span className="text-[11px] font-bold text-[#ff4081]">
-                             {formatCurrency(campaign.collected_amount, true)}
-                           </span>
-                         </div>
- 
-                         {/* Progress Bar */}
-                         <Progress value={progress} className="h-1 bg-muted" />
+                        {/* Amount */}
+                        <div className="mb-1.5">
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-[9px] text-muted-foreground">Terkumpul</span>
+                            <span className="text-[11px] font-bold text-primary">
+                              {formatCurrency(campaign.collected_amount, true)}
+                            </span>
+                          </div>
+                          {campaign.target_amount && (
+                            <div className="text-[9px] text-muted-foreground mt-0.5">
+                              dari {formatCurrency(campaign.target_amount, true)}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Progress Bar */}
+                        <Progress value={progress} className="h-1.5 bg-muted" />
                        </div>
                      </div>
                    );
