@@ -4,7 +4,6 @@ import Footer from "@/components/Footer";
 import MobileLayout from "@/components/MobileLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useContactMessages } from "@/hooks/useContactMessages";
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
@@ -14,28 +13,74 @@ const ContactPage = () => {
     name: "",
     email: "",
     phone: "",
-    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { submitMessage } = useContactMessages();
 
+  // Template pesan otomatis
+  const messageTemplate = "Assalamualaikum kak\nSaya ingin bertanya lebih lanjut terkait informasi dari web Teras Dakwah😁";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validasi nomor telepon wajib diisi
+    if (!formData.phone || formData.phone.trim() === "") {
+      toast.error("Nomor telepon wajib diisi", {
+        description: "Mohon masukkan nomor telepon Anda untuk melanjutkan ke WhatsApp.",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     
     try {
+      // Simpan ke database dengan template message
       await submitMessage({
         name: formData.name,
         email: formData.email,
-        phone: formData.phone || undefined,
-        message: formData.message,
+        phone: formData.phone,
+        message: messageTemplate,
       });
       
-      toast.success("Pesan terkirim!", {
-        description: "Terima kasih telah menghubungi kami. Kami akan segera merespons pesan Anda dalam 1x24 jam.",
+      // Format nomor telepon untuk WhatsApp (hapus karakter non-digit)
+      let whatsappNumber = formData.phone.replace(/\D/g, "");
+      
+      // Tambahkan kode negara jika belum ada
+      if (!whatsappNumber.startsWith("62")) {
+        if (whatsappNumber.startsWith("0")) {
+          whatsappNumber = "62" + whatsappNumber.substring(1);
+        } else {
+          whatsappNumber = "62" + whatsappNumber;
+        }
+      }
+      
+      // Buat pesan WhatsApp dengan data user
+      const whatsappMessage = `${messageTemplate}
+
+Nama: ${formData.name}
+Email: ${formData.email}
+Nomor Telepon: ${formData.phone}`;
+      
+      // Encode message untuk URL
+      const encodedMessage = encodeURIComponent(whatsappMessage);
+      
+      // Nomor WhatsApp Teras Dakwah
+      const adminWhatsApp = "6285320307766";
+      
+      // Redirect ke WhatsApp
+      const whatsappUrl = `https://wa.me/${adminWhatsApp}?text=${encodedMessage}`;
+      
+      toast.success("Data berhasil disimpan!", {
+        description: "Anda akan diarahkan ke WhatsApp...",
       });
       
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      // Delay sedikit agar toast terlihat, lalu redirect
+      setTimeout(() => {
+        window.open(whatsappUrl, "_blank");
+      }, 1000);
+      
+      // Reset form
+      setFormData({ name: "", email: "", phone: "" });
     } catch (error) {
       console.error("Error submitting message:", error);
       toast.error("Gagal mengirim pesan", {
@@ -166,6 +211,15 @@ const ContactPage = () => {
               <h2 className="text-xl font-heading font-semibold text-foreground mb-4">
                 Kirim Pesan
               </h2>
+              
+              {/* Template Message Preview */}
+              <div className="mb-4 p-4 bg-primary/5 border border-primary/20 rounded-lg">
+                <p className="text-xs font-medium text-primary mb-2">📱 Template Pesan:</p>
+                <p className="text-xs text-foreground leading-relaxed whitespace-pre-line">
+                  {messageTemplate}
+                </p>
+              </div>
+
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
@@ -201,7 +255,7 @@ const ContactPage = () => {
 
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
-                    Nomor Telepon <span className="text-muted-foreground text-xs">(Opsional)</span>
+                    Nomor Telepon <span className="text-destructive">*</span>
                   </label>
                   <Input
                     id="phone"
@@ -209,25 +263,13 @@ const ContactPage = () => {
                     placeholder="Masukkan nomor telepon Anda"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    required
                     disabled={isSubmitting}
                     className="text-sm"
                   />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                    Pesan <span className="text-destructive">*</span>
-                  </label>
-                  <Textarea
-                    id="message"
-                    placeholder="Tulis pesan Anda di sini..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    required
-                    disabled={isSubmitting}
-                    rows={5}
-                    className="text-sm resize-none"
-                  />
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Contoh: 0812345678 atau +628123456789
+                  </p>
                 </div>
                 
                 <Button 
@@ -236,8 +278,12 @@ const ContactPage = () => {
                   className="w-full"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? "Mengirim..." : "Kirim Pesan"}
+                  {isSubmitting ? "Memproses..." : "Kirim Pesan"}
                 </Button>
+                
+                <p className="text-xs text-center text-muted-foreground">
+                  Setelah submit, Anda akan diarahkan ke WhatsApp untuk melanjutkan percakapan
+                </p>
               </form>
             </div>
           </section>
