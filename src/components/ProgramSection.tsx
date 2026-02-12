@@ -9,6 +9,13 @@ import {
 } from "@/components/ui/dialog";
 import { usePrograms, Program } from "@/hooks/usePrograms";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
 
 const ProgramSection = () => {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
@@ -94,16 +101,28 @@ const ProgramSection = () => {
                 {selectedProgram.images && selectedProgram.images.length > 0 && (
                   <div>
                     <h4 className="font-semibold text-base text-foreground mb-3">Dokumentasi Kegiatan</h4>
-                    <div className="grid grid-cols-1 gap-3">
-                      {selectedProgram.images.map((img, idx) => (
-                        <div key={idx} className="aspect-video rounded-lg overflow-hidden border border-border shadow-sm">
-                          <img 
-                            src={img} 
-                            alt={`${selectedProgram.title} - Dokumentasi ${idx + 1}`} 
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" 
-                          />
-                        </div>
-                      ))}
+                    <div className="relative">
+                      <Carousel className="w-full">
+                        <CarouselContent className="ml-0">
+                          {selectedProgram.images.map((img, idx) => (
+                            <CarouselItem key={idx} className="pl-0 basis-full">
+                              <div className="aspect-video rounded-lg overflow-hidden border border-border shadow-sm">
+                                <img 
+                                  src={img} 
+                                  alt={`${selectedProgram.title} - Dokumentasi ${idx + 1}`} 
+                                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" 
+                                />
+                              </div>
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                        {selectedProgram.images.length > 1 && (
+                          <>
+                            <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12" />
+                            <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12" />
+                          </>
+                        )}
+                      </Carousel>
                     </div>
                   </div>
                 )}
