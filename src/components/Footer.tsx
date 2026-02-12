@@ -3,7 +3,7 @@ import tdLogoFull from "@/assets/td-logo-full.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-[#0a1628] to-[#0f2744] pt-10 pb-0">
+    <footer className="bg-gradient-to-r from-[#0a1628] to-[#0f2744] pt-10 pb-16">
       <div className="px-4">
         <div className="space-y-6">
           {/* Brand */}
