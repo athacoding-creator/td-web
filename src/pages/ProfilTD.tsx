@@ -156,81 +156,91 @@ const ProfilTDPage = () => {
           </section>
 
           {/* Nilai Teras Dakwah Section */}
-          <section className="py-8 bg-background">
+          <section className="py-10 bg-gradient-to-b from-primary/5 to-background">
             <div className="px-4">
-              <div className="text-center mb-6">
+              <div className="text-center mb-8">
                 <h2 className="text-2xl font-heading font-bold text-foreground mb-2">
                   Nilai Teras Dakwah
                 </h2>
-                <p className="text-sm text-foreground leading-relaxed">
-                  Prinsip-prinsip yang menjadi landasan setiap langkah dakwah Teras Dakwah
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Prinsip-prinsip yang menjadi landasan setiap langkah dakwah
                 </p>
               </div>
               
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {/* TABRAK DULU */}
-                <div className="bg-card rounded-lg p-4 border border-border">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-6 h-6 flex-shrink-0 rounded-full bg-primary flex items-center justify-center">
-                      <span className="text-white text-lg font-bold">✓</span>
+                <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl p-5 border-l-4 border-primary shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 flex-shrink-0 rounded-xl bg-primary shadow-md flex items-center justify-center">
+                      <span className="text-white text-2xl font-bold">✓</span>
                     </div>
-                    <h3 className="font-heading font-bold text-base text-foreground">TABRAK DULU</h3>
+                    <div className="flex-1">
+                      <h3 className="font-heading font-bold text-lg text-primary mb-1">TABRAK DULU</h3>
+                      <p className="text-sm text-foreground leading-relaxed">
+                        Ada peluang kebaikan, lakukan dulu, pikir belakangan
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-xs text-foreground leading-relaxed pl-8">
-                    Ada peluang kebaikan, lakukan dulu, pikir belakangan
-                  </p>
                 </div>
                 
                 {/* YAKIN */}
-                <div className="bg-card rounded-lg p-4 border border-border">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-6 h-6 flex-shrink-0 rounded-full bg-primary flex items-center justify-center">
-                      <span className="text-white text-lg font-bold">✓</span>
+                <div className="bg-gradient-to-r from-accent/10 to-accent/5 rounded-xl p-5 border-l-4 border-accent shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 flex-shrink-0 rounded-xl bg-accent shadow-md flex items-center justify-center">
+                      <span className="text-white text-2xl font-bold">✓</span>
                     </div>
-                    <h3 className="font-heading font-bold text-base text-foreground">YAKIN</h3>
+                    <div className="flex-1">
+                      <h3 className="font-heading font-bold text-lg text-accent mb-1">YAKIN</h3>
+                      <p className="text-sm text-foreground leading-relaxed">
+                        Sepenuh Hati, Luruskan Niat, Totalitas
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-xs text-foreground leading-relaxed pl-8">
-                    Sepenuh Hati, Luruskan Niat, Totalitas
-                  </p>
                 </div>
                 
                 {/* TAWAKAL */}
-                <div className="bg-card rounded-lg p-4 border border-border">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-6 h-6 flex-shrink-0 rounded-full bg-primary flex items-center justify-center">
-                      <span className="text-white text-lg font-bold">✓</span>
+                <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl p-5 border-l-4 border-primary shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 flex-shrink-0 rounded-xl bg-primary shadow-md flex items-center justify-center">
+                      <span className="text-white text-2xl font-bold">✓</span>
                     </div>
-                    <h3 className="font-heading font-bold text-base text-foreground">TAWAKAL</h3>
+                    <div className="flex-1">
+                      <h3 className="font-heading font-bold text-lg text-primary mb-1">TAWAKAL</h3>
+                      <p className="text-sm text-foreground leading-relaxed">
+                        Pasrah Kepada Allah, Apapun Hasil yang di dapat selalu BerPrasangka Baik
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-xs text-foreground leading-relaxed pl-8">
-                    Pasrah Kepada Allah, Apapun Hasil yang di dapat selalu BerPrasangka Baik
-                  </p>
                 </div>
                 
                 {/* PERBAIKI DIRI */}
-                <div className="bg-card rounded-lg p-4 border border-border">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-6 h-6 flex-shrink-0 rounded-full bg-primary flex items-center justify-center">
-                      <span className="text-white text-lg font-bold">✓</span>
+                <div className="bg-gradient-to-r from-accent/10 to-accent/5 rounded-xl p-5 border-l-4 border-accent shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 flex-shrink-0 rounded-xl bg-accent shadow-md flex items-center justify-center">
+                      <span className="text-white text-2xl font-bold">✓</span>
                     </div>
-                    <h3 className="font-heading font-bold text-base text-foreground">PERBAIKI DIRI</h3>
+                    <div className="flex-1">
+                      <h3 className="font-heading font-bold text-lg text-accent mb-1">PERBAIKI DIRI</h3>
+                      <p className="text-sm text-foreground leading-relaxed">
+                        Evaluasi: Strategi dan Rupiah
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-xs text-foreground leading-relaxed pl-8">
-                    Evaluasi: Strategi dan Rupiah
-                  </p>
                 </div>
                 
                 {/* SILATURAHMI */}
-                <div className="bg-card rounded-lg p-4 border border-border">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-6 h-6 flex-shrink-0 rounded-full bg-primary flex items-center justify-center">
-                      <span className="text-white text-lg font-bold">✓</span>
+                <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl p-5 border-l-4 border-primary shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 flex-shrink-0 rounded-xl bg-primary shadow-md flex items-center justify-center">
+                      <span className="text-white text-2xl font-bold">✓</span>
                     </div>
-                    <h3 className="font-heading font-bold text-base text-foreground">SILATURAHMI</h3>
+                    <div className="flex-1">
+                      <h3 className="font-heading font-bold text-lg text-primary mb-1">SILATURAHMI</h3>
+                      <p className="text-sm text-foreground leading-relaxed">
+                        Buka pintu Rezeki
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-xs text-foreground leading-relaxed pl-8">
-                    Buka pintu Rezeki
-                  </p>
                 </div>
               </div>
             </div>
