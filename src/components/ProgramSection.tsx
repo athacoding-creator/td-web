@@ -76,25 +76,6 @@ const ProgramSection = () => {
                 <span className="text-xs text-center text-foreground font-medium line-clamp-2 leading-tight">
                   {program.title}
                 </span>
-                
-                {/* Metadata */}
-                <div className="flex flex-col items-center gap-1 w-full">
-                  {program.category && (
-                    <span className="inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
-                      {program.category}
-                    </span>
-                  )}
-                  {program.speaker && (
-                    <span className="text-[10px] text-center text-foreground font-semibold line-clamp-1">
-                      {program.speaker}
-                    </span>
-                  )}
-                  {program.event_date && (
-                    <span className="text-[10px] text-center text-muted-foreground font-medium">
-                      {program.event_date}
-                    </span>
-                  )}
-                </div>
               </button>
             ))}
           </div>
