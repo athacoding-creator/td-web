@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,23 +13,13 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  type CarouselApi,
+  CarouselPrevious,
+  CarouselNext,
 } from "@/components/ui/carousel";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const ProgramSection = () => {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const { data: programs, isLoading } = usePrograms();
-  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [slideCount, setSlideCount] = useState(0);
-
-  useEffect(() => {
-    if (!carouselApi) return;
-    setSlideCount(carouselApi.scrollSnapList().length);
-    setCurrentSlide(carouselApi.selectedScrollSnap());
-    carouselApi.on("select", () => setCurrentSlide(carouselApi.selectedScrollSnap()));
-  }, [carouselApi]);
 
   const displayPrograms = programs?.slice(0, 6) || [];
 
@@ -76,25 +66,6 @@ const ProgramSection = () => {
                 <span className="text-xs text-center text-foreground font-medium line-clamp-2 leading-tight">
                   {program.title}
                 </span>
-                
-                {/* Metadata */}
-                <div className="flex flex-col items-center gap-1 w-full">
-                  {program.category && (
-                    <span className="inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
-                      {program.category}
-                    </span>
-                  )}
-                  {program.speaker && (
-                    <span className="text-[10px] text-center text-foreground font-semibold line-clamp-1">
-                      {program.speaker}
-                    </span>
-                  )}
-                  {program.event_date && (
-                    <span className="text-[10px] text-center text-muted-foreground font-medium">
-                      {program.event_date}
-                    </span>
-                  )}
-                </div>
               </button>
             ))}
           </div>
@@ -131,7 +102,7 @@ const ProgramSection = () => {
                   <div>
                     <h4 className="font-semibold text-base text-foreground mb-3">Dokumentasi Kegiatan</h4>
                     <div className="relative">
-                      <Carousel className="w-full" setApi={setCarouselApi}>
+                      <Carousel className="w-full">
                         <CarouselContent className="ml-0">
                           {selectedProgram.images.map((img, idx) => (
                             <CarouselItem key={idx} className="pl-0 basis-full">
@@ -147,33 +118,42 @@ const ProgramSection = () => {
                         </CarouselContent>
                         {selectedProgram.images.length > 1 && (
                           <>
-                            <button
-                              onClick={() => carouselApi?.scrollPrev()}
-                              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
-                            >
-                              <ChevronLeft className="w-5 h-5" />
-                            </button>
-                            <button
-                              onClick={() => carouselApi?.scrollNext()}
-                              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
-                            >
-                              <ChevronRight className="w-5 h-5" />
-                            </button>
+                            <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12" />
+                            <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12" />
                           </>
                         )}
                       </Carousel>
-                      {slideCount > 1 && (
-                        <div className="flex justify-center gap-1.5 mt-3">
-                          {Array.from({ length: slideCount }).map((_, i) => (
-                            <button
-                              key={i}
-                              onClick={() => carouselApi?.scrollTo(i)}
-                              className={`w-2 h-2 rounded-full transition-colors ${i === currentSlide ? 'bg-primary' : 'bg-border'}`}
-                            />
-                          ))}
-                        </div>
-                      )}
                     </div>
+                  </div>
+                )}
+
+                {/* Speaker and Event Date Section */}
+                {(selectedProgram.speaker || selectedProgram.event_date) && (
+                  <div className="flex flex-col gap-2 pt-3 pb-2">
+                    <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20 w-fit">
+                      {selectedProgram.category}
+                    </span>
+                    
+                    {selectedProgram.speaker && (
+                      <span className="text-sm font-semibold text-foreground">
+                        {selectedProgram.speaker}
+                      </span>
+                    )}
+                    
+                    {selectedProgram.event_date && (
+                      <span className="text-sm font-medium text-muted-foreground">
+                        {selectedProgram.event_date}
+                      </span>
+                    )}
+                  </div>
+                )}
+                
+                {/* Category only if no speaker/date */}
+                {!selectedProgram.speaker && !selectedProgram.event_date && (
+                  <div className="pt-3">
+                    <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
+                      {selectedProgram.category}
+                    </span>
                   </div>
                 )}
               </div>
