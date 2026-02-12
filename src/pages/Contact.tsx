@@ -34,6 +34,21 @@ const ContactPage = () => {
     setIsSubmitting(true);
     
     try {
+      // Validasi data sebelum submit
+      if (!formData.name || !formData.email || !formData.phone) {
+        toast.error("Data tidak lengkap", {
+          description: "Pastikan semua field terisi dengan benar.",
+        });
+        return;
+      }
+
+      console.log("Submitting message:", {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: messageTemplate,
+      });
+
       // Simpan ke database dengan template message
       await submitMessage({
         name: formData.name,
@@ -81,10 +96,11 @@ Nomor Telepon: ${formData.phone}`;
       
       // Reset form
       setFormData({ name: "", email: "", phone: "" });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error submitting message:", error);
+      const errorMessage = error?.message || "Terjadi kesalahan tidak diketahui";
       toast.error("Gagal mengirim pesan", {
-        description: "Terjadi kesalahan. Silakan coba lagi atau hubungi kami melalui email/telepon.",
+        description: `${errorMessage}. Silakan coba lagi atau hubungi kami melalui email/telepon.`,
       });
     } finally {
       setIsSubmitting(false);
