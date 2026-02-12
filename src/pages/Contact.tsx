@@ -69,15 +69,8 @@ const ContactPage = () => {
         }
       }
       
-      // Buat pesan WhatsApp dengan data user
-      const whatsappMessage = `${messageTemplate}
-
-Nama: ${formData.name}
-Email: ${formData.email}
-Nomor Telepon: ${formData.phone}`;
-      
-      // Encode message untuk URL
-      const encodedMessage = encodeURIComponent(whatsappMessage);
+      // Encode message untuk URL (hanya template teks)
+      const encodedMessage = encodeURIComponent(messageTemplate);
       
       // Nomor WhatsApp Teras Dakwah
       const adminWhatsApp = "6285320307766";
