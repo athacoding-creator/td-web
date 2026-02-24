@@ -45,6 +45,7 @@ const AdminCampaign = () => {
     target_amount: 0,
     donor_count: 0,
     end_date: "",
+    donation_link: "",
   });
 
   useEffect(() => {
@@ -141,6 +142,7 @@ const AdminCampaign = () => {
       target_amount: campaign.target_amount || 0,
       donor_count: campaign.donor_count || 0,
       end_date: campaign.end_date ? campaign.end_date.split('T')[0] : "",
+      donation_link: campaign.donation_link || "",
     });
     setIsDialogOpen(true);
   };
@@ -177,6 +179,7 @@ const AdminCampaign = () => {
       target_amount: 0,
       donor_count: 0,
       end_date: "",
+      donation_link: "",
     });
   };
 
@@ -292,6 +295,16 @@ const AdminCampaign = () => {
                   <option value="Selesai">Selesai</option>
                   <option value="Tertunda">Tertunda</option>
                 </select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="donation_link">Link Donasi</Label>
+                <Input
+                  id="donation_link"
+                  value={formData.donation_link}
+                  onChange={(e) => setFormData({ ...formData, donation_link: e.target.value })}
+                  placeholder="https://sedekah.terasdakwah.com/campaign/..."
+                />
               </div>
 
               <div className="space-y-2">
