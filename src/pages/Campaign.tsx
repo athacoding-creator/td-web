@@ -2,7 +2,6 @@
  import Footer from "@/components/Footer";
  import MobileLayout from "@/components/MobileLayout";
  import { useCampaigns } from "@/hooks/useCampaigns";
- import { useSetting } from "@/hooks/useSettings";
  import { Skeleton } from "@/components/ui/skeleton";
  import { Button } from "@/components/ui/button";
  import { Progress } from "@/components/ui/progress";
@@ -18,7 +17,6 @@
  
  const CampaignPage = () => {
    const { data: campaigns, isLoading, error } = useCampaigns();
-   const { data: donationLinkSetting } = useSetting("donation_link");
    const [selectedCampaign, setSelectedCampaign] = useState<any>(null);
    const [isModalOpen, setIsModalOpen] = useState(false);
  
@@ -226,7 +224,7 @@
                    {/* CTA Button */}
                    <Button
                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-9 text-xs"
-                     onClick={() => window.open(donationLinkSetting?.value || "https://sedekah.terasdakwah.com", "_blank")}
+                     onClick={() => window.open("https://sedekah.terasdakwah.com/", "_blank")}
                    >
                      Donasi Sekarang
                    </Button>
