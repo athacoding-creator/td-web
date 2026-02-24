@@ -222,12 +222,12 @@
                    </div>
  
                    {/* CTA Button */}
-                   <Button
-                     className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-9 text-xs"
-                     onClick={() => window.open("https://sedekah.terasdakwah.com/", "_blank")}
-                   >
-                     Donasi Sekarang
-                   </Button>
+                    <Button
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-9 text-xs"
+                      onClick={() => window.open(selectedCampaign.donation_link || "https://sedekah.terasdakwah.com/", "_blank")}
+                    >
+                      Donasi Sekarang
+                    </Button>
                  </div>
                </>
              )}

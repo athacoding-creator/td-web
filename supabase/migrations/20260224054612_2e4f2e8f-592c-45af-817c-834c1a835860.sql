@@ -1,0 +1,1 @@
+ALTER TABLE public.campaigns ADD COLUMN donation_link text DEFAULT NULL;

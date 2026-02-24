@@ -110,6 +110,7 @@ export type Database = {
           created_at: string
           description: string
           display_order: number | null
+          donation_link: string | null
           donor_count: number | null
           end_date: string | null
           id: string
@@ -126,6 +127,7 @@ export type Database = {
           created_at?: string
           description: string
           display_order?: number | null
+          donation_link?: string | null
           donor_count?: number | null
           end_date?: string | null
           id?: string
@@ -142,6 +144,7 @@ export type Database = {
           created_at?: string
           description?: string
           display_order?: number | null
+          donation_link?: string | null
           donor_count?: number | null
           end_date?: string | null
           id?: string
