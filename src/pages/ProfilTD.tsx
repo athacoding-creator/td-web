@@ -90,7 +90,7 @@ const ProfilTDPage = () => {
             <div className="px-4">
               <div className="relative rounded-xl overflow-hidden shadow-md mb-4">
                 <img 
-                  src={visi?.image_url || heroMosque} 
+                  src={visi?.image_url || "https://res.cloudinary.com/dph1qdufr/image/upload/v1776652999/DSC07038_hxzqlg.jpg"} 
                   alt="Gedung Teras Dakwah" 
                   className="w-full h-48 object-cover"
                 />
