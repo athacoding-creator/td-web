@@ -12,14 +12,7 @@ const PengasuhPage = () => {
           {/* Hero Section */}
           <section className="relative bg-gradient-to-br from-background via-secondary/30 to-background overflow-hidden">
             <div className="absolute left-0 top-0 w-16 h-full bg-gradient-to-b from-accent/60 to-accent/40" />
-            
-            <div className="relative z-10 px-4 py-8">
-              <div className="text-center mb-6">
-                <span className="inline-block bg-accent text-accent-foreground px-4 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
-                  Pengasuh Teras Dakwah
-                </span>
-              </div>
-              
+                        
               <div className="text-center space-y-1 mb-6">
                 <h1 className="text-2xl font-heading font-bold text-foreground leading-tight">
                   SANG PENDIRI
@@ -41,10 +34,10 @@ const PengasuhPage = () => {
               
               <div className="text-center">
                 <p className="text-foreground text-sm">
-                  Muhammad Achid Subiyanto
+                  Muhammad Akhid Subiyanto
                 </p>
                 <p className="text-primary font-semibold text-lg">
-                  "Kang Achid"
+                  "Kang Akhid"
                 </p>
               </div>
             </div>
@@ -58,7 +51,7 @@ const PengasuhPage = () => {
                   <span className="font-bold text-primary">TERAS DAKWAH</span> merupakan salah satu tempat kajian dan sosial di Yogyakarta yang instagramable dengan suasana kafe nan elegan. Desain tempat ini terlihat modern, etnik, dan industrial.
                 </p>
                 <p className="text-foreground text-sm leading-relaxed">
-                  Hal ini tentu tidak lepas dari ide dan gagasan inovatif sang pendiri Teras Dakwah yang memiliki semangat tinggi dalam menebar kebaikan. Dialah <span className="font-bold">Muhammad Achid Subiyanto</span> yang biasa disapa Kang Achid.
+                  Hal ini tentu tidak lepas dari ide dan gagasan inovatif sang pendiri Teras Dakwah yang memiliki semangat tinggi dalam menebar kebaikan. Dialah <span className="font-bold">Muhammad Akhid Subiyanto</span> yang biasa disapa Kang Akhid.
                 </p>
               </div>
 
@@ -67,7 +60,7 @@ const PengasuhPage = () => {
                   Kelahiran & Keluarga
                 </h3>
                 <p className="text-foreground text-sm leading-relaxed">
-                  Kang Achid lahir di Yogyakarta, <span className="font-bold">14 Mei 1978</span>. Dia merupakan putra sulung dari Bapak Qomarudin dan Ibu Subiastuti. Semangatnya dalam menebarkan kebaikan kepada semua orang termotivasi dari kedua orang tuanya yang juga memiliki latar belakang aktivis. Ayahnya merupakan <span className="font-bold">aktivis Muhammadiyah</span>. Ibunya juga aktif menjadi Ketua Ranting Aisyiyah Nitikan selama 15 tahun.
+                  Kang Akhid lahir di Yogyakarta, <span className="font-bold">14 Mei 1978</span>. Dia merupakan putra sulung dari Bapak Qomarudin dan Ibu Subiastuti. Semangatnya dalam menebarkan kebaikan kepada semua orang termotivasi dari kedua orang tuanya yang juga memiliki latar belakang aktivis. Ayahnya merupakan <span className="font-bold">aktivis Muhammadiyah</span>. Ibunya juga aktif menjadi Ketua Ranting Aisyiyah Nitikan selama 15 tahun.
                 </p>
               </div>
 
@@ -76,7 +69,7 @@ const PengasuhPage = () => {
                   "Kala itu, saya melihat Islam begitu sempit. Kita sering menjumpai Islam terpecah belah karena dikotak-kotakkan oleh baju (golongan). Jadi, saya ingin mengadakan kajian Islam yang tidak terkotak-kotakkan oleh golongan,"
                 </blockquote>
                 <p className="text-primary font-medium text-xs mt-2">
-                  — Kang Achid
+                  — Kang Akhid
                 </p>
               </div>
 
@@ -142,16 +135,16 @@ const PengasuhPage = () => {
                   Guru-Guru Inspiratif
                 </h3>
                 <p className="text-foreground text-sm leading-relaxed">
-                  Suksesnya Kang Achid dalam mendirikan dan mengembangkan Teras Dakwah tentu juga berkat andil orang lain. <span className="font-bold">Cak Nun</span>, Kang Puji Hartono, Ustadz Mahroji Khudori, Ustadz Zuhrif Hudaya, dan Abah Fanni rahimahullah merupakan sebagian dari guru-guru beliau yang amat menginspirasi dirinya.
+                  Suksesnya Kang Akhid dalam mendirikan dan mengembangkan Teras Dakwah tentu juga berkat andil orang lain. <span className="font-bold">Cak Nun</span>, Kang Puji Hartono, Ustadz Mahroji Khudori, Ustadz Zuhrif Hudaya, dan Abah Fanni rahimahullah merupakan sebagian dari guru-guru beliau yang amat menginspirasi dirinya.
                 </p>
               </div>
 
               <div className="bg-accent/10 rounded-xl p-4 border border-accent/30 mb-4">
                 <blockquote className="text-foreground text-sm leading-relaxed italic">
-                  "Kalau kita bergerak karena Allah, tidak akan berhenti karena manusia,"
+                  "Kalau kita bergerak karena Allah, maka kita tidak akan berhenti karena manusia,"
                 </blockquote>
                 <p className="text-accent font-medium text-xs mt-2">
-                  — Pesan dari Ustadz Luqmanulhakim Pontianak kepada Kang Achid
+                  — Pesan dari Ustadz Luqmanulhakim Pontianak kepada Kang Akhid
                 </p>
               </div>
 
