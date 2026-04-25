@@ -136,7 +136,7 @@ const PengasuhPage = () => {
                   Guru-Guru Inspiratif
                 </h3>
                 <p className="text-foreground text-sm leading-relaxed">
-                  Suksesnya Kang Achid dalam mendirikan dan mengembangkan Teras Dakwah tentu juga berkat andil orang lain. <span className="font-bold">Cak Nun</span>, Kang Puji Hartono, Ustadz Mahroji Khudori, Ustadz Zuhrif Hudaya, dan Abah Fanni rahimahullah merupakan sebagian dari guru-guru beliau yang amat menginspirasi dirinya.
+                  Suksesnya Kang Akhid dalam mendirikan dan mengembangkan Teras Dakwah tentu juga berkat andil orang lain. <span className="font-bold">Cak Nun</span>, Kang Puji Hartono, Ustadz Mahroji Khudori, Ustadz Zuhrif Hudaya, dan Abah Fanni rahimahullah merupakan sebagian dari guru-guru beliau yang amat menginspirasi dirinya.
                 </p>
               </div>
 
@@ -145,7 +145,7 @@ const PengasuhPage = () => {
                   "Kalau kita bergerak karena Allah, tidak akan berhenti karena manusia,"
                 </blockquote>
                 <p className="text-accent font-medium text-xs mt-2">
-                  — Pesan dari Ustadz Luqmanulhakim Pontianak kepada Kang Achid
+                  — Pesan dari Ustadz Luqmanulhakim Pontianak kepada Kang Akhid
                 </p>
               </div>
 
