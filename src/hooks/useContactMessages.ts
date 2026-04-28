@@ -36,14 +36,11 @@ export const useContactMessages = () => {
     phone?: string;
     message: string;
   }) => {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("contact_messages")
-      .insert([messageData])
-      .select()
-      .single();
+      .insert([messageData]);
 
     if (error) throw error;
-    return data;
   };
 
   const updateStatus = async (
